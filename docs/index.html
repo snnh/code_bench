@@ -3,30 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>致知｜大模型智力长期追踪榜单</title>
+    <title>code_bench v1.1｜榜单查询</title>
     <meta
       name="description"
-      content="致知持续追踪主流大语言模型在逻辑、编程与视觉等私有基准上的表现，提供月度榜单、模型筛选、成本与趋势对比。"
+      content="code_bench 持续追踪主流大语言模型复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的评测成绩，提供基础题与高阶题榜单、成本与 token 对比。"
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://llm2014.github.io/llm_benchmark/" />
+    <link rel="canonical" href="https://snnh.github.io/code_bench/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="致知" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:url" content="https://llm2014.github.io/llm_benchmark/" />
-    <meta property="og:title" content="致知｜大模型智力长期追踪榜单" />
+    <meta property="og:url" content="https://snnh.github.io/code_bench/" />
+    <meta property="og:title" content="code_bench v1.1｜榜单查询" />
     <meta
       property="og:description"
-      content="持续追踪主流大语言模型在逻辑、编程与视觉等私有基准上的表现，对比月度排名、成本与长期趋势。"
+      content="code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。"
     />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="致知｜大模型智力长期追踪榜单" />
+    <meta name="twitter:title" content="code_bench v1.1｜榜单查询" />
     <meta
       name="twitter:description"
-      content="持续追踪主流大语言模型在逻辑、编程与视觉等私有基准上的表现，对比月度排名、成本与长期趋势。"
+      content="code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。"
     />
 
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
@@ -37,30 +37,30 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://llm2014.github.io/llm_benchmark/#website",
-            "url": "https://llm2014.github.io/llm_benchmark/",
-            "name": "致知",
-            "alternateName": "LLM Benchmark Dashboard",
-            "description": "大模型智力长期追踪榜单，覆盖逻辑、编程与视觉等私有基准。",
+            "@id": "https://snnh.github.io/code_bench/#website",
+            "url": "https://snnh.github.io/code_bench/",
+            "name": "Code Bench",
+            "alternateName": "code_bench",
+            "description": "大模型复刻 openwebcode 项目评测榜单（C11 执行器、Node 服务层、React 前端）。",
             "inLanguage": ["zh-CN", "en-US"]
           },
           {
             "@type": "Dataset",
-            "@id": "https://llm2014.github.io/llm_benchmark/#dataset",
-            "url": "https://llm2014.github.io/llm_benchmark/",
-            "name": "致知大模型长期评测数据",
-            "alternateName": "Zhizhi Long-Term LLM Benchmark Data",
-            "description": "主流大语言模型在逻辑、编程与视觉等私有题库上的月度评测成绩、成本和趋势数据。",
+            "@id": "https://snnh.github.io/code_bench/#dataset",
+            "url": "https://snnh.github.io/code_bench/",
+            "name": "code_bench 评测数据",
+            "alternateName": "code_bench Benchmark Data",
+            "description": "主流大语言模型复刻 openwebcode 项目的评测成绩、成本与 token 数据。",
             "isAccessibleForFree": true,
             "creator": {
               "@type": "Person",
-              "name": "llm2014",
-              "url": "https://github.com/llm2014"
+              "name": "snnh",
+              "url": "https://github.com/snnh"
             },
             "distribution": {
               "@type": "DataDownload",
               "encodingFormat": "application/json",
-              "contentUrl": "https://raw.githubusercontent.com/llm2014/llm_benchmark/main/docs/data/datasets.json"
+              "contentUrl": "https://raw.githubusercontent.com/snnh/code_bench/main/docs/data/datasets.json"
             }
           }
         ]
@@ -75,7 +75,7 @@
       </div>
       <a
         class="github-corner"
-        href="https://github.com/llm2014/llm_benchmark/"
+        href="https://github.com/snnh/code_bench/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="View source on GitHub"
@@ -103,6 +103,7 @@
         </button>
         <div class="view-tabs-categories" id="viewTabsCategories" role="group" aria-label=""></div>
         <button id="viewTabTrends" type="button" class="view-tab"></button>
+        <a class="view-tab" href="bench.html">说明</a>
       </nav>
 
       <div id="boardView">

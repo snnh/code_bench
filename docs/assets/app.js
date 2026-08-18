@@ -11,6 +11,11 @@ import {
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
   "各语言平均成绩": "dataset.title.averageByLanguage",
+  "总分": "dataset.title.total",
+  "core": "dataset.title.core",
+  "server": "dataset.title.server",
+  "web": "dataset.title.web",
+  "高阶题": "dataset.title.full",
 };
 
 const DEFAULT_DATASET_TITLE_KEY = "dataset.title.default";
@@ -53,9 +58,18 @@ const HEADER_TRANSLATIONS = {
   较上次变更: "table.header.changeSinceLast",
   首轮总分: "table.header.firstRoundScore",
   使用成本: "table.header.usageCost",
+  总积分: "table.header.totalScore",
+  积分: "table.header.score",
+  "成本(折算API价格)": "table.header.costApiPrice",
+  订阅折算: "table.header.subscriptionEquivalent",
+  "token(不算缓存)": "table.header.tokensExclCache",
+  缓存: "table.header.cache",
+  接入渠道: "table.header.accessChannel",
+  接入方式: "table.header.accessMethod",
+  排名: "table.header.rank",
 };
 
-const CATEGORY_ORDER = ["logic", "code", "code_v3", "vision"];
+const CATEGORY_ORDER = ["code_bench", "logic", "code", "v1", "vision"];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
@@ -99,7 +113,7 @@ const prefersDarkQuery =
 const HIDDEN_CATEGORIES = new Set(["code"]);
 
 // 各榜单类别的数值列配置：趋势视图与象限图共用。
-// code_v3 为等级制（Pass/A+…），不在此列。
+// v1 为等级制（Pass/A+…），不在此列。
 // scoreFallbacks 供趋势视图使用：评分体系迭代过，早期月份用旧列名，
 // 排名只要求当月分数单调可比，跨月不做绝对比较。
 const CATEGORY_CHART_CONFIG = {
@@ -504,7 +518,7 @@ const MOBILE_CARD_LAYOUTS = {
       },
     ],
   },
-  code_v3: {
+  v1: {
     className: "mobile-card--codev3",
     suppressDetails: true,
     rows: [
@@ -1722,7 +1736,7 @@ function isCodeV3AuxiliaryHeader(header) {
 }
 
 function isCodeV3ProjectColumn(columnIndex) {
-  if (state.currentCategory !== "code_v3") return false;
+  if (state.currentCategory !== "v1") return false;
 
   const header = state.headers[columnIndex];
   return (
@@ -1734,7 +1748,7 @@ function isCodeV3ProjectColumn(columnIndex) {
 }
 
 function getCodeV3PrimaryHeaderIndices(modelColumnIndex = -1) {
-  if (state.currentCategory !== "code_v3") return [];
+  if (state.currentCategory !== "v1") return [];
 
   return state.headers.reduce((indices, header, index) => {
     if (index === modelColumnIndex || isCodeV3AuxiliaryHeader(header)) {
@@ -1746,7 +1760,7 @@ function getCodeV3PrimaryHeaderIndices(modelColumnIndex = -1) {
 }
 
 function getCodeV3StatusClass(value) {
-  if (state.currentCategory !== "code_v3") return null;
+  if (state.currentCategory !== "v1") return null;
   const normalized = String(value ?? "").trim().toLowerCase();
   if (!normalized) return null;
   if (normalized === "skip") return "codev3-status codev3-status--skip";
@@ -1756,14 +1770,14 @@ function getCodeV3StatusClass(value) {
 }
 
 function getCodeV3GradeCellClass(value) {
-  if (state.currentCategory !== "code_v3") return null;
+  if (state.currentCategory !== "v1") return null;
   const parsed = parseCodeV3RankGrade(value);
   if (!parsed) return null;
   return `codev3-cell--${parsed.gradeBase.toLowerCase()}`;
 }
 
 function getCodeV3CellBackgroundClass(value) {
-  if (state.currentCategory !== "code_v3") return null;
+  if (state.currentCategory !== "v1") return null;
   const normalized = String(value ?? "").trim().toLowerCase();
   if (!normalized) return null;
   if (normalized === "pass") return "codev3-cell--pass";
@@ -1773,7 +1787,7 @@ function getCodeV3CellBackgroundClass(value) {
 }
 
 function parseCodeV3RankGrade(value) {
-  if (state.currentCategory !== "code_v3") return null;
+  if (state.currentCategory !== "v1") return null;
   const normalized = String(value ?? "").trim();
   if (!normalized) return null;
   const match = normalized.match(/^(.+?)\/([ABCD])([+-]?)(?:\(\s*(\d+(?:\.\d+)?)\s*\))?$/i);
@@ -2052,7 +2066,7 @@ function renderCodeV3PrimaryRows(card, row, modelColumnIndex, usedIndices) {
 
 function renderStructuredCardRows(card, row, layout, headerIndexMap, usedIndices, modelColumnIndex) {
   const hasCodeV3PrimaryRows =
-    state.currentCategory === "code_v3"
+    state.currentCategory === "v1"
       ? renderCodeV3PrimaryRows(card, row, modelColumnIndex, usedIndices)
       : false;
 
@@ -2257,7 +2271,7 @@ function renderTable() {
 
   const headerIndexMap = buildHeaderIndexMap(state.headers);
   const modelColumnIndex = findModelColumnIndex(state.headers, state.filteredRows, headerIndexMap);
-  const isCodeV3Table = state.currentCategory === "code_v3";
+  const isCodeV3Table = state.currentCategory === "v1";
   // 成本列（logic/code 为“测试成本(元)”，vision 为“成本”）：用于 hover 局部对比
   const costHeader = CATEGORY_CHART_CONFIG[state.currentCategory]?.cost ?? null;
   const costColumnIndex = costHeader ? state.headers.indexOf(costHeader) : -1;
@@ -2456,7 +2470,7 @@ function renderTableNote() {
   const note = elements.tableNote;
   if (!note) return;
 
-  const isCodeV3 = state.currentCategory === "code_v3" && state.headers.length > 0;
+  const isCodeV3 = state.currentCategory === "v1" && state.headers.length > 0;
   const hasNewMode = isCodeV3 && state.headers.some((header) => /\(H\)|\(I\)/.test(header));
   const hasGradeValues =
     isCodeV3 &&
@@ -2557,7 +2571,7 @@ function updateMeta(dataset = null) {
       : t("meta.records.single", { count: filtered });
 
   const codev3FormatNote =
-    dataset.category === "code_v3"
+    dataset.category === "v1"
       ? `<span class="meta-note">${t("meta.codev3CellFormat")}</span>`
       : "";
 

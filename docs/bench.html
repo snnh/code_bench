@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>code_bench v1.1｜题目说明</title>
+    <meta
+      name="description"
+      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://snnh.github.io/code_bench/bench.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="code_bench" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:url" content="https://snnh.github.io/code_bench/bench.html" />
+    <meta property="og:title" content="code_bench v1.1｜题目说明" />
+    <meta
+      property="og:description"
+      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
+    />
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      .doc-nav {
+        display: flex;
+        gap: 28px;
+        border-bottom: 1px solid var(--color-border);
+        margin-bottom: 20px;
+      }
+      .doc-nav a {
+        appearance: none;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        padding: 10px 2px;
+        font-family: var(--font-family-serif);
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        color: var(--color-text);
+        opacity: 0.8;
+        text-decoration: none;
+        transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      }
+      .doc-nav a:hover {
+        color: var(--color-text);
+        opacity: 1;
+      }
+      .doc-nav a.current {
+        opacity: 1;
+        border-bottom-color: var(--color-rule);
+        font-weight: 600;
+      }
+      .doc-article {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 8px 0 40px;
+      }
+      .doc-article h2 {
+        font-family: var(--font-family-serif);
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        margin: 40px 0 14px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .doc-article h2:first-child {
+        margin-top: 12px;
+      }
+      .doc-article h3 {
+        font-family: var(--font-family-serif);
+        font-size: 17px;
+        font-weight: 600;
+        margin: 26px 0 10px;
+      }
+      .doc-article h4 {
+        font-family: var(--font-family-serif);
+        font-size: 15px;
+        font-weight: 600;
+        margin: 20px 0 8px;
+      }
+      .doc-article p {
+        margin: 10px 0;
+        color: var(--color-text);
+      }
+      .doc-article code {
+        font-family: var(--font-family-mono);
+        font-size: 0.92em;
+        background: var(--color-accent-soft);
+        padding: 1px 5px;
+        border-radius: 3px;
+      }
+      .doc-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin: 14px 0;
+        background: var(--color-panel);
+      }
+      .doc-table th,
+      .doc-table td {
+        border-bottom: 1px solid var(--color-border);
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .doc-table thead th {
+        border-top: 2px solid var(--color-rule);
+        border-bottom: 1px solid var(--color-rule);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .doc-table tbody tr:last-child td {
+        border-bottom: 2px solid var(--color-rule);
+      }
+      .doc-table tbody tr:nth-child(even) {
+        background: var(--color-row-even);
+      }
+      .doc-table tbody tr:hover {
+        background: var(--color-row-hover);
+      }
+      .doc-note {
+        margin: 6px 0 18px;
+        padding-left: 1.2em;
+        color: var(--color-muted);
+        font-size: 13px;
+      }
+      .doc-note li {
+        margin: 3px 0;
+      }
+      .doc-list {
+        padding-left: 1.4em;
+        margin: 10px 0;
+      }
+      .doc-list li {
+        margin: 6px 0;
+      }
+      .doc-tip {
+        margin: 18px 0;
+        padding: 10px 14px;
+        border: 1px solid var(--color-border);
+        border-left: 3px solid var(--color-accent);
+        background: var(--color-accent-soft);
+        font-size: 13.5px;
+        color: var(--color-muted);
+      }
+      @media (max-width: 768px) {
+        .doc-table {
+          font-size: 12.5px;
+        }
+        .doc-table th,
+        .doc-table td {
+          padding: 6px 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var key = "llm-dashboard-theme";
+        var mode = "system";
+        try {
+          mode = window.localStorage.getItem(key) || "system";
+        } catch (e) {}
+        if (mode === "light") document.documentElement.setAttribute("data-theme", "light");
+        else if (mode === "dark") document.documentElement.setAttribute("data-theme", "dark");
+      })();
+    </script>
+    <header class="page-header">
+      <div class="header-actions">
+        <a class="header-action-button" href="./">榜单</a>
+      </div>
+      <a
+        class="github-corner"
+        href="https://github.com/snnh/code_bench/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View source on GitHub"
+      >
+        <svg viewBox="0 0 250 250" aria-hidden="true">
+          <path class="github-corner-bg" d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
+          <path
+            class="octo-arm"
+            d="M128.3,109 C113.8,99.7 119,89.6 119,89.6 C122,82.7 120.5,78.6 120.5,78.6 C119.2,72 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          />
+          <path
+            class="octo-body"
+            d="M115,115 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88 127.5,74.4 143.8,58 C148.5,53.4 154,51.2 159.7,51 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96 205.4,96.6 C205.1,102.4 203,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          />
+        </svg>
+      </a>
+      <h1>code_bench v1.1</h1>
+      <p class="subtitle">大模型复刻 openwebcode 项目评测榜单 · 题目说明</p>
+    </header>
+
+    <main>
+      <nav class="doc-nav" aria-label="页面导航">
+        <a href="./">榜单</a>
+        <a class="current" href="bench.html" aria-current="page">说明</a>
+      </nav>
+
+      <article class="doc-article">
+        <p class="doc-tip">
+          本页为 code_bench v1.1 完整题目与说明；榜单数据可在
+          <a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。
+        </p>
+
+<h1>code_bench v1.1</h1>
+        <h2>题目结构</h2>
+        <table class="doc-table"><thead><tr><th>题</th><th>满分</th><th>内容</th></tr></thead><tbody><tr><td>基础题 · core</td><td>30</td><td>复刻 C11 执行器 <code>owc-exec</code>（stdio JSON-RPC 2.0）</td></tr><tr><td>基础题 · server</td><td>30</td><td>复刻 Node 20+ 服务层（HTTP/WS API + agent 循环）</td></tr><tr><td>基础题 · web</td><td>30</td><td>复刻 React 19 + Vite 前端</td></tr><tr><td>基础题 · 拼接(题目编写中)</td><td>10</td><td>三个子项拼成端到端系统，<strong>不限制拼接方法</strong>（A/B/C 档系数 1.0/0.8/0.5）</td></tr><tr><td><strong>基础题总分</strong></td><td><strong>100</strong></td><td>3×30 + 10 − 中断扣分</td></tr><tr><td>高阶题 · full</td><td>100</td><td>三层完整复刻（独立一张卷）</td></tr></tbody></table>
+        <h2>环境</h2>
+        <p>debian13 x86-64 上使用 <a href="https://github.com/snnh/openwebcode">openwebcode</a></p>
+        <ul class="doc-note"><li>注：<em>部分模型会开启环境模拟扩展以发挥最高水平</em></li></ul>
+        <h2>排行</h2>
+        <h3>基础题</h3>
+        <h4>总分</h4>
+        <table class="doc-table"><thead><tr><th>模型</th><th>总积分</th><th>成本(折算API价格)</th><th>订阅折算</th><th>token(不算缓存)</th><th>接入渠道</th><th>备注</th></tr></thead><tbody><tr><td>kimi-k3(high)</td><td>81.2</td><td>77.66元</td><td>约6元</td><td>628k</td><td>官方</td><td>采用kimicode预设</td></tr><tr><td>glm5.3(max)</td><td>79</td><td>约150元</td><td>约12元</td><td>约1200-1300k</td><td>官方</td><td>采用zcode预设</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>79-</td><td>18.13-36.26元</td><td>无</td><td>738k</td><td>官方</td><td>采用dsh极简模式预设</td></tr><tr><td>deepseek-v4-flash0731(max)</td><td>74.1</td><td>28.08-56.16元</td><td>无</td><td>13981k</td><td>官方</td><td>无</td></tr><tr><td>gemini-3.7-flash(high)</td><td>47.6+</td><td>18.3+元</td><td>9.15元(限时半价)</td><td>1630+k</td><td>openrouter</td><td>无</td></tr><tr><td>…</td><td>未测试</td><td>元</td><td>元</td><td>k</td><td>官方</td><td>无</td></tr></tbody></table>
+        <ul class="doc-note"><li>token消耗未统计缓存，缓存消耗具体看细则缓存部分</li><li>kimi订阅倍率约0.07-0.08(199档实测)</li><li>glm5.3订阅倍率约0.08(官网文档说明)</li></ul>
+        <h4>core</h4>
+        <table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本(折算API价格)</th><th>token(不算缓存)</th><th>缓存</th></tr></thead><tbody><tr><td>kimi-k3(high)</td><td>26.2</td><td>54.89元</td><td>394k</td><td>98.7%(16.485m)</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>26</td><td>9.33-18.66元</td><td>315k</td><td>99.8%(37.834m)</td></tr><tr><td>glm5.3(max)</td><td>25.6</td><td>82.19元</td><td>455k</td><td>99.3%(37.21m)</td></tr><tr><td>deepseek-v4-flash0731(max)</td><td>24.6</td><td>5.05-10.1元</td><td>782k</td><td>99.2%(57.256m)</td></tr><tr><td>gemini-3.7-flash(high)</td><td>23.7</td><td>~12.15元</td><td>1069k</td><td>91%(9.57m)</td></tr></tbody></table>
+        <h4>server</h4>
+        <table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本(折算API价格)</th><th>token(不算缓存)</th><th>缓存</th></tr></thead><tbody><tr><td>kimi-k3(high)</td><td>27.2</td><td>14.63元</td><td>138k</td><td>97.8%(4.085m)</td></tr><tr><td>glm5.3(max)</td><td>25.1</td><td>约30-40元</td><td>?k</td><td>?%(?m)</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>25.8</td><td>4.75-9.5元</td><td>221k</td><td>99.5%(17.062m)</td></tr><tr><td>deepseek-v4-flash0731(max)</td><td>22.7/24.7</td><td>20.9-41.8元</td><td>12563k</td><td>72%(30.052m)</td></tr><tr><td>gemini-3.7-flash(high)</td><td>0测试中</td><td>元</td><td>k</td><td>%(m)</td></tr><tr><td>…</td><td>0未测试</td><td>元</td><td>k</td><td>%(m)</td></tr></tbody></table>
+        <h4>web</h4>
+        <table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本(折算API价格)</th><th>token(不算缓存)</th><th>缓存</th></tr></thead><tbody><tr><td>glm5.3(max)</td><td>28.3</td><td>33.26元</td><td>400k</td><td>98.1%(13.577m)</td></tr><tr><td>kimi-k3(high)</td><td>27.8</td><td>8.14元</td><td>96k</td><td>96.4%(1.46m)</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>27.2</td><td>4.05-8.1元</td><td>202k</td><td>99.5%(12.519m)</td></tr><tr><td>deepseek-v4-flash0731(max)</td><td>26.8</td><td>2.13-4.26元</td><td>636k</td><td>97%(16.102m)</td></tr><tr><td>gemini-3.7-flash(high)</td><td>23.9</td><td>~6.15元</td><td>561k</td><td>90.7%(5.155m)</td></tr><tr><td>…</td><td>0未测试</td><td>元</td><td>k</td><td>%(m)</td></tr></tbody></table>
+        <h3>高阶题</h3>
+        <table class="doc-table"><thead><tr><th>排名</th><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>0</td><td>kimi-k3(high)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>kimi订阅</td><td>kimicode预设</td></tr><tr><td>0</td><td>deepseek-v4-flash0731(max)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>官网</td><td>无</td></tr><tr><td>0</td><td>deepseek-v4-pro0813(max)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>官网</td><td>dsh-minimal预设</td></tr></tbody></table>
+        <h2>分析</h2>
+        <ol class="doc-list"><li>K3的high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来</li><li>单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分</li><li>实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评</li><li>gemini-3.7-flash(high)web错误：f2-stop-visible / f3-tool-block / f3-tool-done「找不到 composer」实为找不到 send + f3-reload-auto/persist</li><li>...</li></ol>
+        <h2>声明</h2>
+        <ol class="doc-list"><li>本bench由 github 用户 <a href="https://github.com/snnh">snnh</a> 版权所有。</li><li>bench内容将在彻底完善之后开源</li></ol>
+        <h2>致谢</h2>
+        <ol class="doc-list"><li>感谢shyliuli提供的glm5.3 server项目评测环境</li></ol>
+      </article>
+    </main>
+
+    <footer class="page-footer">
+      <small>Vibe Coding by Codex -&gt; Kimi K3</small>
+    </footer>
+  </body>
+</html>

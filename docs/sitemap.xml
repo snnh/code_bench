@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://llm2014.github.io/llm_benchmark/</loc>
+    <loc>https://snnh.github.io/code_bench/</loc>
+    <lastmod>2026-08-18</lastmod>
+  </url>
+  <url>
+    <loc>https://snnh.github.io/code_bench/bench.html</loc>
     <lastmod>2026-08-18</lastmod>
   </url>
 </urlset>

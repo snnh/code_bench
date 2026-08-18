@@ -435,6 +435,10 @@ main {
   object-fit: contain;
 }
 
+a.view-tab {
+  text-decoration: none;
+}
+
 /* ---------------- 控件 ---------------- */
 
 .controls {

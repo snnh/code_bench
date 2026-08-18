@@ -10,24 +10,24 @@ const LOCALE_LABELS = {
 /** @type {Record<string, Record<string, string>>} */
 const TRANSLATIONS = {
   "app.title": {
-    "zh-CN": "致知",
-    "en-US": "LLM Benchmark Dashboard",
+    "zh-CN": "Code Bench",
+    "en-US": "Code Bench",
   },
   "app.documentTitle": {
-    "zh-CN": "致知｜大模型智力长期追踪榜单",
-    "en-US": "LLM Benchmark Dashboard | Long-Term Model Rankings",
+    "zh-CN": "code_bench v1.1｜榜单查询",
+    "en-US": "code_bench v1.1 | Leaderboard",
   },
   "app.metaDescription": {
-    "zh-CN": "致知持续追踪主流大语言模型在逻辑、编程与视觉等私有基准上的表现，提供月度榜单、模型筛选、成本与趋势对比。",
-    "en-US": "Track leading large language models across private logic, coding, and vision benchmarks with monthly rankings, model filters, cost analysis, and performance trends.",
+    "zh-CN": "code_bench 持续追踪主流大语言模型复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的评测成绩，提供基础题与高阶题榜单、成本与 token 对比。",
+    "en-US": "Track leading language models replicating the openwebcode project (C11 executor, Node service layer, React frontend) with leaderboards for basic and advanced tasks, costs, and token usage.",
   },
   "app.socialDescription": {
-    "zh-CN": "持续追踪主流大语言模型在逻辑、编程与视觉等私有基准上的表现，对比月度排名、成本与长期趋势。",
-    "en-US": "Compare leading language models on private logic, coding, and vision benchmarks through monthly rankings, costs, and long-term trends.",
+    "zh-CN": "code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。",
+    "en-US": "code_bench leaderboard: language models replicating the openwebcode project — scores, costs, and token usage.",
   },
   "header.subtitle": {
-    "zh-CN": "大模型智力长期追踪榜单",
-    "en-US": "Long-term evaluation of large language models on private benchmarks",
+    "zh-CN": "大模型复刻 openwebcode 项目评测榜单",
+    "en-US": "LLM leaderboard for replicating the openwebcode project",
   },
   "controls.category.label": {
     "zh-CN": "数据类别",
@@ -149,9 +149,9 @@ const TRANSLATIONS = {
     "zh-CN": "代码(废弃)",
     "en-US": "Code(Outdated)",
   },
-  "category.code_v3": {
-    "zh-CN": "Agentic",
-    "en-US": "Agentic",
+  "category.v1": {
+    "zh-CN": "v1",
+    "en-US": "v1",
   },
   "category.logic": {
     "zh-CN": "推理",
@@ -160,6 +160,10 @@ const TRANSLATIONS = {
   "category.vision": {
     "zh-CN": "视觉",
     "en-US": "Vision",
+  },
+  "category.code_bench": {
+    "zh-CN": "Code Bench",
+    "en-US": "Code Bench",
   },
   "dataset.title.default": {
     "zh-CN": "主要数据",
@@ -172,6 +176,26 @@ const TRANSLATIONS = {
   "dataset.title.averageByLanguage": {
     "zh-CN": "各语言平均成绩",
     "en-US": "Average score by language",
+  },
+  "dataset.title.total": {
+    "zh-CN": "总分",
+    "en-US": "Total",
+  },
+  "dataset.title.core": {
+    "zh-CN": "core",
+    "en-US": "Core",
+  },
+  "dataset.title.server": {
+    "zh-CN": "server",
+    "en-US": "Server",
+  },
+  "dataset.title.web": {
+    "zh-CN": "web",
+    "en-US": "Web",
+  },
+  "dataset.title.full": {
+    "zh-CN": "高阶题",
+    "en-US": "Advanced",
   },
   "table.header.reportDate": {
     "zh-CN": "报告日期",
@@ -320,6 +344,42 @@ const TRANSLATIONS = {
   "table.header.usageCost": {
     "zh-CN": "使用成本",
     "en-US": "Usage Cost",
+  },
+  "table.header.totalScore": {
+    "zh-CN": "总积分",
+    "en-US": "Total Score",
+  },
+  "table.header.score": {
+    "zh-CN": "积分",
+    "en-US": "Score",
+  },
+  "table.header.costApiPrice": {
+    "zh-CN": "成本(折算API价格)",
+    "en-US": "Cost (API list price)",
+  },
+  "table.header.subscriptionEquivalent": {
+    "zh-CN": "订阅折算",
+    "en-US": "Subscription equivalent",
+  },
+  "table.header.tokensExclCache": {
+    "zh-CN": "token(不算缓存)",
+    "en-US": "Tokens (excl. cache)",
+  },
+  "table.header.cache": {
+    "zh-CN": "缓存",
+    "en-US": "Cache",
+  },
+  "table.header.accessChannel": {
+    "zh-CN": "接入渠道",
+    "en-US": "Access channel",
+  },
+  "table.header.accessMethod": {
+    "zh-CN": "接入方式",
+    "en-US": "Access method",
+  },
+  "table.header.rank": {
+    "zh-CN": "排名",
+    "en-US": "Rank",
   },
   "table.reasoningBadge": {
     "zh-CN": "推理",

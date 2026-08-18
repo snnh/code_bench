@@ -27,3 +27,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 1. 感谢[llm2014](https://github.com/llm2014/llm_benchmark)的网站模板，欢迎大家前往他的benchmark，他才是真大佬。
 2. 感谢shyliuli提供的glm5.3 server项目评测环境
+
+## 站点自动同步
+
+* GitHub Pages 站点（docs/）以 code/code_bench.md 为唯一数据源
+* 修改 code/*.md 并推送后，GitHub Actions 自动运行 scripts/sync_md.py：
+  - 重新生成 docs/bench.html（题目说明页）
+  - 重新生成 docs/data/code_bench/*.csv（榜单数据，供仪表盘查询）
+* 本地预览：`python3 scripts/sync_md.py`；`--check` 只校验不写文件
