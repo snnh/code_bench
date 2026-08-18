@@ -69,7 +69,7 @@ const HEADER_TRANSLATIONS = {
   排名: "table.header.rank",
 };
 
-const CATEGORY_ORDER = ["code_bench", "logic", "code", "v1", "vision"];
+const CATEGORY_ORDER = ["code_bench", "logic", "code", "vision"];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
@@ -85,23 +85,6 @@ const CHINA_MODEL_PATTERNS = [
 const US_MODEL_PATTERNS = [
   /\b(?:anthropic|chatgpt|claude|fable|gemini|gemm3|gemma|gpt|grok|haiku|llama|muse|o1|o3|o4|openai|opus|sonnet)(?=$|[^a-z0-9]|[0-9])/i,
 ];
-const CODE_V3_AUXILIARY_HEADERS = new Set([
-  "unprompted",
-  "ide/cli",
-  "scaffold",
-  "think",
-  "总扣分",
-]);
-const CODE_V3_GRADE_ORDER = new Map([
-  ["A+", 8],
-  ["A", 7],
-  ["B+", 6],
-  ["B", 5],
-  ["C+", 4],
-  ["C", 3],
-  ["D+", 2],
-  ["D", 1],
-]);
 const THEME_STORAGE_KEY = "llm-dashboard-theme";
 const THEME_MODES = ["system", "light", "dark"];
 const prefersDarkQuery =
@@ -518,19 +501,7 @@ const MOBILE_CARD_LAYOUTS = {
       },
     ],
   },
-  v1: {
-    className: "mobile-card--codev3",
-    suppressDetails: true,
-    rows: [
-      {
-        className: "mobile-card-row--codev3-secondary",
-        columns: 2,
-        fields: [["Unprompted"], ["总扣分"]],
-      },
-    ],
-    footerNoteField: ["IDE/CLI", "Scaffold"],
-  },
-  default: {
+default: {
     className: "mobile-card--default",
     fieldGroups: [
       ["极限分数", "多轮总分", "原始分数"],
@@ -1335,7 +1306,6 @@ function bindEventHandlers() {
     wasMobileViewport = isMobile;
     renderTable();
   });
-  elements.tableContainer.addEventListener("scroll", syncStickyTableHeaderScroll, { passive: true });
 }
 
 async function handleCategoryChange(category, options = {}) {
@@ -1643,13 +1613,11 @@ function applyFiltersAndRender() {
 }
 
 function sortRows(rows, columnIndex, direction) {
-  const isCodeV3Project = isCodeV3ProjectColumn(columnIndex);
   const multiplier = direction === "desc" ? -1 : 1;
-  const parseNumber = isCodeV3Project ? parseCodeV3SortKey : parseSortableNumber;
   const numbers = rows
-    .map((row) => parseNumber(row.cells[columnIndex]))
+    .map((row) => parseSortableNumber(row.cells[columnIndex]))
     .filter((value) => value !== null);
-  const isMostlyNumeric = isCodeV3Project || numbers.length >= rows.length / 2;
+  const isMostlyNumeric = numbers.length >= rows.length / 2;
 
   const sorted = rows.slice().sort((a, b) => {
     const valueA = a.cells[columnIndex] ?? "";
@@ -1664,7 +1632,6 @@ function sortRows(rows, columnIndex, direction) {
       }
       if (numA === null) return 1;
       if (numB === null) return -1;
-      if (isCodeV3Project) return compareCodeV3SortKeys(numA, numB, direction);
       if (numA === numB) return 0;
       return numA > numB ? multiplier : -multiplier;
     }
@@ -1729,145 +1696,6 @@ function normalizeCellValue(value) {
 
 function normalizeHeaderKey(header) {
   return String(header ?? "").trim().toLowerCase();
-}
-
-function isCodeV3AuxiliaryHeader(header) {
-  return CODE_V3_AUXILIARY_HEADERS.has(normalizeHeaderKey(header));
-}
-
-function isCodeV3ProjectColumn(columnIndex) {
-  if (state.currentCategory !== "v1") return false;
-
-  const header = state.headers[columnIndex];
-  return (
-    !isCodeV3AuxiliaryHeader(header) &&
-    !MODEL_HEADER_CANDIDATES.some(
-      (candidate) => normalizeHeaderKey(candidate) === normalizeHeaderKey(header)
-    )
-  );
-}
-
-function getCodeV3PrimaryHeaderIndices(modelColumnIndex = -1) {
-  if (state.currentCategory !== "v1") return [];
-
-  return state.headers.reduce((indices, header, index) => {
-    if (index === modelColumnIndex || isCodeV3AuxiliaryHeader(header)) {
-      return indices;
-    }
-    indices.push(index);
-    return indices;
-  }, []);
-}
-
-function getCodeV3StatusClass(value) {
-  if (state.currentCategory !== "v1") return null;
-  const normalized = String(value ?? "").trim().toLowerCase();
-  if (!normalized) return null;
-  if (normalized === "skip") return "codev3-status codev3-status--skip";
-  if (normalized.startsWith("failed")) return "codev3-status codev3-status--failed";
-  if (normalized.startsWith("pending")) return "codev3-status codev3-status--pending";
-  return null;
-}
-
-function getCodeV3GradeCellClass(value) {
-  if (state.currentCategory !== "v1") return null;
-  const parsed = parseCodeV3RankGrade(value);
-  if (!parsed) return null;
-  return `codev3-cell--${parsed.gradeBase.toLowerCase()}`;
-}
-
-function getCodeV3CellBackgroundClass(value) {
-  if (state.currentCategory !== "v1") return null;
-  const normalized = String(value ?? "").trim().toLowerCase();
-  if (!normalized) return null;
-  if (normalized === "pass") return "codev3-cell--pass";
-  if (normalized.startsWith("failed")) return "codev3-cell--failed";
-  if (normalized.startsWith("pending")) return "codev3-cell--pending";
-  return null;
-}
-
-function parseCodeV3RankGrade(value) {
-  if (state.currentCategory !== "v1") return null;
-  const normalized = String(value ?? "").trim();
-  if (!normalized) return null;
-  const match = normalized.match(/^(.+?)\/([ABCD])([+-]?)(?:\(\s*(\d+(?:\.\d+)?)\s*\))?$/i);
-  if (!match) return null;
-  return {
-    rank: match[1].trim(),
-    grade: `${match[2].toUpperCase()}${match[3] || ""}`,
-    gradeBase: match[2].toUpperCase(),
-    priceCny: match[4] || null,
-  };
-}
-
-function parseCodeV3SortKey(value) {
-  const normalized = String(value ?? "").trim();
-  if (/^pass$/i.test(normalized)) return { gradeOrder: 9, errorCount: 0 };
-  if (/^failed/i.test(normalized)) return { gradeOrder: 0, errorCount: 0 };
-
-  const parsed = parseCodeV3RankGrade(normalized);
-  if (parsed) {
-    const errorCount = Number(parsed.rank);
-    if (!Number.isNaN(errorCount)) {
-      return {
-        gradeOrder: CODE_V3_GRADE_ORDER.get(parsed.grade),
-        errorCount,
-      };
-    }
-  }
-
-  const match = normalized.match(/^>?\s*(\d+(?:\.\d+)?)$/);
-  return match ? { gradeOrder: 0.5, errorCount: Number(match[1]) } : null;
-}
-
-function compareCodeV3SortKeys(a, b, direction) {
-  if (a.gradeOrder !== b.gradeOrder) {
-    return (a.gradeOrder - b.gradeOrder) * (direction === "desc" ? -1 : 1);
-  }
-  if (a.errorCount !== b.errorCount) {
-    return (a.errorCount - b.errorCount) * (direction === "desc" ? 1 : -1);
-  }
-  return 0;
-}
-
-function formatCodeV3Price(priceCny) {
-  if (!priceCny) return null;
-  if (state.locale !== "en-US") return `¥${priceCny}`;
-  return formatUsd(Number(priceCny) / CNY_PER_USD);
-}
-
-function appendCodeV3ValueContent(target, value) {
-  const parsed = parseCodeV3RankGrade(value);
-  if (!parsed) {
-    target.textContent = value;
-    return;
-  }
-
-  const result = document.createElement("span");
-  result.className = "codev3-result";
-  const score = document.createElement("span");
-  score.className = "codev3-score";
-
-  const rank = document.createElement("span");
-  rank.className = "codev3-rank";
-  rank.textContent = `${parsed.rank}/`;
-  score.appendChild(rank);
-
-  const grade = document.createElement("span");
-  grade.className = `codev3-grade codev3-grade--${parsed.gradeBase.toLowerCase()}`;
-  grade.textContent = parsed.grade;
-  score.appendChild(grade);
-  result.appendChild(score);
-
-  const price = formatCodeV3Price(parsed.priceCny);
-  if (price) {
-    const priceLabel = document.createElement("span");
-    priceLabel.className = "codev3-price";
-    priceLabel.textContent = price;
-    result.appendChild(priceLabel);
-  }
-
-  target.appendChild(result);
 }
 
 function findModelColumnIndex(headers, rows, headerIndexMap) {
@@ -1943,7 +1771,6 @@ function resolveFieldByGroup(row, fieldGroup, headerIndexMap, usedIndices) {
       label: rawHeader ? getHeaderLabel(rawHeader) : t("table.mobile.unnamedField"),
       value: formatCellForDisplay(rawHeader, value),
       tone,
-      statusClass: getCodeV3StatusClass(value),
     };
   }
 
@@ -1961,7 +1788,6 @@ function collectRemainingFields(row, usedIndices) {
     fields.push({
       label: header ? getHeaderLabel(header) : t("table.mobile.unnamedField"),
       value: formatCellForDisplay(header, value),
-      statusClass: getCodeV3StatusClass(value),
     });
   });
 
@@ -1981,10 +1807,7 @@ function appendCardMetric(metricsContainer, metric, isPrimary = false) {
 
   const value = document.createElement("strong");
   value.className = "mobile-card-metric-value";
-  if (metric.statusClass) {
-    value.classList.add(...metric.statusClass.split(" "));
-  }
-  appendCodeV3ValueContent(value, metric.value);
+  value.textContent = metric.value;
 
   item.appendChild(label);
   item.appendChild(value);
@@ -1997,11 +1820,6 @@ function appendStructuredMetric(rowElement, metric) {
   if (metric.tone === "muted") {
     item.classList.add("mobile-card-row-metric--muted");
   }
-  const cellClass =
-    getCodeV3GradeCellClass(metric.value) || getCodeV3CellBackgroundClass(metric.value);
-  if (cellClass) {
-    item.classList.add(cellClass);
-  }
 
   const label = document.createElement("span");
   label.className = "mobile-card-row-metric-label";
@@ -2009,10 +1827,7 @@ function appendStructuredMetric(rowElement, metric) {
 
   const value = document.createElement("strong");
   value.className = "mobile-card-row-metric-value";
-  if (metric.statusClass) {
-    value.classList.add(...metric.statusClass.split(" "));
-  }
-  appendCodeV3ValueContent(value, metric.value);
+  value.textContent = metric.value;
 
   item.appendChild(label);
   item.appendChild(value);
@@ -2035,46 +1850,15 @@ function buildMetricFromIndex(row, index, usedIndices) {
   return {
     label: rawHeader ? getHeaderLabel(rawHeader) : t("table.mobile.unnamedField"),
     value: formatCellForDisplay(rawHeader, value),
-    statusClass: getCodeV3StatusClass(value),
   };
 }
 
-function renderCodeV3PrimaryRows(card, row, modelColumnIndex, usedIndices) {
-  const primaryIndices = getCodeV3PrimaryHeaderIndices(modelColumnIndex).filter(
-    (index) => !usedIndices.has(index) && normalizeCellValue(row.cells[index])
-  );
-
-  if (!primaryIndices.length) return false;
-
-  // Keep all project results in one semantic grid. CSS can then switch the
-  // grid from three to two columns on narrow phones without leaving holes
-  // created by hard-coded, three-item DOM rows.
-  const rowElement = document.createElement("div");
-  rowElement.className = "mobile-card-row mobile-card-row--codev3-primary";
-
-  primaryIndices.forEach((index) => {
-    const metric = buildMetricFromIndex(row, index, usedIndices);
-    if (metric) {
-      appendStructuredMetric(rowElement, metric);
-    }
-  });
-
-  card.appendChild(rowElement);
-
-  return true;
-}
-
 function renderStructuredCardRows(card, row, layout, headerIndexMap, usedIndices, modelColumnIndex) {
-  const hasCodeV3PrimaryRows =
-    state.currentCategory === "v1"
-      ? renderCodeV3PrimaryRows(card, row, modelColumnIndex, usedIndices)
-      : false;
-
   if (!Array.isArray(layout.rows) || !layout.rows.length) {
-    return hasCodeV3PrimaryRows;
+    return false;
   }
 
-  let rendered = hasCodeV3PrimaryRows;
+  let rendered = false;
 
   layout.rows.forEach((rowConfig) => {
     const fields = Array.isArray(rowConfig?.fields) ? rowConfig.fields : [];
@@ -2247,10 +2031,8 @@ function renderMobileCards(container) {
 
 function renderTable() {
   const container = elements.tableContainer;
-  cleanupStickyTableHeader();
   container.innerHTML = "";
   container.classList.remove("mobile-cards");
-  container.classList.remove("table-container--codev3");
   renderTableNote();
 
   if (!state.headers.length) {
@@ -2271,25 +2053,17 @@ function renderTable() {
 
   const headerIndexMap = buildHeaderIndexMap(state.headers);
   const modelColumnIndex = findModelColumnIndex(state.headers, state.filteredRows, headerIndexMap);
-  const isCodeV3Table = state.currentCategory === "v1";
   // 成本列（logic/code 为“测试成本(元)”，vision 为“成本”）：用于 hover 局部对比
   const costHeader = CATEGORY_CHART_CONFIG[state.currentCategory]?.cost ?? null;
   const costColumnIndex = costHeader ? state.headers.indexOf(costHeader) : -1;
 
   const table = document.createElement("table");
-  if (isCodeV3Table) {
-    table.classList.add("codev3-table");
-    container.classList.add("table-container--codev3");
-  }
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
 
   state.headers.forEach((header, index) => {
     const th = document.createElement("th");
     th.textContent = getHeaderLabel(header);
-    if (isCodeV3Table) {
-      th.classList.add(index === modelColumnIndex ? "codev3-model-column" : "codev3-fixed-column");
-    }
     th.addEventListener("click", () => toggleSort(index));
 
     const isActive = state.sort.columnIndex === index;
@@ -2319,11 +2093,6 @@ function renderTable() {
     }
     row.cells.forEach((cell, columnIndex) => {
       const td = document.createElement("td");
-      if (isCodeV3Table) {
-        td.classList.add(
-          columnIndex === modelColumnIndex ? "codev3-model-column" : "codev3-fixed-column"
-        );
-      }
       if (columnIndex === modelColumnIndex) {
         td.classList.add("model-cell");
       }
@@ -2335,19 +2104,7 @@ function renderTable() {
         }
       }
       const displayValue = cell ? formatCellForDisplay(state.headers[columnIndex], cell) : "—";
-      const statusClass = getCodeV3StatusClass(cell);
-      if (statusClass) {
-        td.classList.add(...statusClass.split(" "));
-      }
-      const gradeCellClass = getCodeV3GradeCellClass(cell);
-      if (gradeCellClass) {
-        td.classList.add(gradeCellClass);
-      }
-      const cellBackgroundClass = getCodeV3CellBackgroundClass(cell);
-      if (cellBackgroundClass) {
-        td.classList.add(cellBackgroundClass);
-      }
-      appendCodeV3ValueContent(td, displayValue);
+      td.textContent = displayValue;
 
       if (columnIndex === modelColumnIndex && row.isThink) {
         td.classList.add("think-model");
@@ -2428,102 +2185,13 @@ function renderTable() {
 
   table.appendChild(tbody);
   container.appendChild(table);
-  prepareStickyTableHeader();
-}
-
-function prepareStickyTableHeader() {
-  const container = elements.tableContainer;
-  const scope = elements.tableStickyScope;
-  const table = container.querySelector("table");
-  const thead = container.querySelector("thead");
-  if (!scope || !table || !thead || !container.classList.contains("table-container--codev3")) return;
-
-  const stickyHeader = document.createElement("div");
-  stickyHeader.className = "sticky-table-header";
-  stickyHeader.setAttribute("aria-hidden", "true");
-
-  const viewport = document.createElement("div");
-  viewport.className = "table-container table-container--codev3 sticky-table-header-viewport";
-
-  const clonedTable = table.cloneNode(false);
-  const clonedHead = thead.cloneNode(true);
-  clonedHead.querySelectorAll("th").forEach((th, index) => {
-    th.addEventListener("click", () => toggleSort(index));
-  });
-  clonedTable.appendChild(clonedHead);
-  viewport.appendChild(clonedTable);
-  stickyHeader.appendChild(viewport);
-  scope.prepend(stickyHeader);
-  syncStickyTableHeaderScroll();
-}
-
-function cleanupStickyTableHeader() {
-  elements.tableStickyScope?.querySelector(".sticky-table-header")?.remove();
-}
-
-function syncStickyTableHeaderScroll() {
-  const viewport = elements.tableStickyScope?.querySelector(".sticky-table-header-viewport");
-  if (viewport) viewport.scrollLeft = elements.tableContainer.scrollLeft;
 }
 
 function renderTableNote() {
   const note = elements.tableNote;
   if (!note) return;
-
-  const isCodeV3 = state.currentCategory === "v1" && state.headers.length > 0;
-  const hasNewMode = isCodeV3 && state.headers.some((header) => /\(H\)|\(I\)/.test(header));
-  const hasGradeValues =
-    isCodeV3 &&
-    state.rows.some((row) =>
-      row.cells.some((cell) => /^.+?\/[ABCD][+-]?$/i.test(String(cell ?? "").trim()))
-    );
-
-  if (!hasNewMode && !hasGradeValues) {
-    note.hidden = true;
-    note.innerHTML = "";
-    return;
-  }
-
-  note.hidden = false;
-
-  const gradeItems = [
-    ["a", t("codev3Note.gradeA")],
-    ["b", t("codev3Note.gradeB")],
-    ["c", t("codev3Note.gradeC")],
-    ["d", t("codev3Note.gradeD")],
-    ["failed", t("codev3Note.failed")],
-    ["pass", t("codev3Note.pass")],
-    ["skip", t("codev3Note.skip")],
-    ["pending", t("codev3Note.pending")],
-  ];
-  const gradeList = gradeItems
-    .map(
-      ([tier, text]) =>
-        `<li><span class="grade-chip grade-chip--${tier}">${
-          tier.length === 1 ? tier.toUpperCase() : tier[0].toUpperCase() + tier.slice(1)
-        }</span><span>${text}</span></li>`
-    )
-    .join("");
-
-  const projectGuide = hasNewMode
-    ? [
-        `<h3>${t("codev3Note.projectsTitle")}</h3>`,
-        `<p>${t("codev3Note.projectC")}</p>`,
-        `<p>${t("codev3Note.projectE")}</p>`,
-        `<p>${t("codev3Note.projectF")}</p>`,
-        `<p>${t("codev3Note.projectH")}</p>`,
-        `<p>${t("codev3Note.projectI")}</p>`,
-        `<p>${t("codev3Note.projectJ")}</p>`,
-        `<p>${t("codev3Note.projectK")}</p>`,
-      ].join("")
-    : "";
-
-  note.innerHTML = [
-    `<h3>${t("codev3Note.title")}</h3>`,
-    `<ul class="grade-list">${gradeList}</ul>`,
-    `<p>${t("codev3Note.halfGrade")}</p>`,
-    projectGuide,
-  ].join("");
+  note.hidden = true;
+  note.innerHTML = "";
 }
 
 function toggleSort(columnIndex) {
@@ -2570,26 +2238,18 @@ function updateMeta(dataset = null) {
       ? t("meta.records.withTotal", { count: filtered, total })
       : t("meta.records.single", { count: filtered });
 
-  const codev3FormatNote =
-    dataset.category === "v1"
-      ? `<span class="meta-note">${t("meta.codev3CellFormat")}</span>`
-      : "";
-
   meta.innerHTML = `
     <span>${t("meta.category", { label: categoryLabel })}</span>
     <span>${t("meta.dataset", { label: datasetLabel })}</span>
     <span>${recordsLabel}</span>
     <span>${t("meta.datasetCount", { count: reportCount })}</span>
-    ${codev3FormatNote}
   `;
   meta.classList.add("active");
 }
 
 function showPlaceholder(message) {
   const container = elements.tableContainer;
-  cleanupStickyTableHeader();
   container.classList.remove("mobile-cards");
-  container.classList.remove("table-container--codev3");
   container.innerHTML = `<div class="placeholder" role="status">${message}</div>`;
 }
 

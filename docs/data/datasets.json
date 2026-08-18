@@ -1,34 +1,6 @@
 {
   "datasets": [
     {
-      "category": "v1",
-      "reportDate": "2026-01",
-      "tableIndex": 0,
-      "title": "月榜",
-      "csv": "data/v1/2026-01.csv"
-    },
-    {
-      "category": "v1",
-      "reportDate": "2026-05",
-      "tableIndex": 0,
-      "title": "月榜",
-      "csv": "data/v1/2026-05.csv"
-    },
-    {
-      "category": "v1",
-      "reportDate": "2026-07",
-      "tableIndex": 0,
-      "title": "月榜",
-      "csv": "data/v1/2026-07.csv"
-    },
-    {
-      "category": "v1",
-      "reportDate": "2026-08",
-      "tableIndex": 0,
-      "title": "月榜",
-      "csv": "data/v1/2026-08.csv"
-    },
-    {
       "category": "code_bench",
       "reportDate": "v1.1",
       "tableIndex": 0,

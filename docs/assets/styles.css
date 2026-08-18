@@ -39,7 +39,6 @@
   --mobile-card-code-bg: var(--color-panel);
   --mobile-card-logic-bg: var(--color-panel);
   --mobile-card-vision-bg: var(--color-panel);
-  --mobile-card-codev3-bg: var(--color-panel);
   --color-card-metric-bg: #f7f5f0;
   --color-card-metric-primary-bg: #f2efe7;
   --color-card-metric-primary-border: #d8d4c6;
@@ -52,25 +51,7 @@
   --color-card-row-secondary-value: #3d4148;
   --color-card-row-placeholder-border: #d8d5ca;
   --color-card-row-placeholder-bg: rgba(111, 108, 101, 0.06);
-  --color-card-codev3-primary-bg: #f2efe7;
-  --color-card-codev3-primary-border: #d8d4c6;
-  --color-card-codev3-secondary-bg: #f8f7f3;
-  --color-card-codev3-secondary-border: #e0ddd2;
 
-  --color-grade-a: #0d2819;
-  --color-grade-b: #96740b;
-  --color-grade-c: #c25a1d;
-  --color-grade-d: #b83a24;
-  --color-grade-bg-a: rgba(12, 122, 64, 0.58);
-  --color-grade-bg-b: rgba(195, 145, 0, 0.38);
-  --color-grade-bg-c: rgba(235, 130, 30, 0.26);
-  --color-grade-bg-d: rgba(225, 85, 55, 0.24);
-  --color-status-bg-pass: rgba(27, 142, 76, 0.15);
-  --color-status-bg-failed: rgba(230, 105, 95, 0.2);
-  --color-status-bg-pending: rgba(111, 108, 101, 0.13);
-  --color-status-pending: #6f6c65;
-  --color-status-failed: #c62828;
-  --color-status-skip: #a09c90;
   --color-family-dot: #d97c2b;
 
   --shadow-soft: 0 1px 2px rgba(28, 25, 18, 0.04);
@@ -108,7 +89,6 @@
   --mobile-card-code-bg: var(--color-panel);
   --mobile-card-logic-bg: var(--color-panel);
   --mobile-card-vision-bg: var(--color-panel);
-  --mobile-card-codev3-bg: var(--color-panel);
   --color-card-metric-bg: #26251f;
   --color-card-metric-primary-bg: #2b2921;
   --color-card-metric-primary-border: #4a473c;
@@ -121,25 +101,7 @@
   --color-card-row-secondary-value: #d3d0c5;
   --color-card-row-placeholder-border: #403e35;
   --color-card-row-placeholder-bg: rgba(160, 156, 144, 0.08);
-  --color-card-codev3-primary-bg: #2b2921;
-  --color-card-codev3-primary-border: #4a473c;
-  --color-card-codev3-secondary-bg: #26251f;
-  --color-card-codev3-secondary-border: #403e35;
 
-  --color-grade-a: #e8f6ee;
-  --color-grade-b: #e6bf4a;
-  --color-grade-c: #f29a52;
-  --color-grade-d: #f28e72;
-  --color-grade-bg-a: rgba(100, 222, 148, 0.46);
-  --color-grade-bg-b: rgba(255, 215, 95, 0.36);
-  --color-grade-bg-c: rgba(255, 165, 85, 0.28);
-  --color-grade-bg-d: rgba(255, 125, 105, 0.26);
-  --color-status-bg-pass: rgba(100, 222, 148, 0.16);
-  --color-status-bg-failed: rgba(255, 145, 135, 0.2);
-  --color-status-bg-pending: rgba(160, 156, 144, 0.2);
-  --color-status-pending: #a09c90;
-  --color-status-failed: #ff7a6e;
-  --color-status-skip: #6f6c65;
   --color-family-dot: #e89a52;
 
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -180,7 +142,6 @@
     --mobile-card-code-bg: var(--color-panel);
     --mobile-card-logic-bg: var(--color-panel);
     --mobile-card-vision-bg: var(--color-panel);
-    --mobile-card-codev3-bg: var(--color-panel);
     --color-card-metric-bg: #26251f;
     --color-card-metric-primary-bg: #2b2921;
     --color-card-metric-primary-border: #4a473c;
@@ -193,24 +154,6 @@
     --color-card-row-secondary-value: #d3d0c5;
     --color-card-row-placeholder-border: #403e35;
     --color-card-row-placeholder-bg: rgba(160, 156, 144, 0.08);
-    --color-card-codev3-primary-bg: #2b2921;
-    --color-card-codev3-primary-border: #4a473c;
-    --color-card-codev3-secondary-bg: #26251f;
-    --color-card-codev3-secondary-border: #403e35;
-    --color-grade-a: #e8f6ee;
-    --color-grade-b: #e6bf4a;
-    --color-grade-c: #f29a52;
-    --color-grade-d: #f28e72;
-    --color-grade-bg-a: rgba(100, 222, 148, 0.46);
-    --color-grade-bg-b: rgba(255, 215, 95, 0.36);
-    --color-grade-bg-c: rgba(255, 165, 85, 0.28);
-    --color-grade-bg-d: rgba(255, 125, 105, 0.26);
-    --color-status-bg-pass: rgba(100, 222, 148, 0.16);
-    --color-status-bg-failed: rgba(255, 145, 135, 0.2);
-    --color-status-bg-pending: rgba(160, 156, 144, 0.2);
-    --color-status-pending: #a09c90;
-    --color-status-failed: #ff7a6e;
-    --color-status-skip: #6f6c65;
     --color-family-dot: #e89a52;
     --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
@@ -580,13 +523,6 @@ a.view-tab {
   color: var(--color-muted);
 }
 
-/* 右侧对齐的格式说明（代码 v3 数据集信息条最右侧） */
-.dataset-meta .meta-note {
-  margin-right: 0;
-  margin-left: auto;
-  color: var(--color-muted);
-}
-
 /* ---------------- 表格（booktabs 风格） ---------------- */
 
 .table-wrapper {
@@ -597,8 +533,7 @@ a.view-tab {
   display: grid;
 }
 
-.table-sticky-scope > .table-container,
-.table-sticky-scope > .sticky-table-header {
+.table-sticky-scope > .table-container {
   grid-area: 1 / 1;
 }
 
@@ -609,22 +544,10 @@ a.view-tab {
   overflow: clip;
 }
 
-.table-container--codev3 {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
 .table-container table {
   width: 100%;
   border-collapse: collapse;
   font-variant-numeric: tabular-nums;
-}
-
-.table-container--codev3 table {
-  width: max-content;
-  min-width: 100%;
-  table-layout: fixed;
 }
 
 .table-container thead {
@@ -632,26 +555,6 @@ a.view-tab {
   position: sticky;
   top: 0;
   z-index: 3;
-}
-
-/* code_v3 的横向滚动容器会阻断原生 sticky，使用同列宽的镜像表头吸顶。 */
-.table-container--codev3 thead {
-  position: static;
-}
-
-.sticky-table-header {
-  position: sticky;
-  /* 抵消容器边框，让实际 th 在吸顶后恰好位于 viewport 顶部。 */
-  top: -2px;
-  z-index: 5;
-  align-self: start;
-  min-width: 0;
-  pointer-events: none;
-}
-
-.sticky-table-header-viewport {
-  overflow: hidden;
-  pointer-events: auto;
 }
 
 .table-container th,
@@ -705,60 +608,6 @@ a.view-tab {
   background-color: var(--color-row-hover);
 }
 
-.table-container--codev3 th,
-.table-container--codev3 td {
-  white-space: nowrap;
-}
-
-/* 档位色块单元格之间留出间隙（透明边框 + 背景裁剪，色块不粘连） */
-.table-container--codev3 th,
-.table-container--codev3 td {
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
-
-/* 冻结列背景必须覆盖到边框区，否则横向滚动时下层内容会从间隙透出 */
-.table-container--codev3 .codev3-model-column {
-  background-clip: border-box;
-}
-
-.table-container--codev3 .codev3-model-column {
-  position: sticky;
-  left: 0;
-  min-width: 250px;
-  width: 250px;
-  max-width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  box-shadow: 1px 0 0 var(--color-border);
-}
-
-.table-container--codev3 thead .codev3-model-column {
-  z-index: 4;
-  background: var(--color-table-head);
-}
-
-.table-container--codev3 tbody .codev3-model-column {
-  z-index: 2;
-  background: var(--color-panel);
-}
-
-.table-container--codev3 tbody tr:nth-child(even) .codev3-model-column {
-  background-color: var(--color-row-even);
-}
-
-/* 冻结列的 hover 底色必须不透明，否则横向滚动时下层文字会透出来 */
-.table-container--codev3 tbody tr:hover .codev3-model-column {
-  background-color: var(--color-row-hover-solid);
-}
-
-.table-container--codev3 .codev3-fixed-column {
-  min-width: 130px;
-  width: 130px;
-  max-width: 130px;
-}
-
 .table-container td.think-model {
   font-weight: 600;
   color: var(--color-accent);
@@ -766,7 +615,7 @@ a.view-tab {
 
 /* 家族高亮：hover 某模型时，同家族模型名前点亮橙色圆点。
    圆点绝对定位在单元格左内边距内，不参与布局，避免列宽跳动 */
-.table-container:not(.table-container--codev3) .model-cell {
+.table-container .model-cell {
   position: relative;
 }
 
@@ -850,10 +699,6 @@ a.view-tab {
 
 .mobile-card--vision {
   background: var(--mobile-card-vision-bg);
-}
-
-.mobile-card--codev3 {
-  background: var(--mobile-card-codev3-bg);
 }
 
 .mobile-card-header {
@@ -1006,171 +851,6 @@ a.view-tab {
   display: none;
 }
 
-.mobile-card-row--codev3-primary {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  border-top: 0;
-  border-radius: 6px;
-  overflow: hidden;
-  background: transparent;
-}
-
-.mobile-card-row--codev3-primary .mobile-card-row-metric {
-  background: var(--color-card-codev3-primary-bg);
-  border: 0;
-  border-top: 1px solid var(--color-border);
-  border-left: 1px solid var(--color-border);
-  padding: 8px 9px 9px;
-}
-
-.mobile-card-row--codev3-primary .mobile-card-row-metric:nth-child(-n + 3) {
-  border-top: 0;
-}
-
-.mobile-card-row--codev3-primary .mobile-card-row-metric:nth-child(3n + 1) {
-  border-left: 0;
-}
-
-.mobile-card-row--codev3-primary .mobile-card-row-metric-label {
-  min-height: 2.5em;
-  color: var(--color-text);
-  font-weight: 600;
-  letter-spacing: 0;
-  overflow-wrap: anywhere;
-}
-
-.mobile-card-row--codev3-primary .mobile-card-row-metric-value {
-  margin-top: 5px;
-  font-size: 16px;
-}
-
-.mobile-card-row--codev3-secondary .mobile-card-row-metric {
-  background: transparent;
-}
-
-.codev3-status {
-  font-weight: 600;
-}
-
-.codev3-status--pending {
-  color: var(--color-status-pending);
-}
-
-.codev3-status--failed {
-  color: var(--color-status-failed);
-}
-
-.codev3-status--skip {
-  color: var(--color-status-skip);
-}
-
-.codev3-result {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 4px;
-  align-items: baseline;
-}
-
-.codev3-score {
-  min-width: 0;
-  white-space: nowrap;
-}
-
-.codev3-rank {
-  display: inline-block;
-  min-width: 3ch;
-  text-align: right;
-}
-
-.codev3-grade {
-  font-weight: 700;
-}
-
-.codev3-grade--a {
-  color: var(--color-grade-a);
-}
-
-.codev3-grade--b {
-  color: var(--color-grade-b);
-}
-
-.codev3-grade--c {
-  color: var(--color-grade-c);
-}
-
-.codev3-grade--d {
-  color: var(--color-grade-d);
-}
-
-/* 新格式在等级后附带人民币价格；展示层按当前语言添加币种并换算。 */
-.codev3-price {
-  margin-left: 0;
-  justify-self: end;
-  white-space: nowrap;
-  color: var(--color-muted);
-  font-size: 0.68em;
-  font-weight: 500;
-  letter-spacing: 0;
-}
-
-/* 档位单元格整格底色 */
-.codev3-cell--a {
-  background-color: var(--color-grade-bg-a);
-}
-
-.codev3-cell--b {
-  background-color: var(--color-grade-bg-b);
-}
-
-.codev3-cell--c {
-  background-color: var(--color-grade-bg-c);
-}
-
-.codev3-cell--d {
-  background-color: var(--color-grade-bg-d);
-}
-
-.codev3-cell--pass {
-  background-color: var(--color-status-bg-pass);
-}
-
-.codev3-cell--failed {
-  background-color: var(--color-status-bg-failed);
-}
-
-.codev3-cell--pending {
-  background-color: var(--color-status-bg-pending);
-}
-
-/* 移动端指标块整块底色（覆盖卡片自带底色） */
-.mobile-card-row-metric.codev3-cell--a {
-  background-color: var(--color-grade-bg-a);
-}
-
-.mobile-card-row-metric.codev3-cell--b {
-  background-color: var(--color-grade-bg-b);
-}
-
-.mobile-card-row-metric.codev3-cell--c {
-  background-color: var(--color-grade-bg-c);
-}
-
-.mobile-card-row-metric.codev3-cell--d {
-  background-color: var(--color-grade-bg-d);
-}
-
-.mobile-card-row-metric.codev3-cell--pass {
-  background-color: var(--color-status-bg-pass);
-}
-
-.mobile-card-row-metric.codev3-cell--failed {
-  background-color: var(--color-status-bg-failed);
-}
-
-.mobile-card-row-metric.codev3-cell--pending {
-  background-color: var(--color-status-bg-pending);
-}
-
 /* ---------------- 表格底部说明（档位说明） ---------------- */
 
 .table-note {
@@ -1193,12 +873,6 @@ a.view-tab {
   margin-top: 18px;
 }
 
-.table-note ul.grade-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 .table-note li {
   display: flex;
   align-items: flex-start;
@@ -1214,59 +888,6 @@ a.view-tab {
   font-size: 13px;
   line-height: 1.8;
   color: var(--color-muted);
-}
-
-.table-note .grade-chip {
-  flex: none;
-  display: inline-block;
-  min-width: 26px;
-  margin-top: 2px;
-  padding: 0 5px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.table-note .grade-chip--a {
-  color: var(--color-grade-a);
-  background-color: var(--color-grade-bg-a);
-}
-
-.table-note .grade-chip--b {
-  color: var(--color-grade-b);
-  background-color: var(--color-grade-bg-b);
-}
-
-.table-note .grade-chip--c {
-  color: var(--color-grade-c);
-  background-color: var(--color-grade-bg-c);
-}
-
-.table-note .grade-chip--d {
-  color: var(--color-grade-d);
-  background-color: var(--color-grade-bg-d);
-}
-
-.table-note .grade-chip--failed {
-  color: var(--color-status-failed);
-  background-color: var(--color-status-bg-failed);
-}
-
-.table-note .grade-chip--pass {
-  color: var(--color-grade-a);
-  background-color: var(--color-status-bg-pass);
-}
-
-.table-note .grade-chip--skip {
-  color: var(--color-status-skip);
-  background-color: var(--color-status-bg-pending);
-}
-
-.table-note .grade-chip--pending {
-  color: var(--color-status-pending);
-  background-color: var(--color-status-bg-pending);
 }
 
 .mobile-card-note {
@@ -1448,19 +1069,16 @@ a.view-tab {
 
 /* ---------------- 滚动条 ---------------- */
 
-.table-container--codev3::-webkit-scrollbar,
 .chip-picker::-webkit-scrollbar {
   height: 8px;
   width: 8px;
 }
 
-.table-container--codev3::-webkit-scrollbar-thumb,
 .chip-picker::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 4px;
 }
 
-.table-container--codev3::-webkit-scrollbar-thumb:hover,
 .chip-picker::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
 }
@@ -1564,20 +1182,4 @@ a.view-tab {
     background: transparent;
   }
 
-  .mobile-card-row--codev3-primary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .mobile-card-row--codev3-primary .mobile-card-row-metric:nth-child(n) {
-    border-top: 1px solid var(--color-border);
-    border-left: 1px solid var(--color-border);
-  }
-
-  .mobile-card-row--codev3-primary .mobile-card-row-metric:nth-child(-n + 2) {
-    border-top: 0;
-  }
-
-  .mobile-card-row--codev3-primary .mobile-card-row-metric:nth-child(odd) {
-    border-left: 0;
-  }
 }

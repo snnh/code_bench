@@ -149,10 +149,6 @@ const TRANSLATIONS = {
     "zh-CN": "代码(废弃)",
     "en-US": "Code(Outdated)",
   },
-  "category.v1": {
-    "zh-CN": "v1",
-    "en-US": "v1",
-  },
   "category.logic": {
     "zh-CN": "推理",
     "en-US": "Logic",
@@ -599,85 +595,6 @@ const TRANSLATIONS = {
   "trends.tooltip.score": {
     "zh-CN": "当月得分",
     "en-US": "Score",
-  },
-  "codev3Note.title": {
-    "zh-CN": "档位说明",
-    "en-US": "Grade Guide",
-  },
-  "codev3Note.gradeA": {
-    "zh-CN": "档：几乎不犯错，只犯微小的 UI、交互类错误。",
-    "en-US": "Grade: almost never makes mistakes — only minor UI or interaction errors.",
-  },
-  "codev3Note.gradeB": {
-    "zh-CN": "档：大概率会错，但只要描述错误现象，都可以1轮修复。",
-    "en-US": "Grade: likely to make mistakes, but any described issue can be fixed in 1 round.",
-  },
-  "codev3Note.gradeC": {
-    "zh-CN": "档：大概率错，但需要交互更多轮，模型能自主推进修复，无需人工提供辅助。",
-    "en-US":
-      "Grade: likely to make mistakes and needs more interaction rounds, but the model drives fixes autonomously without human assistance.",
-  },
-  "codev3Note.gradeD": {
-    "zh-CN": "档：必须有人工提供大量 log、视觉描述，协助操作等才能修复问题。",
-    "en-US":
-      "Grade: requires the human to provide extensive logs, visual descriptions, and hands-on assistance to fix issues.",
-  },
-  "codev3Note.failed": {
-    "zh-CN": "知识或方法论不够，即便有人帮助，也无法完成任务。",
-    "en-US": "— lacks the knowledge or methodology to complete the task even with help.",
-  },
-  "codev3Note.pass": {
-    "zh-CN": "：前代模型已经拿到 A，不再测试。",
-    "en-US": ": a previous model version already earned an A, so it is no longer tested.",
-  },
-  "codev3Note.skip": {
-    "zh-CN": "：各方面原因，不进行测试。",
-    "en-US": ": not tested for various reasons.",
-  },
-  "codev3Note.pending": {
-    "zh-CN": "：正在测试中。",
-    "en-US": ": testing in progress.",
-  },
-  "codev3Note.halfGrade": {
-    "zh-CN": "同档位中，只有少数轮次出现问题，大部分情况表现良好时，会升半档，用 B+、C+ 来表示。",
-    "en-US":
-      "Within the same grade, when only a few rounds have issues and the model performs well most of the time, it is upgraded by a half grade, denoted as B+ or C+.",
-  },
-  "codev3Note.projectsTitle": {
-    "zh-CN": "项目说明",
-    "en-US": "Project Guide",
-  },
-  "codev3Note.projectC": {
-    "zh-CN": "C: MacOS App + OpenGL",
-    "en-US": "C: MacOS App + OpenGL",
-  },
-  "codev3Note.projectE": {
-    "zh-CN": "E: Web + WASM",
-    "en-US": "E: Web + WASM",
-  },
-  "codev3Note.projectF": {
-    "zh-CN": "F: Godot + Physics",
-    "en-US": "F: Godot + Physics",
-  },
-  "codev3Note.projectH": {
-    "zh-CN": "H: Web + 3D Modeling",
-    "en-US": "H: Web + 3D Modeling",
-  },
-  "codev3Note.projectI": {
-    "zh-CN": "I: iOS App + Rust Server",
-    "en-US": "I: iOS App + Rust Server",
-  },
-  "codev3Note.projectJ": {
-    "zh-CN": "J: Web + 2D Animation",
-    "en-US": "J: Web + 2D Animation",
-  },
-  "codev3Note.projectK": {
-    "zh-CN": "K: Harmony OS App + C++ Native",
-    "en-US": "K: Harmony OS App + C++ Native",
-  },
-  "meta.codev3CellFormat": {
-    "zh-CN": "1/A 代表扣分数/档位",
-    "en-US": "1/A means deduction points / grade",
   },
 };
 
