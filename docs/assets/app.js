@@ -16,6 +16,10 @@ const DATASET_TITLE_KEYS = {
   "server": "dataset.title.server",
   "web": "dataset.title.web",
   "高阶题": "dataset.title.full",
+  "短提示榜": "dataset.title.shortPrompt",
+  "官方推荐提示词榜": "dataset.title.officialPrompt",
+  "类别诊断": "dataset.title.categoryDiagnosis",
+  "难度诊断": "dataset.title.difficultyDiagnosis",
 };
 
 const DEFAULT_DATASET_TITLE_KEY = "dataset.title.default";
@@ -67,16 +71,35 @@ const HEADER_TRANSLATIONS = {
   接入渠道: "table.header.accessChannel",
   接入方式: "table.header.accessMethod",
   排名: "table.header.rank",
+  方案: "table.header.scheme",
+  最佳方案: "table.header.bestScheme",
+  记录: "table.header.records",
+  最终积分: "table.header.finalScore",
+  原始积分: "table.header.rawScore",
+  类别加权: "table.header.categoryWeighted",
+  全局均值: "table.header.globalMean",
+  最弱类别: "table.header.weakestCategory",
+  最弱难度: "table.header.weakestDifficulty",
+  严格可用率: "table.header.strictUsableRate",
+  完成率: "table.header.completionRate",
+  安全分: "table.header.safetyScore",
+  "平均 NED": "table.header.avgNed",
+  报告: "table.header.report",
+  类别: "table.header.category",
+  类别分: "table.header.categoryScore",
+  难度: "table.header.difficulty",
+  难度分: "table.header.difficultyScore",
+  severe: "table.header.severe",
 };
 
-const CATEGORY_ORDER = ["code_bench", "logic", "code", "vision"];
+const CATEGORY_ORDER = ["code_bench", "ocr_bench", "logic", "code", "vision"];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
 const VALID_COUNTRY_FILTERS = new Set(["all", "china", "usa", "other"]);
 const MOBILE_BREAKPOINT_PX = 768;
-const MODEL_HEADER_CANDIDATES = ["模型", "Model", "Language"];
-const MODEL_COUNTRY_HEADER_CANDIDATES = ["模型", "Model"];
+const MODEL_HEADER_CANDIDATES = ["模型", "Model", "方案", "最佳方案", "Language"];
+const MODEL_COUNTRY_HEADER_CANDIDATES = ["模型", "Model", "方案", "最佳方案"];
 const CHINA_MODEL_PATTERNS = [
   /[\u4e00-\u9fff]/,
   /^k2(?:\b|[.\s-])/i,

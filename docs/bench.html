@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>code_bench v1.1｜题目说明</title>
-    <meta
-      name="description"
-      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
-    />
+    <meta name="description" content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://snnh.github.io/code_bench/bench.html" />
     <meta property="og:type" content="website" />
@@ -15,15 +12,13 @@
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:url" content="https://snnh.github.io/code_bench/bench.html" />
     <meta property="og:title" content="code_bench v1.1｜题目说明" />
-    <meta
-      property="og:description"
-      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
-    />
+    <meta property="og:description" content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
     <style>
       .doc-nav {
         display: flex;
+        flex-wrap: wrap;
         gap: 28px;
         border-bottom: 1px solid var(--color-border);
         margin-bottom: 20px;
@@ -91,6 +86,21 @@
         background: var(--color-accent-soft);
         padding: 1px 5px;
         border-radius: 3px;
+      }
+      .doc-article pre {
+        margin: 14px 0;
+        padding: 12px 14px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        background: var(--color-panel);
+        overflow-x: auto;
+      }
+      .doc-article pre code {
+        display: block;
+        background: none;
+        padding: 0;
+        font-size: 13px;
+        line-height: 1.6;
       }
       .doc-table {
         width: 100%;
@@ -198,15 +208,11 @@
 
     <main>
       <nav class="doc-nav" aria-label="页面导航">
-        <a href="./">榜单</a>
-        <a class="current" href="bench.html" aria-current="page">说明</a>
+        <a href="./">榜单</a><a class="current" aria-current="page" href="bench.html">说明</a><a href="ocr_bench.html">OCR 说明</a>
       </nav>
 
       <article class="doc-article">
-        <p class="doc-tip">
-          本页为 code_bench v1.1 完整题目与说明；榜单数据可在
-          <a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。
-        </p>
+        <p class="doc-tip">本页为 code_bench v1.1 完整题目与说明；榜单数据可在<a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。</p>
 
 <h1>code_bench v1.1</h1>
         <h2>题目结构</h2>

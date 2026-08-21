@@ -34,6 +34,34 @@
       "tableIndex": 4,
       "title": "高阶题",
       "csv": "data/code_bench/v1.1-full.csv"
+    },
+    {
+      "category": "ocr_bench",
+      "reportDate": "v5",
+      "tableIndex": 0,
+      "title": "短提示榜",
+      "csv": "data/ocr_bench/v5-short.csv"
+    },
+    {
+      "category": "ocr_bench",
+      "reportDate": "v5",
+      "tableIndex": 1,
+      "title": "官方推荐提示词榜",
+      "csv": "data/ocr_bench/v5-official.csv"
+    },
+    {
+      "category": "ocr_bench",
+      "reportDate": "v5",
+      "tableIndex": 2,
+      "title": "类别诊断",
+      "csv": "data/ocr_bench/v5-category.csv"
+    },
+    {
+      "category": "ocr_bench",
+      "reportDate": "v5",
+      "tableIndex": 3,
+      "title": "难度诊断",
+      "csv": "data/ocr_bench/v5-difficulty.csv"
     }
   ]
 }

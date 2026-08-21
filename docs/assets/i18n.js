@@ -161,6 +161,10 @@ const TRANSLATIONS = {
     "zh-CN": "Code Bench",
     "en-US": "Code Bench",
   },
+  "category.ocr_bench": {
+    "zh-CN": "OCR Bench",
+    "en-US": "OCR Bench",
+  },
   "dataset.title.default": {
     "zh-CN": "主要数据",
     "en-US": "Primary data",
@@ -192,6 +196,22 @@ const TRANSLATIONS = {
   "dataset.title.full": {
     "zh-CN": "高阶题",
     "en-US": "Advanced",
+  },
+  "dataset.title.shortPrompt": {
+    "zh-CN": "短提示榜",
+    "en-US": "Short-prompt leaderboard",
+  },
+  "dataset.title.officialPrompt": {
+    "zh-CN": "官方推荐提示词榜",
+    "en-US": "Official-prompt leaderboard",
+  },
+  "dataset.title.categoryDiagnosis": {
+    "zh-CN": "类别诊断",
+    "en-US": "Category diagnosis",
+  },
+  "dataset.title.difficultyDiagnosis": {
+    "zh-CN": "难度诊断",
+    "en-US": "Difficulty diagnosis",
   },
   "table.header.reportDate": {
     "zh-CN": "报告日期",
@@ -376,6 +396,78 @@ const TRANSLATIONS = {
   "table.header.rank": {
     "zh-CN": "排名",
     "en-US": "Rank",
+  },
+  "table.header.scheme": {
+    "zh-CN": "方案",
+    "en-US": "Approach",
+  },
+  "table.header.bestScheme": {
+    "zh-CN": "最佳方案",
+    "en-US": "Best approach",
+  },
+  "table.header.records": {
+    "zh-CN": "记录",
+    "en-US": "Records",
+  },
+  "table.header.finalScore": {
+    "zh-CN": "最终积分",
+    "en-US": "Final score",
+  },
+  "table.header.categoryWeighted": {
+    "zh-CN": "类别加权",
+    "en-US": "Category-weighted",
+  },
+  "table.header.globalMean": {
+    "zh-CN": "全局均值",
+    "en-US": "Global mean",
+  },
+  "table.header.weakestCategory": {
+    "zh-CN": "最弱类别",
+    "en-US": "Weakest category",
+  },
+  "table.header.weakestDifficulty": {
+    "zh-CN": "最弱难度",
+    "en-US": "Weakest difficulty",
+  },
+  "table.header.strictUsableRate": {
+    "zh-CN": "严格可用率",
+    "en-US": "Strict usable rate",
+  },
+  "table.header.completionRate": {
+    "zh-CN": "完成率",
+    "en-US": "Completion rate",
+  },
+  "table.header.safetyScore": {
+    "zh-CN": "安全分",
+    "en-US": "Safety score",
+  },
+  "table.header.avgNed": {
+    "zh-CN": "平均 NED",
+    "en-US": "Avg NED",
+  },
+  "table.header.report": {
+    "zh-CN": "报告",
+    "en-US": "Report",
+  },
+  "table.header.category": {
+    "zh-CN": "类别",
+    "en-US": "Category",
+  },
+  "table.header.categoryScore": {
+    "zh-CN": "类别分",
+    "en-US": "Category score",
+  },
+  "table.header.difficulty": {
+    "zh-CN": "难度",
+    "en-US": "Difficulty",
+  },
+  "table.header.difficultyScore": {
+    "zh-CN": "难度分",
+    "en-US": "Difficulty score",
+  },
+  "table.header.severe": {
+    "zh-CN": "severe",
+    "en-US": "Severe",
   },
   "table.reasoningBadge": {
     "zh-CN": "推理",

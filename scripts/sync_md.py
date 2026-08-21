@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-code_bench 站点同步脚本：以 code/*.md 为唯一数据源，自动生成：
-  1. docs/bench.html        —— 题目说明页（整页由 md 渲染）
-  2. docs/data/code_bench/  —— 榜单 CSV（供仪表盘查询）
+code_bench 站点同步脚本：以仓库内 Markdown 为唯一数据源，自动生成：
+  1. docs/<page>.html        —— 题目说明页（整页由 md 渲染）
+  2. docs/data/<bench>/      —— 榜单 CSV（供仪表盘查询）
 
 用法：
   python3 scripts/sync_md.py [--check]
 
 --check 只校验不写文件（CI 中可用）。
-新增 md 或调整映射：编辑 SYNC_CONFIG 即可。
+新增 bench（如 OCR）：在 SYNC_CONFIG 中按 ocr/ocr_benchmark_v5.md 的格式
+添加条目即可，推送后 GitHub Actions 自动运行本脚本。
 """
 import os
 import re
@@ -20,11 +21,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ---------------------------------------------------------------- 配置
 
 # md 文件 → 生成目标
+# "csvs" 键为 (h3 小节名, h4 加粗标签)，None 表示该小节下直接跟的表格
 SYNC_CONFIG = {
     "code/code_bench.md": {
-        # 文档页模板（HTML 骨架），{{CONTENT}} 处填入 md 渲染结果
         "doc_page": "docs/bench.html",
-        # 排行表 → CSV：键为 (h3 小节名, h4 加粗标签)，None 表示该小节第一张表
+        "page": {
+            "title": "code_bench v1.1｜题目说明",
+            "h1": "code_bench v1.1",
+            "subtitle": "大模型复刻 openwebcode 项目评测榜单 · 题目说明",
+            "description": "code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+            ],
+            "tip": "本页为 code_bench v1.1 完整题目与说明；榜单数据可在"
+                   "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
+        },
         "csvs": {
             ("基础题", "总分"): "docs/data/code_bench/v1.1-total.csv",
             ("基础题", "core"): "docs/data/code_bench/v1.1-core.csv",
@@ -32,7 +45,6 @@ SYNC_CONFIG = {
             ("基础题", "web"): "docs/data/code_bench/v1.1-web.csv",
             ("高阶题", None): "docs/data/code_bench/v1.1-full.csv",
         },
-        # 各 CSV 的期望表头（校验用，防止 md 结构调整后静默错位）
         "expected_headers": {
             "docs/data/code_bench/v1.1-total.csv": [
                 "模型", "总积分", "成本(折算API价格)", "订阅折算",
@@ -52,39 +64,78 @@ SYNC_CONFIG = {
             ],
         },
     },
+    "ocr/ocr_benchmark_v5.md": {
+        "doc_page": "docs/ocr_bench.html",
+        "page": {
+            "title": "开发场景 OCR Benchmark v5｜题目说明",
+            "h1": "开发场景 OCR Benchmark v5",
+            "subtitle": "开发场景 OCR 评测 · 题目说明",
+            "description": "开发场景 OCR Benchmark v5 数据集、榜单、LLM 六维评分与积分规则。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明"},
+                {"href": "ocr_bench.html", "label": "OCR 说明", "active": True},
+            ],
+            "tip": "本页为开发场景 OCR Benchmark v5 完整说明；榜单数据可在"
+                   "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
+        },
+        "csvs": {
+            ("短提示榜 <image>OCR:", None): "docs/data/ocr_bench/v5-short.csv",
+            ("官方推荐提示词榜", None): "docs/data/ocr_bench/v5-official.csv",
+            ("类别诊断（短提示）", None): "docs/data/ocr_bench/v5-category.csv",
+            ("难度诊断（短提示）", None): "docs/data/ocr_bench/v5-difficulty.csv",
+        },
+        "expected_headers": {
+            "docs/data/ocr_bench/v5-short.csv": [
+                "方案", "记录", "最终积分", "原始积分", "类别加权", "全局均值",
+                "最弱类别", "最弱难度", "严格可用率", "完成率", "安全分",
+                "平均 NED", "报告", "备注",
+            ],
+            "docs/data/ocr_bench/v5-official.csv": [
+                "方案", "记录", "最终积分", "原始积分", "类别加权", "全局均值",
+                "最弱类别", "最弱难度", "严格可用率", "完成率", "安全分",
+                "平均 NED", "报告", "备注",
+            ],
+            "docs/data/ocr_bench/v5-category.csv": ["类别", "最佳方案", "类别分"],
+            "docs/data/ocr_bench/v5-difficulty.csv": ["难度", "最佳方案", "难度分", "severe"],
+        },
+    },
 }
 
 # 占位行（"… | 未测试 ..."）不写入 CSV
 PLACEHOLDER_FIRST_CELLS = {"…", "..."}
 
-# ---------------------------------------------------------------- 模板
+# ---------------------------------------------------------------- 页面模板
 
-PAGE_TEMPLATE = """<!DOCTYPE html>
+def render_page(content, meta):
+    nav_items = "".join(
+        '<a%s href="%s">%s</a>'
+        % (' class="current" aria-current="page"' if item.get("active") else "",
+           item["href"], item["label"])
+        for item in meta["nav"]
+    )
+    canonical = "https://snnh.github.io/code_bench/%s" % os.path.basename(meta["doc_page"])
+    return """<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>code_bench v1.1｜题目说明</title>
-    <meta
-      name="description"
-      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
-    />
+    <title>%(title)s</title>
+    <meta name="description" content="%(description)s" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://snnh.github.io/code_bench/bench.html" />
+    <link rel="canonical" href="%(canonical)s" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="code_bench" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:url" content="https://snnh.github.io/code_bench/bench.html" />
-    <meta property="og:title" content="code_bench v1.1｜题目说明" />
-    <meta
-      property="og:description"
-      content="code_bench v1.1 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。"
-    />
+    <meta property="og:url" content="%(canonical)s" />
+    <meta property="og:title" content="%(title)s" />
+    <meta property="og:description" content="%(description)s" />
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
     <style>
       .doc-nav {
         display: flex;
+        flex-wrap: wrap;
         gap: 28px;
         border-bottom: 1px solid var(--color-border);
         margin-bottom: 20px;
@@ -153,8 +204,23 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
         padding: 1px 5px;
         border-radius: 3px;
       }
+      .doc-article pre {
+        margin: 14px 0;
+        padding: 12px 14px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        background: var(--color-panel);
+        overflow-x: auto;
+      }
+      .doc-article pre code {
+        display: block;
+        background: none;
+        padding: 0;
+        font-size: 13px;
+        line-height: 1.6;
+      }
       .doc-table {
-        width: 100%;
+        width: 100%%;
         border-collapse: collapse;
         font-size: 14px;
         margin: 14px 0;
@@ -253,23 +319,19 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
           />
         </svg>
       </a>
-      <h1>code_bench v1.1</h1>
-      <p class="subtitle">大模型复刻 openwebcode 项目评测榜单 · 题目说明</p>
+      <h1>%(h1)s</h1>
+      <p class="subtitle">%(subtitle)s</p>
     </header>
 
     <main>
       <nav class="doc-nav" aria-label="页面导航">
-        <a href="./">榜单</a>
-        <a class="current" href="bench.html" aria-current="page">说明</a>
+        %(nav)s
       </nav>
 
       <article class="doc-article">
-        <p class="doc-tip">
-          本页为 code_bench v1.1 完整题目与说明；榜单数据可在
-          <a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。
-        </p>
+        <p class="doc-tip">%(tip)s</p>
 
-{{CONTENT}}
+%(content)s
       </article>
     </main>
 
@@ -278,7 +340,17 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     </footer>
   </body>
 </html>
-"""
+""" % {
+        "title": meta["title"],
+        "description": meta["description"],
+        "canonical": canonical,
+        "h1": meta["h1"],
+        "subtitle": meta["subtitle"],
+        "nav": nav_items,
+        "tip": meta["tip"],
+        "content": content,
+    }
+
 
 # ---------------------------------------------------------------- md 渲染
 
@@ -309,6 +381,11 @@ def inline(text):
     for index, fragment in enumerate(stash):
         text = text.replace("\x00%d\x00" % index, fragment)
     return text
+
+
+def heading_text(line):
+    """标题行去除行内 code 反引号，便于作为小节名参与映射。"""
+    return re.sub(r"`([^`]+)`", r"\1", line).strip()
 
 
 def parse_table(lines, index):
@@ -377,7 +454,7 @@ def render_lists(lines, index):
 
 
 def md_to_blocks(text):
-    """把 md 解析为块序列 [(type, payload)]。type: h1/h2/h3/h4/table/list/p/blockquote"""
+    """把 md 解析为块序列 [(type, payload)]。type: h1/h2/h3/h4/table/list/p/code/blockquote"""
     lines = text.splitlines()
     blocks = []
     index = 0
@@ -386,17 +463,28 @@ def md_to_blocks(text):
         if not line:
             index += 1
             continue
-        if line.startswith("#### "):
-            blocks.append(("h4", line[5:].strip()))
+        if line.startswith("```"):
+            # 围栏代码块
+            code_lines = []
+            index += 1
+            while index < len(lines) and not lines[index].strip().startswith("```"):
+                code_lines.append(lines[index])
+                index += 1
+            index += 1  # 跳过闭合围栏
+            blocks.append(
+                ("html", "<pre><code>%s</code></pre>" % escape_html("\n".join(code_lines)))
+            )
+        elif line.startswith("#### "):
+            blocks.append(("h4", heading_text(line[5:])))
             index += 1
         elif line.startswith("### "):
-            blocks.append(("h3", line[4:].strip()))
+            blocks.append(("h3", heading_text(line[4:])))
             index += 1
         elif line.startswith("## "):
-            blocks.append(("h2", line[3:].strip()))
+            blocks.append(("h2", heading_text(line[3:])))
             index += 1
         elif line.startswith("# "):
-            blocks.append(("h1", line[2:].strip()))
+            blocks.append(("h1", heading_text(line[2:])))
             index += 1
         elif line.startswith("|") and line.endswith("|"):
             rows, index = parse_table(lines, index)
@@ -419,7 +507,7 @@ def md_to_blocks(text):
             index += 1
             while index < len(lines) and lines[index].strip():
                 next_line = lines[index].strip()
-                if next_line.startswith(("|", "#", ">", "* ", "- ")) or re.match(
+                if next_line.startswith(("|", "#", ">", "* ", "- ", "```")) or re.match(
                     r"^\d+\.\s", next_line
                 ):
                     break
@@ -466,8 +554,8 @@ def extract_csvs(blocks, csv_config, expected_headers):
     section = None
     label = None
     for kind, payload in blocks:
-        if kind == "h3":
-            section = payload
+        if kind in ("h1", "h2", "h3"):
+            section = payload if kind == "h3" else None
             label = None
         elif kind == "h4":
             label = payload
@@ -505,9 +593,10 @@ def sync_one(md_path, config, check_only=False):
 
     # 1) 文档页
     content = blocks_to_html(blocks)
-    page_html = PAGE_TEMPLATE.replace("{{CONTENT}}", content)
-    doc_page = os.path.join(ROOT, config["doc_page"])
-    write_if_changed(doc_page, page_html, check_only)
+    meta = dict(config["page"])
+    meta["doc_page"] = config["doc_page"]
+    page_html = render_page(content, meta)
+    write_if_changed(os.path.join(ROOT, config["doc_page"]), page_html, check_only)
 
     # 2) 榜单 CSV
     csvs = extract_csvs(blocks, config["csvs"], config["expected_headers"])
@@ -533,6 +622,9 @@ def write_if_changed(path, content, check_only):
 def main():
     check_only = "--check" in sys.argv
     for md_path, config in SYNC_CONFIG.items():
+        if not os.path.exists(os.path.join(ROOT, md_path)):
+            print("[%s] 跳过：文件不存在（等待添加）" % md_path)
+            continue
         sync_one(md_path, config, check_only)
 
 

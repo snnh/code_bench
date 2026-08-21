@@ -1,9 +1,10 @@
-name: Sync docs from code/*.md
+name: Sync docs from markdown
 
 on:
   push:
     paths:
       - "code/**"
+      - "ocr/**"
   workflow_dispatch:
 
 permissions:
@@ -27,6 +28,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: sync docs from code/*.md updates"
+            git commit -m "chore: sync docs from markdown updates"
             git push
           fi
