@@ -15,157 +15,6 @@
     <meta property="og:description" content="开发场景 OCR Benchmark v5 数据集、榜单、LLM 六维评分与积分规则。" />
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
-    <style>
-      .doc-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 28px;
-        border-bottom: 1px solid var(--color-border);
-        margin-bottom: 20px;
-      }
-      .doc-nav a {
-        appearance: none;
-        background: none;
-        border: none;
-        border-bottom: 2px solid transparent;
-        margin-bottom: -1px;
-        padding: 10px 2px;
-        font-family: var(--font-family-serif);
-        font-size: 15px;
-        letter-spacing: 0.04em;
-        color: var(--color-text);
-        opacity: 0.8;
-        text-decoration: none;
-        transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-      }
-      .doc-nav a:hover {
-        color: var(--color-text);
-        opacity: 1;
-      }
-      .doc-nav a.current {
-        opacity: 1;
-        border-bottom-color: var(--color-rule);
-        font-weight: 600;
-      }
-      .doc-article {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 8px 0 40px;
-      }
-      .doc-article h2 {
-        font-family: var(--font-family-serif);
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        margin: 40px 0 14px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--color-border);
-      }
-      .doc-article h2:first-child {
-        margin-top: 12px;
-      }
-      .doc-article h3 {
-        font-family: var(--font-family-serif);
-        font-size: 17px;
-        font-weight: 600;
-        margin: 26px 0 10px;
-      }
-      .doc-article h4 {
-        font-family: var(--font-family-serif);
-        font-size: 15px;
-        font-weight: 600;
-        margin: 20px 0 8px;
-      }
-      .doc-article p {
-        margin: 10px 0;
-        color: var(--color-text);
-      }
-      .doc-article code {
-        font-family: var(--font-family-mono);
-        font-size: 0.92em;
-        background: var(--color-accent-soft);
-        padding: 1px 5px;
-        border-radius: 3px;
-      }
-      .doc-article pre {
-        margin: 14px 0;
-        padding: 12px 14px;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius);
-        background: var(--color-panel);
-        overflow-x: auto;
-      }
-      .doc-article pre code {
-        display: block;
-        background: none;
-        padding: 0;
-        font-size: 13px;
-        line-height: 1.6;
-      }
-      .doc-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14px;
-        margin: 14px 0;
-        background: var(--color-panel);
-      }
-      .doc-table th,
-      .doc-table td {
-        border-bottom: 1px solid var(--color-border);
-        padding: 8px 12px;
-        text-align: left;
-        vertical-align: top;
-      }
-      .doc-table thead th {
-        border-top: 2px solid var(--color-rule);
-        border-bottom: 1px solid var(--color-rule);
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      .doc-table tbody tr:last-child td {
-        border-bottom: 2px solid var(--color-rule);
-      }
-      .doc-table tbody tr:nth-child(even) {
-        background: var(--color-row-even);
-      }
-      .doc-table tbody tr:hover {
-        background: var(--color-row-hover);
-      }
-      .doc-note {
-        margin: 6px 0 18px;
-        padding-left: 1.2em;
-        color: var(--color-muted);
-        font-size: 13px;
-      }
-      .doc-note li {
-        margin: 3px 0;
-      }
-      .doc-list {
-        padding-left: 1.4em;
-        margin: 10px 0;
-      }
-      .doc-list li {
-        margin: 6px 0;
-      }
-      .doc-tip {
-        margin: 18px 0;
-        padding: 10px 14px;
-        border: 1px solid var(--color-border);
-        border-left: 3px solid var(--color-accent);
-        background: var(--color-accent-soft);
-        font-size: 13.5px;
-        color: var(--color-muted);
-      }
-      @media (max-width: 768px) {
-        .doc-table {
-          font-size: 12.5px;
-        }
-        .doc-table th,
-        .doc-table td {
-          padding: 6px 8px;
-        }
-      }
-    </style>
   </head>
   <body>
     <script>
@@ -214,7 +63,7 @@
       <article class="doc-article">
         <p class="doc-tip">本页为开发场景 OCR Benchmark v5 完整说明；榜单数据可在<a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。</p>
 
-<h1>开发场景 OCR Benchmark v5</h1>
+<div class="doc-lead">开发场景 OCR Benchmark v5</div>
         <p>更新时间：2026-07-15</p>
         <p>开发场景 OCR 不只关心字符编辑距离。代码、配置、终端、错误日志和 IDE 截图更重视符号、缩进、阅读顺序、结构格式、噪声控制，以及输出能否直接复制、搜索和理解。</p>
         <p>Benchmark 名称保持 v5，当前内容版本为 5.2。固定测试集包含 304 题，使用 P01-P09 主类别与 <code>simple</code> / <code>medium</code> / <code>hard</code> 难度双轴诊断。v5.2 结果不能与 v4 或更早内容版本直接混排。</p>
@@ -224,9 +73,9 @@
 test.json
 测试集/</code></pre>
         <p>难度分布：</p>
-        <table class="doc-table"><thead><tr><th>难度</th><th>数量</th></tr></thead><tbody><tr><td>simple</td><td>63</td></tr><tr><td>medium</td><td>156</td></tr><tr><td>hard</td><td>85</td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>难度</th><th>数量</th></tr></thead><tbody><tr><td>simple</td><td>63</td></tr><tr><td>medium</td><td>156</td></tr><tr><td>hard</td><td>85</td></tr></tbody></table></div>
         <p>类别分布：</p>
-        <table class="doc-table"><thead><tr><th>主类别</th><th>数量</th></tr></thead><tbody><tr><td>P01 代码编辑器主体</td><td>75</td></tr><tr><td>P02 终端与命令行</td><td>35</td></tr><tr><td>P03 报错诊断与日志</td><td>36</td></tr><tr><td>P04 配置与工程声明</td><td>31</td></tr><tr><td>P05 版本控制与代码审阅</td><td>20</td></tr><tr><td>P06 文档与网页代码块</td><td>33</td></tr><tr><td>P07 API 参考与表格化结构</td><td>24</td></tr><tr><td>P08 交互式开发工具视图</td><td>20</td></tr><tr><td>P09 多区域混合开发屏</td><td>30</td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>主类别</th><th>数量</th></tr></thead><tbody><tr><td>P01 代码编辑器主体</td><td>75</td></tr><tr><td>P02 终端与命令行</td><td>35</td></tr><tr><td>P03 报错诊断与日志</td><td>36</td></tr><tr><td>P04 配置与工程声明</td><td>31</td></tr><tr><td>P05 版本控制与代码审阅</td><td>20</td></tr><tr><td>P06 文档与网页代码块</td><td>33</td></tr><tr><td>P07 API 参考与表格化结构</td><td>24</td></tr><tr><td>P08 交互式开发工具视图</td><td>20</td></tr><tr><td>P09 多区域混合开发屏</td><td>30</td></tr></tbody></table></div>
         <h2>流程</h2>
         <pre><code>固定 304 题 v5.2 测试集 + 模型 OCR 预测文本
         |
@@ -240,21 +89,21 @@ Benchmark v5 最终积分 + 类别/难度诊断</code></pre>
         <h2>Benchmark v5 结果</h2>
         <p>最终排序使用 <code>final_score_v5</code>。全局均值和 NED 仅作诊断，不直接参与最终积分。LLM 裁判带来的总分展示误差按 <code>±0.5</code> 计，小于 0.5 分的差距不视为显著差异。不同提示词策略不得混排。</p>
         <h3>短提示榜 &lt;image&gt;OCR:</h3>
-        <table class="doc-table"><thead><tr><th>方案</th><th>记录</th><th>最终积分</th><th>原始积分</th><th>类别加权</th><th>全局均值</th><th>最弱类别</th><th>最弱难度</th><th>严格可用率</th><th>完成率</th><th>安全分</th><th>平均 NED</th><th>报告</th><th>备注</th></tr></thead><tbody><tr><td>PaddleOCR-VL-1.6 本地微调版</td><td>304/304</td><td>58.4427 ±0.5</td><td>60.3374</td><td>72.8633</td><td>73.3494</td><td>P09</td><td>hard</td><td>38.1579%</td><td>99.0132%</td><td>90.7895%</td><td>0.1744</td><td><a href="reports/ppocr-vl16-6-for-code+local-finetune+image_ocr.md">report</a></td><td>本地 vLLM；正式参数 <code>max_tokens=4096</code>、<code>repetition_penalty=1.08</code>、<code>temperature=0</code></td></tr><tr><td>StepFun step-3.7-flash(high)</td><td>304/304</td><td>57.3628 ±0.5</td><td>62.3365</td><td>75.7061</td><td>75.5229</td><td>P09</td><td>hard</td><td>50.3289%</td><td>97.6974%</td><td>79.2763%</td><td>0.2481</td><td><a href="reports/step-3.7-flash+high+image_ocr.md">report</a></td><td>StepFun 官网 API；<code>reasoning_effort=high</code></td></tr><tr><td>Qwen3.7 Plus (thinking)</td><td>303/304</td><td>42.3615 ±0.5</td><td>55.8352</td><td>74.8958</td><td>74.9389</td><td>P03</td><td>hard</td><td>28.9474%</td><td>99.6711%</td><td>64.1447%</td><td>0.4205</td><td><a href="reports/qwen3.7-plus+thinking+image_ocr.md">report</a></td><td>阿里百炼 API；API 默认 thinking；主批次 <code>max_tokens=4096</code>、<code>temperature=0</code>；1 条默认参数补跑成功，另 1 条持续 504</td></tr><tr><td>DeepSeek V4 Flash Vision-Exp (thinking)</td><td>304/304</td><td>42.2189 ±0.5</td><td>52.89</td><td>71.5374</td><td>71.7351</td><td>P03</td><td>hard</td><td>32.5658%</td><td>95.0658%</td><td>71.7105%</td><td>0.2502</td><td><a href="reports/deepseek-v4-flash-vision-exp+think+image_ocr.md">report</a></td><td>官方；<code>temperature=0</code>、<code>max_tokens</code> 不限；裁判为 deepseek-v4-flash 开思考</td></tr><tr><td>PaddleOCR-VL-1.6 官网 API</td><td>303/304</td><td>40.1408 ±0.5</td><td>44.0553</td><td>63.8491</td><td>62.3878</td><td>P01</td><td>hard</td><td>25.6579%</td><td>98.0263%</td><td>80.2632%</td><td>0.2660</td><td><a href="reports/PaddleOCR-VL-1.6+official+image_ocr.md">report</a></td><td>官网异步 API；沿用旧版 1 条缺失记录</td></tr><tr><td>HyOCR 1.5 本地 vLLM</td><td>304/304</td><td>29.0668 ±0.5</td><td>39.5339</td><td>59.8956</td><td>60.6122</td><td>P09</td><td>hard</td><td>28.9474%</td><td>98.6842%</td><td>57.8947%</td><td>0.3813</td><td><a href="reports/hyocr1.5+local-vllm+image_ocr.md">report</a></td><td><code>temperature=0.0</code>；<code>top_p=1.0</code>；<code>top_k=-1</code>；<code>repetition_penalty=1.08</code></td></tr><tr><td>Gemini 3.5 Flash (medium)</td><td>304/304</td><td>0.0000 ±0.5</td><td>6.7391</td><td>40.3386</td><td>39.1830</td><td>P01</td><td>medium</td><td>1.3158%</td><td>94.7368%</td><td>12.8289%</td><td>0.6807</td><td><a href="reports/gemini-3.5-flash+medium+image_ocr.md">report</a></td><td>中转站 OpenAI-compatible API；短提示</td></tr><tr><td>Kimi K2.6 (thinking)</td><td>304/304</td><td>0.0000 ±0.5</td><td>6.4828</td><td>38.7807</td><td>38.9743</td><td>P03</td><td>medium</td><td>1.9737%</td><td>94.7368%</td><td>11.5132%</td><td>0.7793</td><td><a href="reports/kimi-k2.6+thinking+image_ocr.md">report</a></td><td>阿里百炼 API；API 默认 thinking；<code>max_tokens=4096</code>、<code>temperature=0</code></td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>方案</th><th>记录</th><th>最终积分</th><th>原始积分</th><th>类别加权</th><th>全局均值</th><th>最弱类别</th><th>最弱难度</th><th>严格可用率</th><th>完成率</th><th>安全分</th><th>平均 NED</th><th>报告</th><th>备注</th></tr></thead><tbody><tr><td>PaddleOCR-VL-1.6 本地微调版</td><td>304/304</td><td>58.4427 ±0.5</td><td>60.3374</td><td>72.8633</td><td>73.3494</td><td>P09</td><td>hard</td><td>38.1579%</td><td>99.0132%</td><td>90.7895%</td><td>0.1744</td><td><a href="reports/ppocr-vl16-6-for-code+local-finetune+image_ocr.md">report</a></td><td>本地 vLLM；正式参数 <code>max_tokens=4096</code>、<code>repetition_penalty=1.08</code>、<code>temperature=0</code></td></tr><tr><td>StepFun step-3.7-flash(high)</td><td>304/304</td><td>57.3628 ±0.5</td><td>62.3365</td><td>75.7061</td><td>75.5229</td><td>P09</td><td>hard</td><td>50.3289%</td><td>97.6974%</td><td>79.2763%</td><td>0.2481</td><td><a href="reports/step-3.7-flash+high+image_ocr.md">report</a></td><td>StepFun 官网 API；<code>reasoning_effort=high</code></td></tr><tr><td>Qwen3.7 Plus (thinking)</td><td>303/304</td><td>42.3615 ±0.5</td><td>55.8352</td><td>74.8958</td><td>74.9389</td><td>P03</td><td>hard</td><td>28.9474%</td><td>99.6711%</td><td>64.1447%</td><td>0.4205</td><td><a href="reports/qwen3.7-plus+thinking+image_ocr.md">report</a></td><td>阿里百炼 API；API 默认 thinking；主批次 <code>max_tokens=4096</code>、<code>temperature=0</code>；1 条默认参数补跑成功，另 1 条持续 504</td></tr><tr><td>DeepSeek V4 Flash Vision-Exp (thinking)</td><td>304/304</td><td>42.2189 ±0.5</td><td>52.89</td><td>71.5374</td><td>71.7351</td><td>P03</td><td>hard</td><td>32.5658%</td><td>95.0658%</td><td>71.7105%</td><td>0.2502</td><td><a href="reports/deepseek-v4-flash-vision-exp+think+image_ocr.md">report</a></td><td>官方；<code>temperature=0</code>、<code>max_tokens</code> 不限；裁判为 deepseek-v4-flash 开思考</td></tr><tr><td>PaddleOCR-VL-1.6 官网 API</td><td>303/304</td><td>40.1408 ±0.5</td><td>44.0553</td><td>63.8491</td><td>62.3878</td><td>P01</td><td>hard</td><td>25.6579%</td><td>98.0263%</td><td>80.2632%</td><td>0.2660</td><td><a href="reports/PaddleOCR-VL-1.6+official+image_ocr.md">report</a></td><td>官网异步 API；沿用旧版 1 条缺失记录</td></tr><tr><td>HyOCR 1.5 本地 vLLM</td><td>304/304</td><td>29.0668 ±0.5</td><td>39.5339</td><td>59.8956</td><td>60.6122</td><td>P09</td><td>hard</td><td>28.9474%</td><td>98.6842%</td><td>57.8947%</td><td>0.3813</td><td><a href="reports/hyocr1.5+local-vllm+image_ocr.md">report</a></td><td><code>temperature=0.0</code>；<code>top_p=1.0</code>；<code>top_k=-1</code>；<code>repetition_penalty=1.08</code></td></tr><tr><td>Gemini 3.5 Flash (medium)</td><td>304/304</td><td>0.0000 ±0.5</td><td>6.7391</td><td>40.3386</td><td>39.1830</td><td>P01</td><td>medium</td><td>1.3158%</td><td>94.7368%</td><td>12.8289%</td><td>0.6807</td><td><a href="reports/gemini-3.5-flash+medium+image_ocr.md">report</a></td><td>中转站 OpenAI-compatible API；短提示</td></tr><tr><td>Kimi K2.6 (thinking)</td><td>304/304</td><td>0.0000 ±0.5</td><td>6.4828</td><td>38.7807</td><td>38.9743</td><td>P03</td><td>medium</td><td>1.9737%</td><td>94.7368%</td><td>11.5132%</td><td>0.7793</td><td><a href="reports/kimi-k2.6+thinking+image_ocr.md">report</a></td><td>阿里百炼 API；API 默认 thinking；<code>max_tokens=4096</code>、<code>temperature=0</code></td></tr></tbody></table></div>
         <p>短提示榜结论：</p>
         <ul class="doc-note"><li>PaddleOCR-VL-1.6 本地微调版以正式参数成绩 <code>58.4427</code> 暂列第一，领先 StepFun step-3.7-flash(high) <code>1.0799</code> 分。</li><li>Step 的类别加权分与严格可用率更高，但 severe 比例更高；本地微调版的安全分为 <code>90.7895%</code>，完成率为 <code>99.0132%</code>。</li><li>本地微调版 <code>rp=1.08</code> 比 <code>rp=1.10</code> 诊断分高 <code>0.3581</code>：simple 直接可用率提高并减少基础题扣分，但 P09、hard 和类别加权分略降。</li><li>Qwen3.7 Plus 的类别加权分达到 <code>74.8958</code>，但 186 次解释性输出和 170 次额外包装把可靠性扣分推到 <code>13.4737</code>；另有 1 条复杂画面持续 504。</li><li>DeepSeek V4 Flash Vision-Exp 的 NED（<code>0.2502</code>）与类别加权分（<code>71.5374</code>）接近第一梯队，但 simple 直接可用率仅 <code>33.3333%</code>、P03 与 P09 的 severe 偏高，可靠性扣分为 <code>10.6711</code>。注意该行裁判为 deepseek-v4-flash 开思考模式。</li><li>PaddleOCR-VL-1.6 官网 API 完成率较高，但 simple 直接可用率和 P01 代码场景得分偏低。</li><li>HyOCR 1.5 在文档、配置等单区域内容上有一批高质量结果，但 severe 达到 <code>42.1053%</code>；多区域画面中的解释、幻觉和代码改写使最终积分降至 <code>29.0668</code>。</li><li>Gemini 在短提示下频繁产生解释、补全和改写，可靠性扣分达到上限，最终积分为 <code>0</code>。</li><li>Kimi K2.6 几乎把整套测试当成代码讲解任务，293 题出现解释性文字、205 题出现幻觉，最终积分为 <code>0</code>。</li></ul>
         <h3>官方推荐提示词榜</h3>
         <p>本组使用模型卡官方推荐提示词，不与 <code>&lt;image&gt;OCR:</code> 短提示榜直接排序。OvisOCR2 的提示词要求提取全部可读内容、按 Markdown 输出，并把表格转换为 HTML；这一目标与开发截图的主区域忠实转写存在口径差异。</p>
-        <table class="doc-table"><thead><tr><th>方案</th><th>记录</th><th>最终积分</th><th>原始积分</th><th>类别加权</th><th>全局均值</th><th>最弱类别</th><th>最弱难度</th><th>严格可用率</th><th>完成率</th><th>安全分</th><th>平均 NED</th><th>报告</th><th>备注</th></tr></thead><tbody><tr><td>OvisOCR2 本地 vLLM</td><td>304/304</td><td>49.1981 ±0.5</td><td>53.3494</td><td>68.4454</td><td>67.9593</td><td>P09</td><td>hard</td><td>29.2763%</td><td>96.0526%</td><td>79.6053%</td><td>0.2414</td><td><a href="reports/ovisocr2+local-vllm+official-prompt.md">report</a></td><td>官方模型卡提示词；<code>temperature=0.0</code>；本地 vLLM <code>0.21.0</code></td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>方案</th><th>记录</th><th>最终积分</th><th>原始积分</th><th>类别加权</th><th>全局均值</th><th>最弱类别</th><th>最弱难度</th><th>严格可用率</th><th>完成率</th><th>安全分</th><th>平均 NED</th><th>报告</th><th>备注</th></tr></thead><tbody><tr><td>OvisOCR2 本地 vLLM</td><td>304/304</td><td>49.1981 ±0.5</td><td>53.3494</td><td>68.4454</td><td>67.9593</td><td>P09</td><td>hard</td><td>29.2763%</td><td>96.0526%</td><td>79.6053%</td><td>0.2414</td><td><a href="reports/ovisocr2+local-vllm+official-prompt.md">report</a></td><td>官方模型卡提示词；<code>temperature=0.0</code>；本地 vLLM <code>0.21.0</code></td></tr></tbody></table></div>
         <p>本组结论：</p>
         <ul class="doc-note"><li>OvisOCR2 在 P06 文档代码块、P02 终端和 P04 配置上表现较好，类别分分别为 <code>78.4000</code>、<code>77.8444</code>、<code>74.4524</code>。</li><li>官方“全部可读内容”提示使行号、标签页和其他 UI 更容易进入输出，<code>extra_ui_text</code> 达 172 次；P01 和 P09 分别只有 <code>56.7428</code>、<code>56.2631</code>。</li><li>P07 表格类受官方 HTML 转换要求与忠实转写真值的双重影响，类别分为 <code>64.3873</code>，severe 为 <code>37.5000%</code>。</li><li>15 题输出长度超过真值 3 倍，重复输出出现 12 次；最终可靠性扣分为 <code>4.1513</code>。</li></ul>
         <h3>类别诊断（短提示）</h3>
-        <table class="doc-table"><thead><tr><th>类别</th><th>最佳方案</th><th>类别分</th></tr></thead><tbody><tr><td>P01 代码编辑器主体</td><td>Qwen3.7 Plus (thinking)</td><td>73.0144</td></tr><tr><td>P02 终端与命令行</td><td>StepFun step-3.7-flash(high)</td><td>84.3840</td></tr><tr><td>P03 报错诊断与日志</td><td>StepFun step-3.7-flash(high)</td><td>75.3920</td></tr><tr><td>P04 配置与工程声明</td><td>Qwen3.7 Plus (thinking)</td><td>84.7752</td></tr><tr><td>P05 版本控制与代码审阅</td><td>StepFun step-3.7-flash(high)</td><td>74.8332</td></tr><tr><td>P06 文档与网页代码块</td><td>StepFun step-3.7-flash(high)</td><td>90.0255</td></tr><tr><td>P07 API 参考与表格化结构</td><td>StepFun step-3.7-flash(high)</td><td>81.0332</td></tr><tr><td>P08 交互式开发工具视图</td><td>Qwen3.7 Plus (thinking)</td><td>85.7786</td></tr><tr><td>P09 多区域混合开发屏</td><td>Qwen3.7 Plus (thinking)</td><td>70.5303</td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>类别</th><th>最佳方案</th><th>类别分</th></tr></thead><tbody><tr><td>P01 代码编辑器主体</td><td>Qwen3.7 Plus (thinking)</td><td>73.0144</td></tr><tr><td>P02 终端与命令行</td><td>StepFun step-3.7-flash(high)</td><td>84.3840</td></tr><tr><td>P03 报错诊断与日志</td><td>StepFun step-3.7-flash(high)</td><td>75.3920</td></tr><tr><td>P04 配置与工程声明</td><td>Qwen3.7 Plus (thinking)</td><td>84.7752</td></tr><tr><td>P05 版本控制与代码审阅</td><td>StepFun step-3.7-flash(high)</td><td>74.8332</td></tr><tr><td>P06 文档与网页代码块</td><td>StepFun step-3.7-flash(high)</td><td>90.0255</td></tr><tr><td>P07 API 参考与表格化结构</td><td>StepFun step-3.7-flash(high)</td><td>81.0332</td></tr><tr><td>P08 交互式开发工具视图</td><td>Qwen3.7 Plus (thinking)</td><td>85.7786</td></tr><tr><td>P09 多区域混合开发屏</td><td>Qwen3.7 Plus (thinking)</td><td>70.5303</td></tr></tbody></table></div>
         <h3>难度诊断（短提示）</h3>
-        <table class="doc-table"><thead><tr><th>难度</th><th>最佳方案</th><th>难度分</th><th>severe</th></tr></thead><tbody><tr><td>simple</td><td>StepFun step-3.7-flash(high)</td><td>80.3142</td><td>14.2857%</td></tr><tr><td>medium</td><td>StepFun step-3.7-flash(high)</td><td>77.3041</td><td>21.1538%</td></tr><tr><td>hard</td><td>Qwen3.7 Plus (thinking)</td><td>71.6304</td><td>36.4706%</td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>难度</th><th>最佳方案</th><th>难度分</th><th>severe</th></tr></thead><tbody><tr><td>simple</td><td>StepFun step-3.7-flash(high)</td><td>80.3142</td><td>14.2857%</td></tr><tr><td>medium</td><td>StepFun step-3.7-flash(high)</td><td>77.3041</td><td>21.1538%</td></tr><tr><td>hard</td><td>Qwen3.7 Plus (thinking)</td><td>71.6304</td><td>36.4706%</td></tr></tbody></table></div>
         <h2>LLM 六维评分</h2>
         <p>裁判模型为 <code>tencent/hy3:free</code>，prompt 版本为 <code>dev_ocr_judge_v5_compat_hy3_reasoning_none</code>。裁判只比较人工真值与模型输出，不把 NED 传入 prompt。<code>DeepSeek V4 Flash Vision-Exp (thinking)</code> 一行为口径例外：该行使用 <code>deepseek-v4-flash</code> 裁判（开思考、max_tokens 不限、同一 prompt 版本），严格度高于 hy3 裁判，其积分仅作参考，不参与横向排序比较。</p>
-        <table class="doc-table"><thead><tr><th>维度</th><th>满分</th><th>含义</th></tr></thead><tbody><tr><td><code>content_coverage_0_10</code></td><td>10</td><td>主要内容覆盖</td></tr><tr><td><code>symbol_accuracy_0_10</code></td><td>10</td><td>字符、代码符号、大小写、数字、路径和标点准确性</td></tr><tr><td><code>indentation_alignment_0_10</code></td><td>10</td><td>缩进、嵌套层级、表格或列表对齐</td></tr><tr><td><code>structure_format_0_10</code></td><td>10</td><td>换行、代码块、列表、表格和区域结构</td></tr><tr><td><code>reading_region_order_0_10</code></td><td>10</td><td>阅读顺序、区域顺序和多文本块顺序</td></tr><tr><td><code>noise_and_usability_0_10</code></td><td>10</td><td>重复、幻觉、无关文本、解释性文字和实际可用性</td></tr></tbody></table>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>维度</th><th>满分</th><th>含义</th></tr></thead><tbody><tr><td><code>content_coverage_0_10</code></td><td>10</td><td>主要内容覆盖</td></tr><tr><td><code>symbol_accuracy_0_10</code></td><td>10</td><td>字符、代码符号、大小写、数字、路径和标点准确性</td></tr><tr><td><code>indentation_alignment_0_10</code></td><td>10</td><td>缩进、嵌套层级、表格或列表对齐</td></tr><tr><td><code>structure_format_0_10</code></td><td>10</td><td>换行、代码块、列表、表格和区域结构</td></tr><tr><td><code>reading_region_order_0_10</code></td><td>10</td><td>阅读顺序、区域顺序和多文本块顺序</td></tr><tr><td><code>noise_and_usability_0_10</code></td><td>10</td><td>重复、幻觉、无关文本、解释性文字和实际可用性</td></tr></tbody></table></div>
         <h2>积分规则</h2>
         <p>样本分：</p>
         <pre><code>sample_score = 100 * (

@@ -132,157 +132,6 @@ def render_page(content, meta):
     <meta property="og:description" content="%(description)s" />
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
-    <style>
-      .doc-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 28px;
-        border-bottom: 1px solid var(--color-border);
-        margin-bottom: 20px;
-      }
-      .doc-nav a {
-        appearance: none;
-        background: none;
-        border: none;
-        border-bottom: 2px solid transparent;
-        margin-bottom: -1px;
-        padding: 10px 2px;
-        font-family: var(--font-family-serif);
-        font-size: 15px;
-        letter-spacing: 0.04em;
-        color: var(--color-text);
-        opacity: 0.8;
-        text-decoration: none;
-        transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-      }
-      .doc-nav a:hover {
-        color: var(--color-text);
-        opacity: 1;
-      }
-      .doc-nav a.current {
-        opacity: 1;
-        border-bottom-color: var(--color-rule);
-        font-weight: 600;
-      }
-      .doc-article {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 8px 0 40px;
-      }
-      .doc-article h2 {
-        font-family: var(--font-family-serif);
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        margin: 40px 0 14px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--color-border);
-      }
-      .doc-article h2:first-child {
-        margin-top: 12px;
-      }
-      .doc-article h3 {
-        font-family: var(--font-family-serif);
-        font-size: 17px;
-        font-weight: 600;
-        margin: 26px 0 10px;
-      }
-      .doc-article h4 {
-        font-family: var(--font-family-serif);
-        font-size: 15px;
-        font-weight: 600;
-        margin: 20px 0 8px;
-      }
-      .doc-article p {
-        margin: 10px 0;
-        color: var(--color-text);
-      }
-      .doc-article code {
-        font-family: var(--font-family-mono);
-        font-size: 0.92em;
-        background: var(--color-accent-soft);
-        padding: 1px 5px;
-        border-radius: 3px;
-      }
-      .doc-article pre {
-        margin: 14px 0;
-        padding: 12px 14px;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius);
-        background: var(--color-panel);
-        overflow-x: auto;
-      }
-      .doc-article pre code {
-        display: block;
-        background: none;
-        padding: 0;
-        font-size: 13px;
-        line-height: 1.6;
-      }
-      .doc-table {
-        width: 100%%;
-        border-collapse: collapse;
-        font-size: 14px;
-        margin: 14px 0;
-        background: var(--color-panel);
-      }
-      .doc-table th,
-      .doc-table td {
-        border-bottom: 1px solid var(--color-border);
-        padding: 8px 12px;
-        text-align: left;
-        vertical-align: top;
-      }
-      .doc-table thead th {
-        border-top: 2px solid var(--color-rule);
-        border-bottom: 1px solid var(--color-rule);
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      .doc-table tbody tr:last-child td {
-        border-bottom: 2px solid var(--color-rule);
-      }
-      .doc-table tbody tr:nth-child(even) {
-        background: var(--color-row-even);
-      }
-      .doc-table tbody tr:hover {
-        background: var(--color-row-hover);
-      }
-      .doc-note {
-        margin: 6px 0 18px;
-        padding-left: 1.2em;
-        color: var(--color-muted);
-        font-size: 13px;
-      }
-      .doc-note li {
-        margin: 3px 0;
-      }
-      .doc-list {
-        padding-left: 1.4em;
-        margin: 10px 0;
-      }
-      .doc-list li {
-        margin: 6px 0;
-      }
-      .doc-tip {
-        margin: 18px 0;
-        padding: 10px 14px;
-        border: 1px solid var(--color-border);
-        border-left: 3px solid var(--color-accent);
-        background: var(--color-accent-soft);
-        font-size: 13.5px;
-        color: var(--color-muted);
-      }
-      @media (max-width: 768px) {
-        .doc-table {
-          font-size: 12.5px;
-        }
-        .doc-table th,
-        .doc-table td {
-          padding: 6px 8px;
-        }
-      }
-    </style>
   </head>
   <body>
     <script>
@@ -417,7 +266,8 @@ def render_table(rows):
             out.append("<td>%s</td>" % inline(cell))
         out.append("</tr>")
     out.append("</tbody></table>")
-    return "".join(out)
+    # 宽表包一层横向滚动容器，避免撑破文章栏宽
+    return '<div class="doc-table-wrap">' + "".join(out) + "</div>"
 
 
 def render_lists(lines, index):
@@ -521,7 +371,8 @@ def blocks_to_html(blocks):
     out = []
     for kind, payload in blocks:
         if kind == "h1":
-            out.append("<h1>%s</h1>" % inline(payload))
+            # 页面刊头（<header><h1>）已承载主标题；正文里的 # 标题渲染为引言，避免重复 h1
+            out.append('<div class="doc-lead">%s</div>' % inline(payload))
         elif kind == "h2":
             out.append("<h2>%s</h2>" % inline(payload))
         elif kind == "h3":

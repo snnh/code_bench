@@ -1083,6 +1083,247 @@ a.view-tab {
   background: var(--color-muted);
 }
 
+/* ---------------------------------------------------------------------------
+ * 文档页（说明页 bench.html / ocr_bench.html）
+ * 长文阅读排版：居中窄栏、衬线标题、宽表横向滚动、提示框。
+ * ------------------------------------------------------------------------- */
+
+.doc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.doc-nav a {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 10px 2px;
+  font-family: var(--font-family-serif);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  opacity: 0.8;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.doc-nav a:hover {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+.doc-nav a.current {
+  opacity: 1;
+  border-bottom-color: var(--color-rule);
+  font-weight: 600;
+}
+
+.doc-article {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px 0 40px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+.doc-article .doc-lead {
+  font-family: var(--font-family-serif);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 4px 0 20px;
+  color: var(--color-text);
+}
+
+/* 引言紧跟首个小节标题时收紧间距，避免标题与首节之间空隙过大 */
+.doc-article .doc-lead + h2 {
+  margin-top: 8px;
+}
+
+.doc-article h2 {
+  font-family: var(--font-family-serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 44px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.doc-article h2:first-child {
+  margin-top: 12px;
+}
+
+.doc-article h3 {
+  font-family: var(--font-family-serif);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 30px 0 12px;
+}
+
+.doc-article h4 {
+  font-family: var(--font-family-serif);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 24px 0 10px;
+  color: var(--color-text);
+}
+
+.doc-article p {
+  margin: 14px 0;
+}
+
+.doc-article code {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  background: var(--color-accent-soft);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.doc-article pre {
+  margin: 16px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-panel);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.doc-article pre code {
+  display: block;
+  background: none;
+  padding: 0;
+  font-size: 13px;
+}
+
+/* 宽表横向滚动容器 */
+.doc-table-wrap {
+  margin: 16px 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--color-panel);
+}
+
+.doc-table-wrap::-webkit-scrollbar {
+  height: 8px;
+}
+
+.doc-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.doc-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--color-panel);
+}
+
+.doc-table th,
+.doc-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-table thead th {
+  border-top: 2px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--color-table-head);
+}
+
+.doc-table tbody tr:last-child td {
+  border-bottom: 2px solid var(--color-rule);
+}
+
+.doc-table tbody tr:nth-child(even) {
+  background: var(--color-row-even);
+}
+
+.doc-table tbody tr:hover {
+  background: var(--color-row-hover);
+}
+
+.doc-note {
+  margin: 6px 0 18px;
+  padding-left: 1.2em;
+  color: var(--color-muted);
+  font-size: 13.5px;
+}
+
+.doc-note li {
+  margin: 4px 0;
+}
+
+.doc-list {
+  padding-left: 1.4em;
+  margin: 12px 0;
+}
+
+.doc-list li {
+  margin: 8px 0;
+}
+
+.doc-tip {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-accent-soft);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.doc-tip a {
+  color: var(--color-accent);
+}
+
+@media (max-width: 768px) {
+  .doc-nav {
+    gap: 0 20px;
+  }
+
+  .doc-article {
+    font-size: 15px;
+  }
+
+  .doc-article .doc-lead {
+    font-size: 20px;
+  }
+
+  .doc-table {
+    font-size: 12.5px;
+  }
+
+  .doc-table th,
+  .doc-table td {
+    padding: 6px 9px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
