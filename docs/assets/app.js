@@ -11,11 +11,14 @@ import {
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
   "各语言平均成绩": "dataset.title.averageByLanguage",
-  "总分": "dataset.title.total",
+  "基础题总分": "dataset.title.total",
   "core": "dataset.title.core",
   "server": "dataset.title.server",
   "web": "dataset.title.web",
+  "高阶题总分": "dataset.title.advancedTotal",
   "高阶题": "dataset.title.full",
+  "full": "dataset.title.full",
+  "rust": "dataset.title.rust",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
   "类别诊断": "dataset.title.categoryDiagnosis",
@@ -92,7 +95,7 @@ const HEADER_TRANSLATIONS = {
   severe: "table.header.severe",
 };
 
-const CATEGORY_ORDER = ["code_bench", "ocr_bench", "logic", "code", "vision"];
+const CATEGORY_ORDER = ["code_basic", "code_advanced", "ocr_bench", "logic", "code", "vision"];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";

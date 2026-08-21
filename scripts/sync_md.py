@@ -39,11 +39,13 @@ SYNC_CONFIG = {
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
         },
         "csvs": {
-            ("基础题", "总分"): "docs/data/code_bench/v1.1-total.csv",
+            ("基础题", "基础题总分"): "docs/data/code_bench/v1.1-total.csv",
             ("基础题", "core"): "docs/data/code_bench/v1.1-core.csv",
             ("基础题", "server"): "docs/data/code_bench/v1.1-server.csv",
             ("基础题", "web"): "docs/data/code_bench/v1.1-web.csv",
-            ("高阶题", None): "docs/data/code_bench/v1.1-full.csv",
+            ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.1-advanced-total.csv",
+            ("高阶题", "full"): "docs/data/code_bench/v1.1-full.csv",
+            ("高阶题", "rust"): "docs/data/code_bench/v1.1-rust.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/v1.1-total.csv": [
@@ -60,6 +62,12 @@ SYNC_CONFIG = {
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
             "docs/data/code_bench/v1.1-full.csv": [
+                "排名", "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
+            ],
+            "docs/data/code_bench/v1.1-advanced-total.csv": [
+                "排名", "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
+            ],
+            "docs/data/code_bench/v1.1-rust.csv": [
                 "排名", "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
         },

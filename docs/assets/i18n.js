@@ -157,9 +157,13 @@ const TRANSLATIONS = {
     "zh-CN": "视觉",
     "en-US": "Vision",
   },
-  "category.code_bench": {
-    "zh-CN": "Code Bench",
-    "en-US": "Code Bench",
+  "category.code_basic": {
+    "zh-CN": "code基础",
+    "en-US": "Code Basic",
+  },
+  "category.code_advanced": {
+    "zh-CN": "code高阶",
+    "en-US": "Code Advanced",
   },
   "category.ocr_bench": {
     "zh-CN": "OCR Bench",
@@ -178,8 +182,8 @@ const TRANSLATIONS = {
     "en-US": "Average score by language",
   },
   "dataset.title.total": {
-    "zh-CN": "总分",
-    "en-US": "Total",
+    "zh-CN": "基础题总分",
+    "en-US": "Basic total",
   },
   "dataset.title.core": {
     "zh-CN": "core",
@@ -194,8 +198,16 @@ const TRANSLATIONS = {
     "en-US": "Web",
   },
   "dataset.title.full": {
-    "zh-CN": "高阶题",
-    "en-US": "Advanced",
+    "zh-CN": "full",
+    "en-US": "Full",
+  },
+  "dataset.title.advancedTotal": {
+    "zh-CN": "高阶题总分",
+    "en-US": "Advanced total",
+  },
+  "dataset.title.rust": {
+    "zh-CN": "rust",
+    "en-US": "Rust",
   },
   "dataset.title.shortPrompt": {
     "zh-CN": "短提示榜",
