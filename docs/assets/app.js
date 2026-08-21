@@ -1275,7 +1275,7 @@ function bindEventHandlers() {
   if (elements.viewTabBoard) {
     elements.viewTabBoard.addEventListener("click", () => {
       setView("board");
-      // 点击「致知」默认跳转第一个类别
+      // 点击「榜单」默认跳转第一个类别
       const firstCategory = state.categoryOptions[0] || null;
       if (firstCategory && firstCategory !== state.currentCategory) {
         setActiveCategory(firstCategory);

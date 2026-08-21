@@ -3,30 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>code_bench v1.1｜榜单查询</title>
+    <title>LLM Bench｜榜单查询</title>
     <meta
       name="description"
-      content="code_bench 持续追踪主流大语言模型复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的评测成绩，提供基础题与高阶题榜单、成本与 token 对比。"
+      content="LLM Bench 追踪主流大模型在编程复刻（code_bench）与开发场景 OCR（OCR Bench）上的评测成绩，提供交互榜单、成本与 token 对比。"
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://snnh.github.io/code_bench/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="致知" />
+    <meta property="og:site_name" content="LLM Bench" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:url" content="https://snnh.github.io/code_bench/" />
-    <meta property="og:title" content="code_bench v1.1｜榜单查询" />
+    <meta property="og:title" content="LLM Bench｜榜单查询" />
     <meta
       property="og:description"
-      content="code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。"
+      content="LLM Bench 大模型开发能力评测：编程复刻与开发场景 OCR 榜单、成本与 token 对比。"
     />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="code_bench v1.1｜榜单查询" />
+    <meta name="twitter:title" content="LLM Bench｜榜单查询" />
     <meta
       name="twitter:description"
-      content="code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。"
+      content="LLM Bench 大模型开发能力评测：编程复刻与开发场景 OCR 榜单、成本与 token 对比。"
     />
 
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
@@ -39,18 +39,18 @@
             "@type": "WebSite",
             "@id": "https://snnh.github.io/code_bench/#website",
             "url": "https://snnh.github.io/code_bench/",
-            "name": "Code Bench",
+            "name": "LLM Bench",
             "alternateName": "code_bench",
-            "description": "大模型复刻 openwebcode 项目评测榜单（C11 执行器、Node 服务层、React 前端）。",
+            "description": "大模型开发能力评测榜单：编程复刻（code_bench）与开发场景 OCR（OCR Bench）。",
             "inLanguage": ["zh-CN", "en-US"]
           },
           {
             "@type": "Dataset",
             "@id": "https://snnh.github.io/code_bench/#dataset",
             "url": "https://snnh.github.io/code_bench/",
-            "name": "code_bench 评测数据",
-            "alternateName": "code_bench Benchmark Data",
-            "description": "主流大语言模型复刻 openwebcode 项目的评测成绩、成本与 token 数据。",
+            "name": "LLM Bench 评测数据",
+            "alternateName": "LLM Bench Benchmark Data",
+            "description": "主流大语言模型在编程复刻与开发场景 OCR 上的评测成绩、成本与 token 数据。",
             "isAccessibleForFree": true,
             "creator": {
               "@type": "Person",
@@ -92,13 +92,13 @@
           />
         </svg>
       </a>
-      <h1 id="pageTitle">致知</h1>
-      <p class="subtitle" id="pageSubtitle">大模型智力长期追踪榜单</p>
+      <h1 id="pageTitle">LLM Bench</h1>
+      <p class="subtitle" id="pageSubtitle">大模型开发能力评测 · 编程复刻与开发场景 OCR</p>
     </header>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <main>
       <nav class="view-tabs" id="viewTabs" aria-label="">
-        <button id="viewTabBoard" type="button" class="view-tab view-tab--icon" aria-label="致知" title="致知">
+        <button id="viewTabBoard" type="button" class="view-tab view-tab--icon" aria-label="榜单" title="榜单">
           <img class="view-tab-icon" src="assets/favicon.png" alt="" />
         </button>
         <div class="view-tabs-categories" id="viewTabsCategories" role="group" aria-label=""></div>

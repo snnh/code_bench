@@ -10,24 +10,24 @@ const LOCALE_LABELS = {
 /** @type {Record<string, Record<string, string>>} */
 const TRANSLATIONS = {
   "app.title": {
-    "zh-CN": "Code Bench",
-    "en-US": "Code Bench",
+    "zh-CN": "LLM Bench",
+    "en-US": "LLM Bench",
   },
   "app.documentTitle": {
-    "zh-CN": "code_bench v1.1｜榜单查询",
-    "en-US": "code_bench v1.1 | Leaderboard",
+    "zh-CN": "LLM Bench｜榜单查询",
+    "en-US": "LLM Bench | Leaderboard",
   },
   "app.metaDescription": {
-    "zh-CN": "code_bench 持续追踪主流大语言模型复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的评测成绩，提供基础题与高阶题榜单、成本与 token 对比。",
-    "en-US": "Track leading language models replicating the openwebcode project (C11 executor, Node service layer, React frontend) with leaderboards for basic and advanced tasks, costs, and token usage.",
+    "zh-CN": "LLM Bench 追踪主流大模型在编程复刻（code_bench）与开发场景 OCR（OCR Bench）上的评测成绩，提供交互榜单、成本与 token 对比。",
+    "en-US": "LLM Bench tracks leading models on coding replication (code_bench) and development-scenario OCR (OCR Bench), with interactive leaderboards, cost and token comparisons.",
   },
   "app.socialDescription": {
-    "zh-CN": "code_bench 大模型复刻 openwebcode 项目评测榜单：基础题与高阶题成绩、成本与 token 对比。",
-    "en-US": "code_bench leaderboard: language models replicating the openwebcode project — scores, costs, and token usage.",
+    "zh-CN": "LLM Bench 大模型开发能力评测：编程复刻与开发场景 OCR 榜单、成本与 token 对比。",
+    "en-US": "LLM Bench: coding replication and dev-scenario OCR leaderboards — scores, costs, and token usage.",
   },
   "header.subtitle": {
-    "zh-CN": "大模型复刻 openwebcode 项目评测榜单",
-    "en-US": "LLM leaderboard for replicating the openwebcode project",
+    "zh-CN": "大模型开发能力评测 · 编程复刻与开发场景 OCR",
+    "en-US": "LLM development benchmarks · coding & dev-scenario OCR",
   },
   "controls.category.label": {
     "zh-CN": "数据类别",
@@ -619,7 +619,7 @@ const TRANSLATIONS = {
     "en-US": "Light, fast",
   },
   "view.board": {
-    "zh-CN": "致知",
+    "zh-CN": "榜单",
     "en-US": "Leaderboard",
   },
   "view.trends": {
