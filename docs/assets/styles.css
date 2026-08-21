@@ -541,7 +541,22 @@ a.view-tab {
   background: var(--color-panel);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  overflow: clip;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
 }
 
 .table-container table {
@@ -633,11 +648,10 @@ a.view-tab {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-width: 0;
 }
 
 .table-container .model-cell-name {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .table-container tbody tr.family-lit .model-cell::before {
