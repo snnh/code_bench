@@ -619,6 +619,27 @@ a.view-tab {
   position: relative;
 }
 
+/* 模型 logo（表格 + 移动端卡片共用）：与模型名横向排列 */
+.model-logo {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.table-container .model-cell-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.table-container .model-cell-name {
+  overflow-wrap: anywhere;
+}
+
 .table-container tbody tr.family-lit .model-cell::before {
   content: "";
   position: absolute;
@@ -707,6 +728,18 @@ a.view-tab {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 9px;
+}
+
+.mobile-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mobile-card-title-group .model-logo {
+  width: 18px;
+  height: 18px;
 }
 
 .mobile-card-title {

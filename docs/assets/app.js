@@ -1947,10 +1947,25 @@ function createMobileCard(row, layout, headerIndexMap, modelColumnIndex) {
   const header = document.createElement("header");
   header.className = "mobile-card-header";
 
+  const titleGroup = document.createElement("div");
+  titleGroup.className = "mobile-card-title-group";
+
+  const logo = modelColumnIndex >= 0 ? getModelLogoImage(row.cells[modelColumnIndex]) : null;
+  if (logo) {
+    const img = logo.cloneNode(false);
+    img.className = "model-logo";
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+    img.setAttribute("decoding", "async");
+    titleGroup.appendChild(img);
+  }
+
   const title = document.createElement("h3");
   title.className = "mobile-card-title";
   title.textContent = modelValue || t("table.mobile.unknownModel");
-  header.appendChild(title);
+  titleGroup.appendChild(title);
+
+  header.appendChild(titleGroup);
 
   if (row.isThink) {
     const badge = document.createElement("span");
@@ -2130,7 +2145,29 @@ function renderTable() {
         }
       }
       const displayValue = cell ? formatCellForDisplay(state.headers[columnIndex], cell) : "—";
-      td.textContent = displayValue;
+
+      if (columnIndex === modelColumnIndex) {
+        // 模型单元格：logo + 名称横向排列（无匹配 logo 时退化为纯文本）
+        const inner = document.createElement("span");
+        inner.className = "model-cell-inner";
+        const logo = getModelLogoImage(cell);
+        if (logo) {
+          td.classList.add("has-logo");
+          const img = logo.cloneNode(false);
+          img.className = "model-logo";
+          img.alt = "";
+          img.setAttribute("aria-hidden", "true");
+          img.setAttribute("decoding", "async");
+          inner.appendChild(img);
+        }
+        const name = document.createElement("span");
+        name.className = "model-cell-name";
+        name.textContent = displayValue;
+        inner.appendChild(name);
+        td.appendChild(inner);
+      } else {
+        td.textContent = displayValue;
+      }
 
       if (columnIndex === modelColumnIndex && row.isThink) {
         td.classList.add("think-model");
