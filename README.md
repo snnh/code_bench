@@ -1,4 +1,4 @@
-# code_bench v1.1
+# code_bench v1.1 和 ocr bench
 
 [榜单查询](https://snnh.github.io/code_bench/)
 
