@@ -1,4 +1,4 @@
-# code_bench v1.1
+# code_bench v1.2
 
 ## 题目结构
 

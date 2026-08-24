@@ -2,52 +2,52 @@
   "datasets": [
     {
       "category": "code_basic",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 0,
       "title": "基础题总分",
-      "csv": "data/code_bench/v1.1-total.csv"
+      "csv": "data/code_bench/v1.2-total.csv"
     },
     {
       "category": "code_basic",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 1,
       "title": "core",
-      "csv": "data/code_bench/v1.1-core.csv"
+      "csv": "data/code_bench/v1.2-core.csv"
     },
     {
       "category": "code_basic",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 2,
       "title": "server",
-      "csv": "data/code_bench/v1.1-server.csv"
+      "csv": "data/code_bench/v1.2-server.csv"
     },
     {
       "category": "code_basic",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 3,
       "title": "web",
-      "csv": "data/code_bench/v1.1-web.csv"
+      "csv": "data/code_bench/v1.2-web.csv"
     },
     {
       "category": "code_advanced",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 0,
       "title": "高阶题总分",
-      "csv": "data/code_bench/v1.1-advanced-total.csv"
+      "csv": "data/code_bench/v1.2-advanced-total.csv"
     },
     {
       "category": "code_advanced",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 1,
       "title": "full",
-      "csv": "data/code_bench/v1.1-full.csv"
+      "csv": "data/code_bench/v1.2-full.csv"
     },
     {
       "category": "code_advanced",
-      "reportDate": "v1.1",
+      "reportDate": "v1.2",
       "tableIndex": 2,
       "title": "rust",
-      "csv": "data/code_bench/v1.1-rust.csv"
+      "csv": "data/code_bench/v1.2-rust.csv"
     },
     {
       "category": "ocr_bench",
