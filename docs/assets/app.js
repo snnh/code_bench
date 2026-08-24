@@ -463,6 +463,16 @@ const MOBILE_CARD_LAYOUTS = {
       ["发布时间", "报告日期", "测试时间"],
     ],
   },
+  code_bench: {
+    className: "mobile-card--code",
+    fieldGroups: [
+      ["总积分", "积分"],
+      ["成本(折算API价格)", "成本", "测试成本(元)", "成本(元)", "使用成本(元)"],
+      ["token(不算缓存)", "token", "Token", "平均Token"],
+      ["缓存"],
+      ["订阅折算"],
+    ],
+  },
   logic: {
     className: "mobile-card--logic",
     suppressDetails: true,
