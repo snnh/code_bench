@@ -83,6 +83,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | --- | --- | --- | --- | --- | --- | --- |
 | deepseek-v4-flash-vision-exp(max) | 41.05 | 1.44-2.88元 | 189k | 99.7%(14.153m) | 官方 | 无 |
 | ox-alpha(max) | 40.45 | 0元 | 408k | 98.6%(15.974m) | openrouter | 无 |
+| deepseek-v4-pro0813(max) | 36.1 |  4.92-9.84元 | 247k | 99.4%(16.009m) | 官方 | 采用dsh极简模式预设，优势项见分析5 |
 
 **full**
 
@@ -98,6 +99,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | --- | --- | --- | --- | --- | --- | --- |
 | deepseek-v4-flash-vision-exp(max) | 82.1 | 1.44-2.88元 | 189k | 99.7%(14.153m) | 官方 | 无 |
 | ox-alpha(max) | 80.9 | 0元 | 408k | 98.6%(15.973m) | openrouter | 无 |
+| deepseek-v4-pro0813(max) | 72.2 |  4.92-9.84元 | 247k | 99.4%(16.009m) | 官方 | 采用dsh极简模式预设，优势项见分析5 |
 
 
 ## 分析
@@ -106,7 +108,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 2. 单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分
 3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
 4. gemini-3.7-flash(high)web错误：f2-stop-visible / f3-tool-block / f3-tool-done「找不到 composer」实为找不到 send + f3-reload-auto/persist
-5. ...
+5. v4p在rust项目优于 ox/v4fv 的点：AtomicU64 计数 → RuleSet: Sync ✓（探针通过！ox/v4fv 都有 Cell/RefCell 缺陷）；同前缀配置序正确、IP allow 优先正确；dns_codec/config 双满分、决策核心清晰
+6. ...
 
 ## 声明
 
