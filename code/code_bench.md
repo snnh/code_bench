@@ -32,6 +32,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4-pro0813(max) | 79- | 18.13-36.26元 | 无 | 738k | 官方 | 采用dsh极简模式预设 |
 | deepseek-v4-flash0731(max) | 74.1 | 28.08-56.16元 | 无 | 13981k | 官方 | 无 |
 | gemini-3.7-flash(high) | 47.6+ | 18.3+元 | 9.15元(限时半价) | 1630+k | openrouter | 无 |
+| ox-alpha(max) | 27.2 | 0元 | 无 | 385k | openrouter | 无 |
 | deepseek-v4-flash-vision-exp(max) | 27.2+ | 12.42-24.84+元 | 无 | 6340+k | 官方 | 无 |
 | … | 未测试 | 元 | 元 | k | 官方 | 无 |
 
@@ -66,6 +67,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | --- | --- | --- | --- | --- |
 | glm5.3(max) | 28.3 | 33.26元 | 400k | 98.1%(13.577m) |
 | kimi-k3(high) | 27.8 | 8.14元 | 96k | 96.4%(1.46m) |
+| ox-alpha(max) | 27.2 | 0元 | 385k | 96.7%(9.209m) |
 | deepseek-v4-pro0813(max) | 27.2 | 4.05-8.1元 | 202k | 99.5%(12.519m) |
 | deepseek-v4-flash-vision-exp(max) | 27.2 | 12.42-24.84元 | 6340k | 88%(43.989m) |
 | deepseek-v4-flash0731(max) | 26.8 | 2.13-4.26元 | 636k | 97%(16.102m) |
