@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>code_bench v1.2｜题目说明</title>
-    <meta name="description" content="code_bench v1.2 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
+    <title>code_bench v1.3｜题目说明</title>
+    <meta name="description" content="code_bench v1.3 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://snnh.github.io/code_bench/bench.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="code_bench" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:url" content="https://snnh.github.io/code_bench/bench.html" />
-    <meta property="og:title" content="code_bench v1.2｜题目说明" />
-    <meta property="og:description" content="code_bench v1.2 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
+    <meta property="og:title" content="code_bench v1.3｜题目说明" />
+    <meta property="og:description" content="code_bench v1.3 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。" />
     <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
@@ -51,7 +51,7 @@
           />
         </svg>
       </a>
-      <h1>code_bench v1.2</h1>
+      <h1>code_bench v1.3</h1>
       <p class="subtitle">大模型复刻 openwebcode 项目评测榜单 · 题目说明</p>
     </header>
 
@@ -61,9 +61,9 @@
       </nav>
 
       <article class="doc-article">
-        <p class="doc-tip">本页为 code_bench v1.2 完整题目与说明；榜单数据可在<a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。</p>
+        <p class="doc-tip">本页为 code_bench v1.3 完整题目与说明；榜单数据可在<a href="./">榜单查询</a> 中交互查看（筛选、排序、搜索）。</p>
 
-<div class="doc-lead">code_bench v1.2</div>
+<div class="doc-lead">code_bench v1.3</div>
         <h2>题目结构</h2>
         <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>题</th><th>满分</th><th>内容</th></tr></thead><tbody><tr><td>基础题 · core</td><td>30</td><td>复刻 C11 执行器 <code>owc-exec</code>（stdio JSON-RPC 2.0）</td></tr><tr><td>基础题 · server</td><td>30</td><td>复刻 Node 20+ 服务层（HTTP/WS API + agent 循环）</td></tr><tr><td>基础题 · web</td><td>30</td><td>复刻 React 19 + Vite 前端</td></tr><tr><td>基础题 · 拼接(题目编写中)</td><td>10</td><td>三个子项拼成端到端系统，<strong>不限制拼接方法</strong>（A/B/C 档系数 1.0/0.8/0.5）</td></tr><tr><td><strong>基础题总分</strong></td><td><strong>100</strong></td><td>3×30 + 10 − 中断扣分</td></tr><tr><td>高阶题 · full</td><td>100</td><td>三层完整复刻（独立一张卷）</td></tr><tr><td>高阶题 · rust</td><td>100</td><td>一个网络服务开发，包含规则引擎 + 报文编解码 + 稀疏配置 + CLI四部分</td></tr><tr><td><strong>高阶题总分</strong></td><td><strong>100</strong></td><td><code>a*1/n+b*1/n+... </code></td></tr></tbody></table></div>
         <h2>环境</h2>
@@ -82,15 +82,15 @@
         <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本(折算API价格)</th><th>token(不算缓存)</th><th>缓存</th></tr></thead><tbody><tr><td>glm5.3(max)</td><td>28.3</td><td>33.26元</td><td>400k</td><td>98.1%(13.577m)</td></tr><tr><td>kimi-k3(high)</td><td>27.8</td><td>8.14元</td><td>96k</td><td>96.4%(1.46m)</td></tr><tr><td>ox-alpha(max)</td><td>27.2</td><td>0元</td><td>385k</td><td>96.7%(9.209m)</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>27.2</td><td>4.05-8.1元</td><td>202k</td><td>99.5%(12.519m)</td></tr><tr><td>deepseek-v4-flash-vision-exp(max)</td><td>27.2</td><td>12.42-24.84元</td><td>6340k</td><td>88%(43.989m)</td></tr><tr><td>deepseek-v4-flash0731(max)</td><td>26.8</td><td>2.13-4.26元</td><td>636k</td><td>97%(16.102m)</td></tr><tr><td>gemini-3.7-flash(high)</td><td>23.9</td><td>~6.15元</td><td>561k</td><td>90.7%(5.155m)</td></tr><tr><td>…</td><td>0未测试</td><td>元</td><td>k</td><td>%(m)</td></tr></tbody></table></div>
         <h3>高阶题</h3>
         <h4>高阶题总分</h4>
-        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>deepseek-v4-flash-vision-exp(max)</td><td>41.05</td><td>1.44-2.88元</td><td>189k</td><td>99.7%(14.153m)</td><td>官方</td><td>无</td></tr><tr><td>ox-alpha(max)</td><td>40.45</td><td>0元</td><td>408k</td><td>98.6%(15.974m)</td><td>openrouter</td><td>无</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>36.1</td><td>4.92-9.84元</td><td>247k</td><td>99.4%(16.009m)</td><td>官方</td><td>采用dsh极简模式预设，优势项见分析5</td></tr></tbody></table></div>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>deepseek-v4-flash-vision-exp(max)</td><td>42.85</td><td>1.44-2.88元</td><td>189k</td><td>99.7%(14.153m)</td><td>官方</td><td>无</td></tr><tr><td>ox-alpha(max)</td><td>42.35</td><td>0元</td><td>408k</td><td>98.6%(15.974m)</td><td>openrouter</td><td>无</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>40.55</td><td>4.92-9.84元</td><td>247k</td><td>99.4%(16.009m)</td><td>官方</td><td>采用dsh极简模式预设，优势项见分析5</td></tr></tbody></table></div>
         <h4>full</h4>
         <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>排名</th><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>0</td><td>kimi-k3(high)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>kimi订阅</td><td>kimicode预设</td></tr><tr><td>0</td><td>deepseek-v4-flash0731(max)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>官网</td><td>无</td></tr><tr><td>0</td><td>deepseek-v4-pro0813(max)</td><td>未测试</td><td>?元</td><td>?</td><td>?%</td><td>官网</td><td>dsh-minimal预设</td></tr></tbody></table></div>
         <h4>rust</h4>
-        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>deepseek-v4-flash-vision-exp(max)</td><td>82.1</td><td>1.44-2.88元</td><td>189k</td><td>99.7%(14.153m)</td><td>官方</td><td>无</td></tr><tr><td>ox-alpha(max)</td><td>80.9</td><td>0元</td><td>408k</td><td>98.6%(15.973m)</td><td>openrouter</td><td>无</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>72.2</td><td>4.92-9.84元</td><td>247k</td><td>99.4%(16.009m)</td><td>官方</td><td>采用dsh极简模式预设，优势项见分析5</td></tr></tbody></table></div>
+        <div class="doc-table-wrap"><table class="doc-table"><thead><tr><th>模型</th><th>积分</th><th>成本</th><th>token</th><th>缓存</th><th>接入方式</th><th>备注</th></tr></thead><tbody><tr><td>deepseek-v4-flash-vision-exp(max)</td><td>85.7</td><td>1.44-2.88元</td><td>189k</td><td>99.7%(14.153m)</td><td>官方</td><td>无</td></tr><tr><td>ox-alpha(max)</td><td>84.7</td><td>0元</td><td>408k</td><td>98.6%(15.973m)</td><td>openrouter</td><td>无</td></tr><tr><td>deepseek-v4-pro0813(max)</td><td>81.1</td><td>4.92-9.84元</td><td>247k</td><td>99.4%(16.009m)</td><td>官方</td><td>采用dsh极简模式预设，优势项见分析5</td></tr></tbody></table></div>
         <h2>分析</h2>
-        <ol class="doc-list"><li>K3的high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来</li><li>单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分</li><li>实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评</li><li>gemini-3.7-flash(high)web错误：f2-stop-visible / f3-tool-block / f3-tool-done「找不到 composer」实为找不到 send + f3-reload-auto/persist</li><li>v4p在rust项目优于 ox/v4fv 的点：AtomicU64 计数 → RuleSet: Sync ✓（探针通过！ox/v4fv 都有 Cell/RefCell 缺陷）；同前缀配置序正确、IP allow 优先正确；dns_codec/config 双满分、决策核心清晰</li><li>...</li></ol>
+        <ol class="doc-list"><li>K3的high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来</li><li>单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分</li><li>实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评</li><li>gemini-3.7-flash(high)web错误：f2-stop-visible / f3-tool-block / f3-tool-done「找不到 composer」实为找不到 send + f3-reload-auto/persist</li><li>v4p在rust项目优于 ox/v4fv 的点：AtomicU64 计数 → RuleSet: Sync ✓（探针通过！ox/v4fv 都有 Cell/RefCell 缺陷）；同前缀配置序正确、IP allow 优先正确；</li><li>...</li></ol>
         <h2>声明</h2>
-        <ol class="doc-list"><li>本bench由 github 用户 <a href="https://github.com/snnh">snnh</a> 版权所有。</li><li>bench内容将在彻底完善之后开源</li><li>1.2版本优化了rust项目的题目和评分标准</li></ol>
+        <ol class="doc-list"><li>本bench由 github 用户 <a href="https://github.com/snnh">snnh</a> 版权所有。</li><li>bench内容将在彻底完善之后开源</li><li>1.2版本优化了rust项目的题目和评分标准</li><li>1.3版本进一步优化rust项目评分标准，同时修复v4p得分异常问题</li></ol>
         <h2>致谢</h2>
         <ol class="doc-list"><li>感谢shyliuli提供的glm5.3 server项目评测环境</li></ol>
       </article>

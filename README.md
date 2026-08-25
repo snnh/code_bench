@@ -12,7 +12,7 @@
 
 ## 评测项目
 
-### code_bench v1.2
+### code_bench v1.3
 
 复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的编程题评测，含基础题（core / server / web / 拼接）与高阶题（full）。
 
@@ -33,7 +33,7 @@ GitHub Pages 站点由 `docs/` 提供：
 | 页面 | 内容 |
 | --- | --- |
 | `index.html` | 榜单仪表盘（交互筛选、排序、搜索、趋势图） |
-| `bench.html` | code_bench v1.2 题目说明 |
+| `bench.html` | code_bench v1.3 题目说明 |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
 
 榜单数据以 CSV 存于 `docs/data/<bench>/`，由 `docs/assets/app.js` + `docs/data/datasets.json` 驱动。

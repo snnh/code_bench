@@ -26,48 +26,48 @@ SYNC_CONFIG = {
     "code/code_bench.md": {
         "doc_page": "docs/bench.html",
         "page": {
-            "title": "code_bench v1.2｜题目说明",
-            "h1": "code_bench v1.2",
+            "title": "code_bench v1.3｜题目说明",
+            "h1": "code_bench v1.3",
             "subtitle": "大模型复刻 openwebcode 项目评测榜单 · 题目说明",
-            "description": "code_bench v1.2 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
+            "description": "code_bench v1.3 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明", "active": True},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
             ],
-            "tip": "本页为 code_bench v1.2 完整题目与说明；榜单数据可在"
+            "tip": "本页为 code_bench v1.3 完整题目与说明；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
         },
         "csvs": {
-            ("基础题", "基础题总分"): "docs/data/code_bench/v1.2-total.csv",
-            ("基础题", "core"): "docs/data/code_bench/v1.2-core.csv",
-            ("基础题", "server"): "docs/data/code_bench/v1.2-server.csv",
-            ("基础题", "web"): "docs/data/code_bench/v1.2-web.csv",
-            ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.2-advanced-total.csv",
-            ("高阶题", "full"): "docs/data/code_bench/v1.2-full.csv",
-            ("高阶题", "rust"): "docs/data/code_bench/v1.2-rust.csv",
+            ("基础题", "基础题总分"): "docs/data/code_bench/v1.3-total.csv",
+            ("基础题", "core"): "docs/data/code_bench/v1.3-core.csv",
+            ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
+            ("基础题", "web"): "docs/data/code_bench/v1.3-web.csv",
+            ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.3-advanced-total.csv",
+            ("高阶题", "full"): "docs/data/code_bench/v1.3-full.csv",
+            ("高阶题", "rust"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
-            "docs/data/code_bench/v1.2-total.csv": [
+            "docs/data/code_bench/v1.3-total.csv": [
                 "模型", "总积分", "成本(折算API价格)", "订阅折算",
                 "token(不算缓存)", "接入渠道", "备注",
             ],
-            "docs/data/code_bench/v1.2-core.csv": [
+            "docs/data/code_bench/v1.3-core.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
-            "docs/data/code_bench/v1.2-server.csv": [
+            "docs/data/code_bench/v1.3-server.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
-            "docs/data/code_bench/v1.2-web.csv": [
+            "docs/data/code_bench/v1.3-web.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
-            "docs/data/code_bench/v1.2-full.csv": [
+            "docs/data/code_bench/v1.3-full.csv": [
                 "排名", "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.2-advanced-total.csv": [
+            "docs/data/code_bench/v1.3-advanced-total.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.2-rust.csv": [
+            "docs/data/code_bench/v1.3-rust.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
         },
