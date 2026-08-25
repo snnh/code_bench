@@ -79,8 +79,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本 | token | 缓存 | 接入方式 | 备注 |
 | --- | --- | --- | --- | --- | --- | --- |
-| deepseek-v4-flash-vision-exp(max) | 40.2 | 1.2-2.4元 | 230k | 99%(9.666m) | 官方 | 无 |
-| ox-alpha(max) | 39.8 | 0元 | 932k | 98%(31.698m) | openrouter | 无 |
+| deepseek-v4-flash-vision-exp(max) | 41.05 | 1.44-2.88元 | 189k | 99.7%(14.153m) | 官方 | 无 |
+| ox-alpha(max) | 40.45 | 0元 | 408k | 98.6%(15.974m) | openrouter | 无 |
 
 **full**
 
@@ -94,8 +94,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本 | token | 缓存 | 接入方式 | 备注 |
 | --- | --- | --- | --- | --- | --- | --- |
-| deepseek-v4-flash-vision-exp(max) | 80.4 | 1.2-2.4元 | 230k | 99%(9.666m) | 官方 | 无 |
-| ox-alpha(max) | 79.6 | 0元 | 932k | 98%(31.698m) | openrouter | 无 |
+| deepseek-v4-flash-vision-exp(max) | 82.1 | 1.44-2.88元 | 189k | 99.7%(14.153m) | 官方 | 无 |
+| ox-alpha(max) | 80.9 | 0元 | 408k | 98.6%(15.973m) | openrouter | 无 |
 
 
 ## 分析
@@ -110,6 +110,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
 2. bench内容将在彻底完善之后开源
+3. 1.2版本优化了rust项目的题目和评分标准
 
 ## 致谢
 
