@@ -30,10 +30,10 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 1 | kimi-k3(high) |
 | 2 | glm5.3(max) |
 | 3 | deepseek-v4-pro0813(max) |
-| 4 | deepseek-v4-flash0731(max) |
+| 4 | deepseek-v4-flash-vision-exp(max) |
 | 5 | ox-alpha(max) |
-| 6 | gemini-3.7-flash(high) |
-| 7 | deepseek-v4-flash-vision-exp(max) |
+| 6 | deepseek-v4-flash0731(max) |
+| 7 | gemini-3.7-flash(high) |
 |...|...|
 
 ### 基础题
@@ -46,9 +46,9 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | glm5.3(max) | 79    | 约150元         | 约12元        | 约1200-1300k | 官方         | 采用zcode预设    |
 | deepseek-v4-pro0813(max) | 78/79   | 18.13-36.26元  | 无           | 738k        | 官方         | 采用dsh极简模式预设  |
 | deepseek-v4-flash0731(max) | 74.1  | 28.08-56.16元  | 无           | 13981k      | 官方         | 无            |
+| deepseek-v4-flash-vision-exp(max) | 52.4 | 15.95-31.9+元 | 无 | 6692+k | 官方 | 无 |
 | ox-alpha(max) | 51.4+  | 0元            | 无           | 1013k        | openrouter | 无            |
 | gemini-3.7-flash(high) | 47.6+ | 18.3+元        | 9.15元(限时半价) | 1630+k      | openrouter | 无            |
-| deepseek-v4-flash-vision-exp(max) | 27.2+ | 12.42-24.84+元 | 无           | 6340+k      | 官方         | 无            |
 | … | 未测试   | 元             | 元           | k           | 官方         | 无            |
 
 * token消耗未统计缓存，缓存消耗具体看细则缓存部分
@@ -62,6 +62,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(high)              | 26.2 | 54.89元      | 394k        | 98.7%(16.485m) |
 | deepseek-v4-pro0813(max)   | 26   | 9.33-18.66元 | 315k        | 99.8%(37.834m) |
 | glm5.3(max)                | 25.6 | 82.19元      | 455k        | 99.3%(37.21m)  |
+| deepseek-v4-flash-vision-exp(max) | 25.2 | 3.53-7.06元 | 352k | 99.7%(46.685m) |
 | deepseek-v4-flash0731(max) | 24.6 | 5.05-10.1元  | 782k        | 99.2%(57.256m) |
 | ox-alpha(max) | 24.2 | 0元 | 628k | 99.2%(55.048m) |
 | gemini-3.7-flash(high)     | 23.7 | ~12.15元     | 1069k       | 91%(9.57m)     |
@@ -97,6 +98,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
+| deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 290k | 99.2%(16.964m) | 官网 | 无 |
 | kimi-k3(high) | 未测试 | ?元 | ? | ?% | kimi订阅 | kimicode预设 |
 | deepseek-v4-flash0731(max) | 未测试 | ?元 | ? | ?% | 官网 | 无 |
 | ox-alpha(max) | 未测试 | ?元 | ? | ?% | openrouter | 无 |
@@ -115,6 +117,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
+| deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 290k | 99.2%(16.964m) | 官网 | 无 |
 | kimi-k3(high) | 未测试 | ?元 | ? | ?% | kimi订阅 | kimicode预设 |
 | deepseek-v4-flash0731(max) | 未测试 | ?元 | ? | ?% | 官网 | 无 |
 | ox-alpha(max) | 未测试 | ?元 | ? | ?% | openrouter | 无 |
