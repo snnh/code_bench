@@ -549,6 +549,14 @@ a.view-tab {
   font-weight: 600;
   letter-spacing: 0.03em;
   border-bottom: 1.5px solid var(--color-rule);
+  cursor: pointer;
+  user-select: none;
+}
+.matrix-table thead th:hover {
+  background: var(--color-accent-soft);
+}
+.matrix-table thead th.sorted {
+  font-weight: 700;
 }
 
 .matrix-table td.matrix-model-cell {

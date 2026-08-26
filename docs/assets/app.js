@@ -1467,9 +1467,9 @@ async function loadDatasetByKey(key) {
 
   if (dataset.type === "matrix") {
     state.currentDatasetDirectory = getDatasetDirectoryFromPath(dataset.csv);
-    elements.countryFilter.disabled = true;
+    elements.searchInput.disabled = false;
+    elements.countryFilter.disabled = false;
     elements.inferenceFilter.disabled = true;
-    elements.countryFilter.value = DEFAULT_COUNTRY_FILTER;
     elements.inferenceFilter.value = DEFAULT_INFERENCE_FILTER;
     await renderMatrix();
     return;
@@ -2119,6 +2119,48 @@ function matrixBandClass(ratio) {
   return "m-band-critical";
 }
 
+// 排序：默认按“基础题总分”降序；点表头后按该列（columnIndex，0=模型列）
+// 缺失值排到末尾（升序 +Infinity / 降序 -Infinity）
+function sortVisibleMatrixModels(models, modelScores) {
+  const colIndex = state.sort.columnIndex;
+  const dir = state.sort.direction === "asc" ? 1 : -1;
+  if (colIndex === 0) {
+    models.sort((a, b) => dir * a.localeCompare(b, state.locale));
+    return;
+  }
+  const sortKey = colIndex === null ? "基础题总分" : state.headers[colIndex];
+  const mode = colIndex === null ? -1 : dir;
+  const weight = (model) => {
+    const n = parseFloat(modelScores.get(model)[sortKey]);
+    return Number.isFinite(n) ? n : state.sort.direction === "asc" ? Infinity : -Infinity;
+  };
+  models.sort((a, b) => mode * (weight(a) - weight(b)));
+}
+
+// 给矩阵表头绑定点击排序：同列翻转方向，异列默认降序
+function attachMatrixSortHandlers(table) {
+  table.querySelectorAll("thead th").forEach((th, index) => {
+    th.addEventListener("click", () => {
+      if (state.sort.columnIndex === index) {
+        state.sort = {
+          columnIndex: index,
+          direction: state.sort.direction === "desc" ? "asc" : "desc",
+        };
+      } else {
+        state.sort = { columnIndex: index, direction: "desc" };
+      }
+      renderMatrix();
+    });
+  });
+}
+
+function createSortIndicator(direction) {
+  const span = document.createElement("span");
+  span.className = "sort-indicator";
+  span.textContent = direction === "asc" ? "▲" : "▼";
+  return span;
+}
+
 // 依据得分返回着色 class：
 // - 含“测试中”→ 蓝；含“未测试”→ 黑（优先级最高）
 // - “高阶题总分”暂不上色，仅显示数值
@@ -2165,10 +2207,19 @@ function createMatrixTable(models, activeCols, modelScores, colStats) {
   const headRow = document.createElement("tr");
   const corner = document.createElement("th");
   corner.textContent = "模型";
+  if (state.sort.columnIndex === 0) {
+    corner.classList.add("sorted");
+    corner.appendChild(createSortIndicator(state.sort.direction));
+  }
   headRow.appendChild(corner);
-  colStats.forEach(({ col }) => {
+  colStats.forEach(({ col }, index) => {
     const th = document.createElement("th");
     th.textContent = col.label;
+    const colIndex = index + 1;
+    if (state.sort.columnIndex === colIndex) {
+      th.classList.add("sorted");
+      th.appendChild(createSortIndicator(state.sort.direction));
+    }
     headRow.appendChild(th);
   });
   thead.appendChild(headRow);
@@ -2319,19 +2370,13 @@ async function renderMatrix() {
     });
   });
 
-  const models = Array.from(modelScores.keys());
-  // 默认按“基础题总分”降序
-  models.sort((a, b) => {
-    const sa = parseFloat(modelScores.get(a)["基础题总分"]);
-    const sb = parseFloat(modelScores.get(b)["基础题总分"]);
-    return (Number.isFinite(sb) ? sb : 0) - (Number.isFinite(sa) ? sa : 0);
-  });
+  const allModels = Array.from(modelScores.keys());
 
-  // 每列数值范围
+  // 每列数值范围（基于全部模型，保证过滤后着色仍稳定）
   const colStats = activeCols.map(({ col }) => {
     let min = Infinity;
     let max = -Infinity;
-    models.forEach((model) => {
+    allModels.forEach((model) => {
       const n = parseFloat(modelScores.get(model)[col.label]);
       if (Number.isFinite(n)) {
         if (n > max) max = n;
@@ -2345,29 +2390,56 @@ async function renderMatrix() {
     return { col, min, max, range: max - min };
   });
 
-  // 供 meta 统计与后续逻辑使用
+  // 搜索（模型名 + 各子项得分）
+  const query = String(state.searchQuery || "").trim().toLocaleLowerCase(state.locale);
+  let visibleModels = allModels;
+  if (query) {
+    visibleModels = visibleModels.filter((model) => {
+      const haystack = [model]
+        .concat(Object.values(modelScores.get(model) || {}))
+        .join(" ")
+        .toLocaleLowerCase(state.locale);
+      return haystack.includes(query);
+    });
+  }
+  // 模型国家筛选（矩阵无 think 概念；国家按模型名归类）
+  if (state.countryFilter && state.countryFilter !== DEFAULT_COUNTRY_FILTER) {
+    visibleModels = visibleModels.filter(
+      (model) => classifyModelCountry(model) === state.countryFilter
+    );
+  }
+  // 供 meta 统计与后续逻辑使用（先设 headers，排序需据此取列名）
   state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
-  state.rows = models.slice();
-  state.filteredRows = models.slice();
+  state.rows = allModels.slice();
+  // 排序：默认按“基础题总分”降序；点表头则按该列
+  sortVisibleMatrixModels(visibleModels, modelScores);
+  state.filteredRows = visibleModels.slice();
   state.hasThinkColumn = false;
   state.hasModelColumn = true;
+
+  const dataset = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  if (!visibleModels.length) {
+    if (dataset) updateMeta(dataset);
+    showPlaceholder(t("placeholders.noMatches"));
+    return;
+  }
 
   container.innerHTML = "";
   container.classList.remove("mobile-cards");
   if (isMobileViewport()) {
     container.classList.add("mobile-cards");
-    renderMobileMatrix(container, models, activeCols, modelScores, colStats);
+    renderMobileMatrix(container, visibleModels, activeCols, modelScores, colStats);
   } else {
-    container.appendChild(createMatrixTable(models, activeCols, modelScores, colStats));
+    const table = createMatrixTable(visibleModels, activeCols, modelScores, colStats);
+    attachMatrixSortHandlers(table);
+    container.appendChild(table);
   }
 
-  const dataset = state.manifest.find(
-    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
-  );
   if (dataset) {
     updateMeta(dataset);
   }
-  elements.countryFilter.disabled = true;
   elements.inferenceFilter.disabled = true;
 }
 
