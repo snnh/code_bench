@@ -1629,6 +1629,13 @@ function parseCsvLine(line, expectedLength) {
 }
 
 function applyFiltersAndRender() {
+  const current = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  if (current && current.type === "matrix") {
+    renderMatrix();
+    return;
+  }
   let rows = state.rows.slice();
   const query = state.searchQuery.toLocaleLowerCase(state.locale);
 
@@ -2366,6 +2373,13 @@ async function renderMatrix() {
 
 function renderTable() {
   const container = elements.tableContainer;
+  const current = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  if (current && current.type === "matrix") {
+    renderMatrix();
+    return;
+  }
   container.innerHTML = "";
   container.classList.remove("mobile-cards");
   renderTableNote();
