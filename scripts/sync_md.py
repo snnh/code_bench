@@ -50,7 +50,7 @@ SYNC_CONFIG = {
         },
         "expected_headers": {
             "docs/data/code_bench/v1.3-total.csv": [
-                "模型", "总积分", "成本(折算API价格)", "订阅折算",
+                "模型", "积分", "成本(折算API价格)", "订阅折算",
                 "token(不算缓存)", "接入渠道", "备注",
             ],
             "docs/data/code_bench/v1.3-core.csv": [
