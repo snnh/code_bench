@@ -95,7 +95,7 @@ const HEADER_TRANSLATIONS = {
   severe: "table.header.severe",
 };
 
-const CATEGORY_ORDER = ["code_basic", "code_advanced", "ocr_bench", "logic", "code", "vision"];
+const CATEGORY_ORDER = ["code_total", "code_detail", "ocr_bench", "logic", "code", "vision"];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
@@ -1340,7 +1340,14 @@ function bindEventHandlers() {
     const isMobile = isMobileViewport();
     if (isMobile === wasMobileViewport) return;
     wasMobileViewport = isMobile;
-    renderTable();
+    const current = state.manifest.find(
+      (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+    );
+    if (current && current.type === "matrix") {
+      renderMatrix();
+    } else {
+      renderTable();
+    }
   });
 }
 
@@ -1455,6 +1462,16 @@ async function loadDatasetByKey(key) {
   const dataset = state.manifest.find((entry) => buildDatasetKey(entry) === key);
   if (!dataset) {
     showPlaceholder(t("placeholders.datasetNotFound"));
+    return;
+  }
+
+  if (dataset.type === "matrix") {
+    state.currentDatasetDirectory = getDatasetDirectoryFromPath(dataset.csv);
+    elements.countryFilter.disabled = true;
+    elements.inferenceFilter.disabled = true;
+    elements.countryFilter.value = DEFAULT_COUNTRY_FILTER;
+    elements.inferenceFilter.value = DEFAULT_INFERENCE_FILTER;
+    await renderMatrix();
     return;
   }
 
@@ -2078,6 +2095,273 @@ function renderMobileCards(container) {
   });
 
   container.appendChild(list);
+}
+
+/* ---------------- 总榜矩阵（模型 × 子项，按值着色） ---------------- */
+
+const MATRIX_CATEGORY = "code_total";
+const MATRIX_MODEL_CANDIDATES = ["模型", "Model", "方案"];
+const MATRIX_SCORE_CANDIDATES = ["积分", "总积分", "最终积分"];
+
+// 依据得分在列内的相对位置着色，越高越绿、越低越红
+function matrixBandClass(ratio) {
+  if (ratio >= 0.8) return "m-band-high";
+  if (ratio >= 0.6) return "m-band-mid";
+  if (ratio >= 0.4) return "m-band-lowmid";
+  if (ratio >= 0.2) return "m-band-low";
+  return "m-band-critical";
+}
+
+// 依据得分返回着色 class：
+// - 含“测试中”→ 蓝；含“未测试”→ 黑（优先级最高）
+// - “高阶题总分”暂不上色，仅显示数值
+// - 其余按列内相对位置着色；非数值缺失返回 null
+function matrixScoreClass(score, colLabel, min, max, range) {
+  const text = (score || "").trim();
+  if (/测试中/.test(text)) return "m-band-testing";
+  if (/未测试/.test(text)) return "m-band-untested";
+  const num = parseFloat(score);
+  if (Number.isFinite(num) && range > 0 && colLabel !== "高阶题总分") {
+    const ratio = (num - min) / range;
+    return matrixBandClass(ratio);
+  }
+  return null;
+}
+
+// 单个得分单元格（桌面矩阵与移动端卡片共用着色逻辑）
+function buildMatrixScoreCell(model, col, min, max, range, modelScores) {
+  const td = document.createElement("td");
+  const score = modelScores.get(model)[col.label];
+  const cls = matrixScoreClass(score, col.label, min, max, range);
+  if (cls) {
+    td.classList.add(cls);
+    td.textContent = score;
+    td.title = `${col.label}: ${score}`;
+    return td;
+  }
+  const num = parseFloat(score);
+  if (Number.isFinite(num)) {
+    td.textContent = score;
+  } else {
+    td.textContent = score || "—";
+    td.classList.add("matrix-cell--empty");
+  }
+  return td;
+}
+
+// 桌面端总榜矩阵：模型 × 子项，按值着色（模型列不固定，避免遮挡分数）
+function createMatrixTable(models, activeCols, modelScores, colStats) {
+  const table = document.createElement("table");
+  table.className = "matrix-table";
+
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  const corner = document.createElement("th");
+  corner.textContent = "模型";
+  headRow.appendChild(corner);
+  colStats.forEach(({ col }) => {
+    const th = document.createElement("th");
+    th.textContent = col.label;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  models.forEach((model) => {
+    const tr = document.createElement("tr");
+    const tdModel = document.createElement("td");
+    tdModel.className = "matrix-model-cell";
+    const modelInner = document.createElement("div");
+    modelInner.className = "matrix-model-inner";
+    const logo = getModelLogoImage(model);
+    if (logo) {
+      const img = logo.cloneNode(false);
+      img.className = "model-logo";
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
+      modelInner.appendChild(img);
+    }
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "model-cell-name";
+    nameSpan.textContent = model;
+    modelInner.appendChild(nameSpan);
+    tdModel.appendChild(modelInner);
+    tr.appendChild(tdModel);
+
+    colStats.forEach(({ col, min, max, range }) => {
+      tr.appendChild(buildMatrixScoreCell(model, col, min, max, range, modelScores));
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+// 移动端总榜：仿上游卡片显示，每个模型一张卡，逐子项展示着色得分
+function renderMobileMatrix(container, models, activeCols, modelScores, colStats) {
+  const list = document.createElement("div");
+  list.className = "mobile-card-list";
+
+  models.forEach((model) => {
+    const card = document.createElement("article");
+    card.className = "mobile-card mobile-card--code matrix-mobile-card";
+
+    const header = document.createElement("header");
+    header.className = "mobile-card-header";
+    const titleGroup = document.createElement("div");
+    titleGroup.className = "mobile-card-title-group";
+    const logo = getModelLogoImage(model);
+    if (logo) {
+      const img = logo.cloneNode(false);
+      img.className = "model-logo";
+      img.alt = "";
+      img.setAttribute("aria-hidden", "true");
+      img.setAttribute("decoding", "async");
+      titleGroup.appendChild(img);
+    }
+    const title = document.createElement("h3");
+    title.className = "mobile-card-title";
+    title.textContent = model;
+    titleGroup.appendChild(title);
+    header.appendChild(titleGroup);
+    card.appendChild(header);
+
+    const grid = document.createElement("div");
+    grid.className = "matrix-mobile-grid";
+    colStats.forEach(({ col, min, max, range }) => {
+      const chip = document.createElement("div");
+      chip.className = "matrix-mobile-chip";
+      const score = modelScores.get(model)[col.label];
+      const cls = matrixScoreClass(score, col.label, min, max, range);
+      if (cls) {
+        chip.classList.add(cls);
+      } else if (!score) {
+        chip.classList.add("matrix-cell--empty");
+      }
+      const label = document.createElement("span");
+      label.className = "matrix-mobile-label";
+      label.textContent = col.label;
+      const value = document.createElement("span");
+      value.className = "matrix-mobile-value";
+      value.textContent = score || "—";
+      chip.appendChild(label);
+      chip.appendChild(value);
+      grid.appendChild(chip);
+    });
+    card.appendChild(grid);
+
+    list.appendChild(card);
+  });
+
+  container.appendChild(list);
+}
+
+async function renderMatrix() {
+  const container = elements.tableContainer;
+  if (!container) return;
+  container.classList.remove("mobile-cards");
+
+  const subItems = (getDatasetsForCategory("code_detail") || []).filter(
+    (ds) => ds && ds.csv
+  );
+  showPlaceholder(t("placeholders.loadingTable"));
+
+  // 由子项 CSV 路径推导版本号（如 v1.3），构造总分列
+  const versionMatch = String(subItems[0] && subItems[0].csv).match(/(v[^/]+)-[^/]+\.csv$/);
+  const version = versionMatch ? versionMatch[1] : "";
+
+  const columns = [];
+  const seen = new Set();
+  subItems.forEach((ds) => {
+    if (!ds.title || seen.has(ds.title)) return;
+    seen.add(ds.title);
+    columns.push({ label: ds.title, csv: ds.csv });
+  });
+  if (version) {
+    columns.push({ label: "基础题总分", csv: `data/code_bench/${version}-total.csv` });
+    columns.push({ label: "高阶题总分", csv: `data/code_bench/${version}-advanced-total.csv` });
+  }
+
+  const loaded = await Promise.all(
+    columns.map(async (col) => {
+      const { headers, rows } = await fetchCsvDataset(col.csv);
+      const modelIdx = headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
+      const scoreIdx = headers.findIndex((h) => MATRIX_SCORE_CANDIDATES.includes(h));
+      return { col, rows, modelIdx, scoreIdx };
+    })
+  );
+
+  // 只保留真正有数据的列（丢弃空占位列，如 rust v2）
+  const activeCols = loaded.filter(
+    (entry) => entry.modelIdx >= 0 && entry.scoreIdx >= 0 && entry.rows.length > 0
+  );
+  if (!activeCols.length) {
+    showPlaceholder(t("placeholders.noDatasets"));
+    return;
+  }
+
+  // model -> { 列名: 得分字符串 }
+  const modelScores = new Map();
+  activeCols.forEach(({ col, rows, modelIdx, scoreIdx }) => {
+    rows.forEach((row) => {
+      const model = String(row[modelIdx] || "").trim();
+      if (!model) return;
+      if (!modelScores.has(model)) modelScores.set(model, {});
+      modelScores.get(model)[col.label] = String(row[scoreIdx] || "").trim();
+    });
+  });
+
+  const models = Array.from(modelScores.keys());
+  // 默认按“基础题总分”降序
+  models.sort((a, b) => {
+    const sa = parseFloat(modelScores.get(a)["基础题总分"]);
+    const sb = parseFloat(modelScores.get(b)["基础题总分"]);
+    return (Number.isFinite(sb) ? sb : 0) - (Number.isFinite(sa) ? sa : 0);
+  });
+
+  // 每列数值范围
+  const colStats = activeCols.map(({ col }) => {
+    let min = Infinity;
+    let max = -Infinity;
+    models.forEach((model) => {
+      const n = parseFloat(modelScores.get(model)[col.label]);
+      if (Number.isFinite(n)) {
+        if (n > max) max = n;
+        if (n < min) min = n;
+      }
+    });
+    if (!Number.isFinite(min)) {
+      min = 0;
+      max = 0;
+    }
+    return { col, min, max, range: max - min };
+  });
+
+  // 供 meta 统计与后续逻辑使用
+  state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
+  state.rows = models.slice();
+  state.filteredRows = models.slice();
+  state.hasThinkColumn = false;
+  state.hasModelColumn = true;
+
+  container.innerHTML = "";
+  container.classList.remove("mobile-cards");
+  if (isMobileViewport()) {
+    container.classList.add("mobile-cards");
+    renderMobileMatrix(container, models, activeCols, modelScores, colStats);
+  } else {
+    container.appendChild(createMatrixTable(models, activeCols, modelScores, colStats));
+  }
+
+  const dataset = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  if (dataset) {
+    updateMeta(dataset);
+  }
+  elements.countryFilter.disabled = true;
+  elements.inferenceFilter.disabled = true;
 }
 
 function renderTable() {

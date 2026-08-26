@@ -46,6 +46,7 @@ SYNC_CONFIG = {
             ("基础题", "web"): "docs/data/code_bench/v1.3-web.csv",
             ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.3-advanced-total.csv",
             ("高阶题", "full"): "docs/data/code_bench/v1.3-full.csv",
+            ("高阶题", "rust v2"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/v1.3-total.csv": [
@@ -63,6 +64,9 @@ SYNC_CONFIG = {
             ],
             "docs/data/code_bench/v1.3-full.csv": [
                 "排名", "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
+            ],
+            "docs/data/code_bench/v1.3-rust.csv": [
+                "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
             "docs/data/code_bench/v1.3-advanced-total.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
@@ -367,6 +371,9 @@ def md_to_blocks(text):
         elif line.startswith("# "):
             blocks.append(("h1", heading_text(line[2:])))
             index += 1
+        elif re.fullmatch(r"-{3,}", line) or re.fullmatch(r"\*{3,}", line):
+            blocks.append(("hr", None))
+            index += 1
         elif line.startswith("|") and line.endswith("|"):
             rows, index = parse_table(lines, index)
             blocks.append(("table", rows))
@@ -412,6 +419,8 @@ def blocks_to_html(blocks):
             out.append("<h4>%s</h4>" % inline(payload))
         elif kind == "table":
             out.append(render_table(payload))
+        elif kind == "hr":
+            out.append('<hr class="doc-hr" />')
         elif kind == "p":
             out.append("<p>%s</p>" % payload)
         elif kind == "html":

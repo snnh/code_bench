@@ -525,6 +525,127 @@ a.view-tab {
 
 /* ---------------- 表格（booktabs 风格） ---------------- */
 
+/* 总榜矩阵（模型 × 子项，按得分着色） */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix-table th,
+.matrix-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.matrix-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--color-table-head);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-bottom: 1.5px solid var(--color-rule);
+}
+
+.matrix-table td.matrix-model-cell {
+  text-align: left;
+  min-width: 150px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.matrix-table .matrix-model-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.matrix-table .matrix-model-inner .model-cell-name {
+  overflow-wrap: anywhere;
+}
+
+.matrix-table td.matrix-cell--empty {
+  color: var(--color-muted);
+}
+
+/* 得分着色：越高越绿 -> 越低越红 */
+.matrix-table td.m-band-high {
+  background: #cfeedc;
+  color: #1c6f3d;
+  font-weight: 600;
+}
+.matrix-table td.m-band-mid {
+  background: #cce9e2;
+  color: #1a6e65;
+}
+.matrix-table td.m-band-lowmid {
+  background: #f6e4b0;
+  color: #8a6a1a;
+}
+.matrix-table td.m-band-low {
+  background: #f7d4b0;
+  color: #9a4f15;
+}
+.matrix-table td.m-band-critical {
+  background: #f7c7c3;
+  color: #a23428;
+}
+
+/* 语义标记：测试中=蓝，未测试=黑（优先级高于数值着色） */
+.matrix-table td.m-band-testing,
+.matrix-mobile-chip.m-band-testing {
+  background: #dbe8ff;
+  color: #1a56c4;
+}
+.matrix-table td.m-band-untested,
+.matrix-mobile-chip.m-band-untested {
+  background: #eceef0;
+  color: #111111;
+}
+
+/* 移动端总榜卡片：每个模型一张卡，逐子项着色 */
+.matrix-mobile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.matrix-mobile-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+.matrix-mobile-chip .matrix-mobile-label {
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.matrix-mobile-chip .matrix-mobile-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.matrix-mobile-chip.m-band-high { background: #cfeedc; color: #1c6f3d; }
+.matrix-mobile-chip.m-band-mid { background: #cce9e2; color: #1a6e65; }
+.matrix-mobile-chip.m-band-lowmid { background: #f6e4b0; color: #8a6a1a; }
+.matrix-mobile-chip.m-band-low { background: #f7d4b0; color: #9a4f15; }
+.matrix-mobile-chip.m-band-critical { background: #f7c7c3; color: #a23428; }
+.matrix-mobile-chip.matrix-cell--empty {
+  background: transparent;
+  color: var(--color-muted);
+}
+
+
 .table-wrapper {
   position: relative;
 }
@@ -1208,6 +1329,17 @@ a.view-tab {
 
 .doc-article h2:first-child {
   margin-top: 12px;
+}
+
+.doc-article hr.doc-hr {
+  margin: 28px 0 4px;
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+  opacity: 0.6;
+}
+
+.doc-article hr.doc-hr + h2 {
+  margin-top: 24px;
 }
 
 .doc-article h3 {

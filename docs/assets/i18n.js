@@ -157,13 +157,13 @@ const TRANSLATIONS = {
     "zh-CN": "视觉",
     "en-US": "Vision",
   },
-  "category.code_basic": {
-    "zh-CN": "code基础",
-    "en-US": "Code Basic",
+  "category.code_total": {
+    "zh-CN": "code总榜",
+    "en-US": "Code Overall",
   },
-  "category.code_advanced": {
-    "zh-CN": "code高阶",
-    "en-US": "Code Advanced",
+  "category.code_detail": {
+    "zh-CN": "code明细",
+    "en-US": "Code Detail",
   },
   "category.ocr_bench": {
     "zh-CN": "OCR Bench",
