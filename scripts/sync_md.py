@@ -40,6 +40,7 @@ SYNC_CONFIG = {
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
         },
         "csvs": {
+            ("排行", None): "docs/data/code_bench/v1.3-rank.csv",
             ("基础题", "基础题总分"): "docs/data/code_bench/v1.3-total.csv",
             ("基础题", "core"): "docs/data/code_bench/v1.3-core.csv",
             ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
@@ -49,6 +50,9 @@ SYNC_CONFIG = {
             ("高阶题", "rust v2"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
+            "docs/data/code_bench/v1.3-rank.csv": [
+                "排名", "模型",
+            ],
             "docs/data/code_bench/v1.3-total.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算",
                 "token(不算缓存)", "接入渠道", "备注",
@@ -446,7 +450,7 @@ def extract_csvs(blocks, csv_config, expected_headers):
     label = None
     for kind, payload in blocks:
         if kind in ("h1", "h2", "h3"):
-            section = payload if kind == "h3" else None
+            section = payload
             label = None
         elif kind == "h4":
             label = payload

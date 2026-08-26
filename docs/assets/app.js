@@ -2119,22 +2119,41 @@ function matrixBandClass(ratio) {
   return "m-band-critical";
 }
 
-// 排序：默认按“基础题总分”降序；点表头后按该列（columnIndex，0=模型列）
+// 排序：默认按用户给定的“排行”表（rankMap）升序；点表头后按该列（columnIndex，0=模型列）
 // 缺失值排到末尾（升序 +Infinity / 降序 -Infinity）
-function sortVisibleMatrixModels(models, modelScores) {
+function sortVisibleMatrixModels(models, modelScores, rankMap) {
   const colIndex = state.sort.columnIndex;
   const dir = state.sort.direction === "asc" ? 1 : -1;
   if (colIndex === 0) {
     models.sort((a, b) => dir * a.localeCompare(b, state.locale));
     return;
   }
-  const sortKey = colIndex === null ? "基础题总分" : state.headers[colIndex];
-  const mode = colIndex === null ? -1 : dir;
+  if (colIndex === null) {
+    if (rankMap && rankMap.size) {
+      // 默认：按给定名次升序；未上榜排最后（按名称兜底）
+      models.sort((a, b) => {
+        const ra = rankMap.has(a) ? rankMap.get(a) : Infinity;
+        const rb = rankMap.has(b) ? rankMap.get(b) : Infinity;
+        if (ra !== rb) return ra - rb;
+        return a.localeCompare(b, state.locale);
+      });
+    } else {
+      // 无排名表时回退：按“基础题总分”降序
+      const sortKey = "基础题总分";
+      const weight = (model) => {
+        const n = parseFloat(modelScores.get(model)[sortKey]);
+        return Number.isFinite(n) ? n : -Infinity;
+      };
+      models.sort((a, b) => weight(b) - weight(a));
+    }
+    return;
+  }
+  const sortKey = state.headers[colIndex];
   const weight = (model) => {
     const n = parseFloat(modelScores.get(model)[sortKey]);
-    return Number.isFinite(n) ? n : state.sort.direction === "asc" ? Infinity : -Infinity;
+    return Number.isFinite(n) ? n : dir === 1 ? Infinity : -Infinity;
   };
-  models.sort((a, b) => mode * (weight(a) - weight(b)));
+  models.sort((a, b) => dir * (weight(a) - weight(b)));
 }
 
 // 给矩阵表头绑定点击排序：同列翻转方向，异列默认降序
@@ -2372,6 +2391,23 @@ async function renderMatrix() {
 
   const allModels = Array.from(modelScores.keys());
 
+  // 默认排序依据：用户给定的“排行”表（模型 → 名次）
+  let rankMap = new Map();
+  try {
+    const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
+    const rankIdx = rankRes.headers.indexOf("排名");
+    const rankModelIdx = rankRes.headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
+    if (rankIdx >= 0 && rankModelIdx >= 0) {
+      rankRes.rows.forEach((r) => {
+        const m = String(r[rankModelIdx] || "").trim();
+        const rk = parseInt(r[rankIdx], 10);
+        if (m && Number.isFinite(rk)) rankMap.set(m, rk);
+      });
+    }
+  } catch (e) {
+    rankMap = new Map();
+  }
+
   // 每列数值范围（基于全部模型，保证过滤后着色仍稳定）
   const colStats = activeCols.map(({ col }) => {
     let min = Infinity;
@@ -2411,8 +2447,8 @@ async function renderMatrix() {
   // 供 meta 统计与后续逻辑使用（先设 headers，排序需据此取列名）
   state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
   state.rows = allModels.slice();
-  // 排序：默认按“基础题总分”降序；点表头则按该列
-  sortVisibleMatrixModels(visibleModels, modelScores);
+  // 排序：默认按用户给定排名；点表头则按该列
+  sortVisibleMatrixModels(visibleModels, modelScores, rankMap);
   state.filteredRows = visibleModels.slice();
   state.hasThinkColumn = false;
   state.hasModelColumn = true;
