@@ -2138,8 +2138,8 @@ function sortVisibleMatrixModels(models, modelScores, rankMap) {
         return a.localeCompare(b, state.locale);
       });
     } else {
-      // 无排名表时回退：按“基础题总分”降序
-      const sortKey = "基础题总分";
+      // 无排名表时回退：按第一个子项列降序
+      const sortKey = state.headers[1] || "core";
       const weight = (model) => {
         const n = parseFloat(modelScores.get(model)[sortKey]);
         return Number.isFinite(n) ? n : -Infinity;
@@ -2353,12 +2353,10 @@ async function renderMatrix() {
   subItems.forEach((ds) => {
     if (!ds.title || seen.has(ds.title)) return;
     seen.add(ds.title);
-    columns.push({ label: ds.title, csv: ds.csv });
+    // 高阶题项目表头加“高阶”标注（后缀）
+    const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
+    columns.push({ label, csv: ds.csv });
   });
-  if (version) {
-    columns.push({ label: "基础题总分", csv: `data/code_bench/${version}-total.csv` });
-    columns.push({ label: "高阶题总分", csv: `data/code_bench/${version}-advanced-total.csv` });
-  }
 
   const loaded = await Promise.all(
     columns.map(async (col) => {

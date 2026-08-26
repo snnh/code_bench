@@ -117,11 +117,12 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
+| deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 261k | 92.3%(11.981m) | 官网 | dsh-minimal预设 |
 | deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 290k | 99.2%(16.964m) | 官网 | 无 |
 | kimi-k3(high) | 未测试 | ?元 | ? | ?% | kimi订阅 | kimicode预设 |
 | deepseek-v4-flash0731(max) | 未测试 | ?元 | ? | ?% | 官网 | 无 |
 | ox-alpha(max) | 未测试 | ?元 | ? | ?% | openrouter | 无 |
-| deepseek-v4-pro0813(max) | 未测试 | ?元 | ? | ?% | 官网 | dsh-minimal预设 |
+
 
 ---
 

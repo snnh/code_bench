@@ -13,35 +13,40 @@
       "reportDate": "v1.3",
       "tableIndex": 0,
       "title": "core",
-      "csv": "data/code_bench/v1.3-core.csv"
+      "csv": "data/code_bench/v1.3-core.csv",
+      "tier": "basic"
     },
     {
       "category": "code_detail",
       "reportDate": "v1.3",
       "tableIndex": 1,
       "title": "server",
-      "csv": "data/code_bench/v1.3-server.csv"
+      "csv": "data/code_bench/v1.3-server.csv",
+      "tier": "basic"
     },
     {
       "category": "code_detail",
       "reportDate": "v1.3",
       "tableIndex": 2,
       "title": "web",
-      "csv": "data/code_bench/v1.3-web.csv"
+      "csv": "data/code_bench/v1.3-web.csv",
+      "tier": "basic"
     },
     {
       "category": "code_detail",
       "reportDate": "v1.3",
       "tableIndex": 3,
       "title": "full",
-      "csv": "data/code_bench/v1.3-full.csv"
+      "csv": "data/code_bench/v1.3-full.csv",
+      "tier": "advanced"
     },
     {
       "category": "code_detail",
       "reportDate": "v1.3",
       "tableIndex": 4,
       "title": "rust v2",
-      "csv": "data/code_bench/v1.3-rust.csv"
+      "csv": "data/code_bench/v1.3-rust.csv",
+      "tier": "advanced"
     },
     {
       "category": "ocr_bench",
