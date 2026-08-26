@@ -46,8 +46,8 @@
       "category": "code_advanced",
       "reportDate": "v1.3",
       "tableIndex": 2,
-      "title": "rust",
-      "csv": "data/code_bench/v1.3-rust.csv"
+      "title": "rust（已归档）",
+      "csv": "data/code_bench/archive-rust.csv"
     },
     {
       "category": "ocr_bench",

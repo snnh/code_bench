@@ -34,6 +34,7 @@ SYNC_CONFIG = {
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明", "active": True},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
             ],
             "tip": "本页为 code_bench v1.3 完整题目与说明；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
@@ -45,7 +46,6 @@ SYNC_CONFIG = {
             ("基础题", "web"): "docs/data/code_bench/v1.3-web.csv",
             ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.3-advanced-total.csv",
             ("高阶题", "full"): "docs/data/code_bench/v1.3-full.csv",
-            ("高阶题", "rust"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/v1.3-total.csv": [
@@ -67,7 +67,29 @@ SYNC_CONFIG = {
             "docs/data/code_bench/v1.3-advanced-total.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.3-rust.csv": [
+        },
+    },
+    "code/code_bench_archive.md": {
+        "doc_page": "docs/archive.html",
+        "page": {
+            "title": "code_bench 归档｜rust 题目",
+            "h1": "code_bench 归档",
+            "subtitle": "已归档题目与榜单",
+            "description": "code_bench 已归档的 rust 高阶题题目说明与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明"},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档", "active": True},
+            ],
+            "tip": "本页为 code_bench 已归档的 rust 题目与榜单；榜单数据可在"
+                   "<a href=\"./\">榜单查询</a> 中交互查看。",
+        },
+        "csvs": {
+            ("高阶题 · rust（已归档）", "rust 榜单"): "docs/data/code_bench/archive-rust.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/archive-rust.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
             ],
         },
@@ -83,6 +105,7 @@ SYNC_CONFIG = {
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明"},
                 {"href": "ocr_bench.html", "label": "OCR 说明", "active": True},
+                {"href": "archive.html", "label": "归档"},
             ],
             "tip": "本页为开发场景 OCR Benchmark v5 完整说明；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
