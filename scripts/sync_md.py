@@ -51,7 +51,7 @@ SYNC_CONFIG = {
         },
         "expected_headers": {
             "docs/data/code_bench/v1.3-rank.csv": [
-                "排名", "模型",
+                "模型",
             ],
             "docs/data/code_bench/v1.3-total.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算",
@@ -70,7 +70,7 @@ SYNC_CONFIG = {
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
             "docs/data/code_bench/v1.3-rust.csv": [
-                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
             "docs/data/code_bench/v1.3-advanced-total.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",

@@ -2395,10 +2395,12 @@ async function renderMatrix() {
     const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
     const rankIdx = rankRes.headers.indexOf("排名");
     const rankModelIdx = rankRes.headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
-    if (rankIdx >= 0 && rankModelIdx >= 0) {
-      rankRes.rows.forEach((r) => {
+    if (rankModelIdx >= 0) {
+      rankRes.rows.forEach((r, index) => {
         const m = String(r[rankModelIdx] || "").trim();
-        const rk = parseInt(r[rankIdx], 10);
+        if (!m) return;
+        // 有“排名”列则用其数值，否则用数据行顺序作为名次
+        const rk = rankIdx >= 0 ? parseInt(r[rankIdx], 10) : index + 1;
         if (m && Number.isFinite(rk)) rankMap.set(m, rk);
       });
     }
