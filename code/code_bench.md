@@ -77,9 +77,10 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
 | glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
 | qwen3.8-flash(max) | 23.4 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
+| deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
-| deepseek-v4-flash-vision-exp(max) | - | -元 | -k       | -%(-m)   | 官方api | 无 |
-| … | 未测试 | 元 | k | %(m) |
+
+| … | 未测试 | 元 | k | %(m) | 官方 | 无 |
 
 
 ### 高阶题
