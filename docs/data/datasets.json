@@ -5,7 +5,7 @@
       "reportDate": "v1.3",
       "tableIndex": 0,
       "title": "总榜",
-      "csv": "data/code_bench/v1.3-total.csv",
+      "csv": "data/code_bench/v1.3-core.csv",
       "type": "matrix"
     },
     {

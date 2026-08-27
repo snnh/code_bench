@@ -30,8 +30,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(high)                     |
 | glm5.3(max)                       |
 | qwen3.8-flash(max)                |
-| glm-5.3-flash(max)                |
 | deepseek-v4-pro0813(max)          |
+| glm-5.3-flash(max)                |
 | deepseek-v4-flash-vision-exp(max) |
 | glm-ox-alpha(max)                 |
 | deepseek-v4-flash0731(max)        |
@@ -39,19 +39,6 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | ...                               |
 
 ### 基础题
-
-**基础题总分**
-
-| 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 接入渠道 | 备注 |
-|---|---|---|---|---|---|---|
-| kimi-k3(high) | 81.2  | 77.66元        | 约6元         | 628k        | 官方 | 采用kimicode预设 |
-| glm5.3(max) | 79    | 约150元         | 约12元        | 约1200-1300k | 官方 | 采用zcode预设    |
-| deepseek-v4-pro0813(max) | 78/79   | 18.13-36.26元  | 无           | 738k        | 官方api | 采用dsh极简模式预设  |
-| deepseek-v4-flash0731(max) | 74.1  | 28.08-56.16元  | 无           | 13981k      | 官方api | 无 |
-| deepseek-v4-flash-vision-exp(max) | 52.4 | 15.95-31.9+元 | 无 | 6692+k | 官方api | 无 |
-| glm-ox-alpha(max) | 51.4+  | 0元            | 无           | 1013k | openrouter | 无 |
-| gemini-3.7-flash(high) | 47.6+ | 18.3+元        | 9.15元(限时半价) | 1630+k | openrouter | 无 |
-| … | 未测试   | 元             | 元           | k           | 官方         | 无            |
 
 * token消耗未统计缓存，缓存消耗具体看细则缓存部分
 * kimi订阅倍率约0.07-0.08(199档实测)
@@ -82,21 +69,17 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | gemini-3.7-flash(high)     | 测试中      | 元           | k           | %(m)           |
 | … | 未测试 | 元 | k | %(m) |
 
-**web**
+**web v2**
 
-| 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 |
-|---|---|---|---|---|
-| glm5.3(max) | 28.3 | 33.26元       | 400k        | 98.1%(13.577m) |
-| kimi-k3(high) | 27.8 | 8.14元        | 96k         | 96.4%(1.46m)   |
-| qwen3.8-flash(max) | 27.4 | 2.09元 | 385k | 98.2%(14.348m) |
-| glm-5.3-flash(max) | 27.2 | 2.06元 | 223k | 99.2%(16.325m) |
-| glm-ox-alpha(max) | 27.2 | 0元           | 385k        | 96.7%(9.209m)  |
-| deepseek-v4-pro0813(max) | 27.2 | 4.05-8.1元    | 202k        | 99.5%(12.519m) |
-| deepseek-v4-flash-vision-exp(max) | 27.2 | 12.42-24.84元 | 6340k       | 88%(43.989m)   |
-| deepseek-v4-flash0731(max) | 26.8 | 2.13-4.26元   | 636k        | 97%(16.102m)   |
-| gemini-3.7-flash(high) | 23.9 | ~6.15元       | 561k        | 90.7%(5.155m)  |
+| 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
+|---|---|---|---|---|---|---|
+| glm5.3(max) | - | -元       | -k        | -%(-m) | 官方 | 无 |
+| kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
+| glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
+| qwen3.8-flash(max) | 23.4 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
+| deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
+| deepseek-v4-flash-vision-exp(max) | - | -元 | -k       | -%(-m)   | 官方api | 无 |
 | … | 未测试 | 元 | k | %(m) |
-
 
 
 ### 高阶题
