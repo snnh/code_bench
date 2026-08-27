@@ -88,12 +88,15 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|
 | glm5.3(max) | 28.3 | 33.26元       | 400k        | 98.1%(13.577m) |
 | kimi-k3(high) | 27.8 | 8.14元        | 96k         | 96.4%(1.46m)   |
+| qwen3.8-flash(max) | 27.4 | 2.09元 | 385k | 98.2%(14.348m) |
+| glm-5.3-flash(max) | 27.2 | 2.06元 | 223k | 99.2%(16.325m) |
 | glm-ox-alpha(max) | 27.2 | 0元           | 385k        | 96.7%(9.209m)  |
 | deepseek-v4-pro0813(max) | 27.2 | 4.05-8.1元    | 202k        | 99.5%(12.519m) |
 | deepseek-v4-flash-vision-exp(max) | 27.2 | 12.42-24.84元 | 6340k       | 88%(43.989m)   |
 | deepseek-v4-flash0731(max) | 26.8 | 2.13-4.26元   | 636k        | 97%(16.102m)   |
 | gemini-3.7-flash(high) | 23.9 | ~6.15元       | 561k        | 90.7%(5.155m)  |
 | … | 未测试 | 元 | k | %(m) |
+
 
 
 ### 高阶题
@@ -143,8 +146,6 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
 2. bench内容将在彻底完善之后开源
-3. 1.2版本优化了rust项目的题目和评分标准
-4. 1.3版本进一步优化rust项目评分标准，同时修复v4p得分异常问题
 
 ---
 
