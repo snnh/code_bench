@@ -6,7 +6,7 @@
 | --------------- | ------- | ---------------------------------------------- |
 | 基础题 · core      | 30      | 复刻 C11 执行器 `owc-exec`（stdio JSON-RPC 2.0）      |
 | 基础题 · server    | 30      | 复刻 Node 20+ 服务层（HTTP/WS API + agent 循环）        |
-| 基础题 · web       | 30      | 复刻 React 19 + Vite 前端                          |
+| 基础题 · web  v2  | 30      | 复刻 React 19 + Vite 前端  基于owc1.9.9版本提交          |
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | **基础题总分**       | **100** | 3×30 + 10 − 中断扣分                               |
 | 高阶题 · full      | 50      | 三层完整复刻（独立一张卷）                                  |
@@ -28,6 +28,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型                              |
 | --------------------------------- |
 | kimi-k3(high)                     |
+| hy4-preview(high) |
 | glm5.3(max)                       |
 | qwen3.8-flash(max)                |
 | deepseek-v4-pro0813(max)          |
@@ -76,7 +77,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | glm5.3(max) | - | -元       | -k        | -%(-m) | 官方 | 无 |
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
 | glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
-| qwen3.8-flash(max) | 23.4 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
+| qwen3.8-flash(max) | 23.6 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
+| hy4-preview(high) | 23.4 | 12.28元 | - | 636k | 97.8%(21.541m) | 官方API | 无 |
 | deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
 
@@ -106,7 +108,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
-| qwen3.8-flash(max) | 42.34 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
+| hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
+| qwen3.8-flash(max) | 41.36 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
 | deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
 | deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
 | glm-5.3-flash(max) | 28.66 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
