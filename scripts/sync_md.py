@@ -44,7 +44,6 @@ SYNC_CONFIG = {
             ("基础题", "core"): "docs/data/code_bench/v1.3-core.csv",
             ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
             ("基础题", "web v2"): "docs/data/code_bench/v1.3-web.csv",
-            ("高阶题", "高阶题总分"): "docs/data/code_bench/v1.3-advanced-total.csv",
             ("高阶题", "full"): "docs/data/code_bench/v1.3-full.csv",
             ("高阶题", "rust v2"): "docs/data/code_bench/v1.3-rust.csv",
         },
@@ -66,9 +65,6 @@ SYNC_CONFIG = {
             ],
             "docs/data/code_bench/v1.3-rust.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
-            ],
-            "docs/data/code_bench/v1.3-advanced-total.csv": [
-                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
         },
     },

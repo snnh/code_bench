@@ -1,5 +1,0 @@
-"模型","积分","成本(折算API价格)","token(不算缓存)","缓存","接入方式","备注"
-"deepseek-v4-flash-vision-exp(max)","30.03","1.76-3.52元","290k","99.2%(16.964m)","官方api","无"
-"kimi-k3(high)","未测试","?元","?","?%","kimi订阅","kimicode预设"
-"deepseek-v4-flash0731(max)","未测试","?元","?","?%","官方api","无"
-"deepseek-v4-pro0813(max)","未测试","?元","?","?%","官方api","dsh-minimal预设"
