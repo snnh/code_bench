@@ -82,11 +82,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | hy4-preview(high) | 23.4 | 12.28元 | - | 636k | 97.8%(21.541m) | 官方API | 无 |
 | deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
-
 | … | 未测试 | 元 | k | %(m) | 官方 | 无 |
 
+### 高阶题
 
-
+**full**
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
@@ -100,6 +100,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|---|
 | hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
 | qwen3.8-flash(max) | 41.36 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
+| glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | 无 |
 | deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
 | deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
 | glm-5.3-flash(max) | 28.66 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
