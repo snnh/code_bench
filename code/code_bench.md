@@ -27,7 +27,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型                              |
 | --------------------------------- |
 | kimi-k3(high)                     |
-| hy4-preview(max) |
+| hy4-preview(high) |
 | glm5.3(max)                       |
 | qwen3.8-flash(max)                |
 | deepseek-v4-pro0813(max)          |
@@ -64,9 +64,9 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 |
 |---|---|---|---|---|
 | kimi-k3(high)              | 27.2      | 14.63元      | 138k        | 97.8%(4.085m)  |
-| deepseek-v4-pro0813(max)   | 25.8      | 4.75-9.5元   | 221k        | 99.5%(17.062m) |
 | glm5.3(max)                | 25.1      | 约30-40元     | ?k          | ?%(?m)         |
 | glm-5.3-flash(max)         | 23.8 |  5.44元      | 573k        | 99.1%(43.651m)  |
+| deepseek-v4-pro0813(max)   | 25.8      | 4.75-9.5元   | 221k        | 99.5%(17.062m) |
 | deepseek-v4-flash0731(max) | 22.7/24.7 | 20.9-41.8元  | 12563k      | 72%(30.052m)   |
 | gemini-3.7-flash(high)     | 测试中      | 元           | k           | %(m)           |
 | … | 未测试 | 元 | k | %(m) |
@@ -75,14 +75,15 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
-| glm5.3(max) | - | -元       | -k        | -%(-m) | 官方 | 无 |
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
 | glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
 | qwen3.8-flash(max) | 23.6 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
+| glm5.3(max) | 23.4 | 32.14元       | 310k        | 98.7%(13.454m) | 官方订阅 | zcode预设 |
 | hy4-preview(high) | 23.4 | 12.28元 | - | 636k | 97.8%(21.541m) | 官方API | 无 |
 | deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
 | … | 未测试 | 元 | k | %(m) | 官方 | 无 |
+
 
 ### 高阶题
 
@@ -100,7 +101,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|---|
 | hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
 | qwen3.8-flash(max) | 41.36 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
-| glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | 无 |
+| glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | zcode预设 |
 | deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
 | deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
 | glm-5.3-flash(max) | 28.66 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
