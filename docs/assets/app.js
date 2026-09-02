@@ -100,6 +100,10 @@ const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
 const VALID_COUNTRY_FILTERS = new Set(["all", "china", "usa", "other"]);
+// 分数显示方式：raw = 原始分（如 26.2/30），percent = 按数据集满分折算百分制并加 %（如 87.3%）
+const DEFAULT_SCORE_SCALE = "raw";
+const VALID_SCORE_SCALES = new Set(["raw", "percent"]);
+const SCORE_HEADER_NAME = "积分";
 const MOBILE_BREAKPOINT_PX = 768;
 const MODEL_HEADER_CANDIDATES = ["模型", "Model", "方案", "最佳方案", "Language"];
 const MODEL_COUNTRY_HEADER_CANDIDATES = ["模型", "Model", "方案", "最佳方案"];
@@ -195,8 +199,25 @@ function formatCurrencyForLocale(value) {
 // 纯数字计数字段展示时加千分位（原始数据不变，排序/搜索不受影响）
 const THOUSANDS_SEPARATOR_HEADERS = new Set(["Token", "平均Token"]);
 
+// 百分制折算：把纯数字得分按满分换算为 0-100 并加 %（如 26.2/30 -> 87.3%）。
+// 非纯数字单元格（未测试 / "-" / "22.7/24.7" 等）原样返回。
+function scaleScoreText(value, fullScore) {
+  if (!fullScore || fullScore <= 0) return value;
+  const text = String(value ?? "").trim();
+  if (!/^\d+(\.\d+)?$/.test(text)) return value;
+  return `${((Number(text) / fullScore) * 100).toFixed(1)}%`;
+}
+
+// 榜单明细表（非矩阵）中按表头决定是否折算：仅“积分”列
+function applyScoreScaleDisplay(header, value) {
+  if (state.scoreScale !== "percent") return value;
+  if (header !== SCORE_HEADER_NAME) return value;
+  return scaleScoreText(value, state.activeFullScore);
+}
+
 function formatCellForDisplay(header, value) {
-  const formatted = formatCurrencyForLocale(value);
+  const scaled = applyScoreScaleDisplay(header, value);
+  const formatted = formatCurrencyForLocale(scaled);
   if (header && THOUSANDS_SEPARATOR_HEADERS.has(header) && /^\d+$/.test(formatted)) {
     return Number(formatted).toLocaleString("en-US");
   }
@@ -564,6 +585,9 @@ const state = {
   hasThinkColumn: false,
   countryFilter: DEFAULT_COUNTRY_FILTER,
   hasModelColumn: false,
+  scoreScale: DEFAULT_SCORE_SCALE,
+  // 当前非矩阵数据集的满分（datasets.json 的 fullScore），无则为 null
+  activeFullScore: null,
   sort: { columnIndex: null, direction: null },
   themeMode: readStoredThemeMode(),
   view: "board",
@@ -590,6 +614,9 @@ const elements = {
   inferenceFilter: document.getElementById("inferenceFilter"),
   countryFilter: document.getElementById("countryFilter"),
   searchInput: document.getElementById("searchInput"),
+  scoreScaleControl: document.getElementById("scoreScaleControl"),
+  scoreScaleSelect: document.getElementById("scoreScaleSelect"),
+  scoreScaleLabel: document.getElementById("scoreScaleLabel"),
   tableStickyScope: document.getElementById("tableStickyScope"),
   tableContainer: document.getElementById("tableContainer"),
   tableNote: document.getElementById("tableNote"),
@@ -761,6 +788,20 @@ function updateStaticCopy() {
       state.countryFilter
     );
   }
+  if (elements.scoreScaleLabel) {
+    elements.scoreScaleLabel.textContent = t("controls.scoreScale.label");
+  }
+  if (elements.scoreScaleSelect) {
+    elements.scoreScaleSelect.setAttribute("aria-label", t("controls.scoreScale.aria"));
+    setSelectOptions(
+      elements.scoreScaleSelect,
+      [
+        { value: "raw", label: t("controls.scoreScale.option.raw") },
+        { value: "percent", label: t("table.header.percentScale") },
+      ],
+      state.scoreScale
+    );
+  }
   if (elements.searchInput) {
     elements.searchInput.setAttribute("aria-label", t("controls.search.aria"));
     elements.searchInput.placeholder = t("controls.search.placeholder");
@@ -818,6 +859,7 @@ function updateStaticCopy() {
     elements.modelPicker.setAttribute("aria-label", t("trends.picker.aria"));
   }
   buildTrendsCategoryOptions();
+  updateScoreScaleControl();
   updateThemeToggle();
 }
 
@@ -932,6 +974,7 @@ function parseHashState(rawHash = window.location.hash) {
     inferenceFilter: normalizeInferenceFilter((params.get("inference") || "").trim()),
     countryFilter: normalizeCountryFilter((params.get("country") || "").trim()),
     searchQuery: (params.get("search") || "").trim(),
+    scoreScale: params.get("percent") === "1" ? "percent" : DEFAULT_SCORE_SCALE,
   };
 }
 
@@ -976,6 +1019,9 @@ function buildHashFromState() {
   }
   if (state.searchQuery) {
     params.set("search", state.searchQuery);
+  }
+  if (state.scoreScale === "percent" && scoreScaleApplicable()) {
+    params.set("percent", "1");
   }
   return params.toString();
 }
@@ -1055,6 +1101,11 @@ async function applyStateFromHash(rawHash = window.location.hash) {
     const nextSearch = hashState.searchQuery;
     state.searchQuery = nextSearch;
     elements.searchInput.value = nextSearch;
+
+    state.scoreScale = hashState.scoreScale;
+    if (elements.scoreScaleSelect) {
+      elements.scoreScaleSelect.value = hashState.scoreScale;
+    }
 
     applyFiltersAndRender();
   } finally {
@@ -1229,10 +1280,49 @@ function getCategoryLabel(category) {
 
 function getHeaderLabel(header) {
   const key = HEADER_TRANSLATIONS[header];
+  let label;
   if (!key) {
-    return header;
+    label = header;
+  } else {
+    label = t(key);
   }
-  return t(key);
+  // 百分制模式下“积分”列表头加标注，提示当前展示的是折算值
+  if (
+    header === SCORE_HEADER_NAME &&
+    state.scoreScale === "percent" &&
+    Number(state.activeFullScore) > 0
+  ) {
+    label += t("table.header.percentSuffix");
+  }
+  return label;
+}
+
+// 当前数据集是否支持百分制折算：
+// - 子项榜单：datasets.json 中声明了 fullScore（如 code_bench 各子项）
+// - 总榜矩阵：子项列（code_detail）均带 fullScore
+// OCR 等已按 0-100 计分的数据集不带 fullScore，不提供该切换
+function scoreScaleApplicable() {
+  const dataset = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  if (!dataset) return false;
+  if (dataset.type === "matrix") {
+    return getDatasetsForCategory("code_detail").some(
+      (entry) => Number(entry.fullScore) > 0
+    );
+  }
+  return Number(dataset.fullScore) > 0;
+}
+
+// 同步“分数显示”控件的可见/可用状态（随数据集切换，不适用时隐藏）
+function updateScoreScaleControl() {
+  const applicable = scoreScaleApplicable();
+  if (elements.scoreScaleSelect) {
+    elements.scoreScaleSelect.disabled = !applicable;
+  }
+  if (elements.scoreScaleControl) {
+    elements.scoreScaleControl.hidden = !applicable;
+  }
 }
 
 function bindEventHandlers() {
@@ -1275,6 +1365,14 @@ function bindEventHandlers() {
 
   elements.searchInput.addEventListener("input", (event) => {
     state.searchQuery = (event.target.value || "").trim();
+    applyFiltersAndRender();
+    syncHashFromState();
+  });
+
+  elements.scoreScaleSelect.addEventListener("change", (event) => {
+    state.scoreScale = VALID_SCORE_SCALES.has(event.target.value)
+      ? event.target.value
+      : DEFAULT_SCORE_SCALE;
     applyFiltersAndRender();
     syncHashFromState();
   });
@@ -1458,10 +1556,12 @@ async function loadDatasetByKey(key) {
   state.searchQuery = "";
   state.sort = { columnIndex: null, direction: null };
   elements.searchInput.value = "";
+  state.activeFullScore = null;
 
   const dataset = state.manifest.find((entry) => buildDatasetKey(entry) === key);
   if (!dataset) {
     showPlaceholder(t("placeholders.datasetNotFound"));
+    updateScoreScaleControl();
     return;
   }
 
@@ -1472,9 +1572,11 @@ async function loadDatasetByKey(key) {
     elements.inferenceFilter.disabled = true;
     elements.inferenceFilter.value = DEFAULT_INFERENCE_FILTER;
     await renderMatrix();
+    updateScoreScaleControl();
     return;
   }
 
+  state.activeFullScore = Number(dataset.fullScore) || null;
   state.currentDatasetDirectory = getDatasetDirectoryFromPath(dataset.csv);
 
   showPlaceholder(t("placeholders.loadingTable"));
@@ -1531,6 +1633,7 @@ async function loadDatasetByKey(key) {
 
   elements.searchInput.disabled = false;
   updateMeta(dataset);
+  updateScoreScaleControl();
 }
 
 function buildDatasetKey(dataset) {
@@ -2355,7 +2458,7 @@ async function renderMatrix() {
     seen.add(ds.title);
     // 高阶题项目表头加“高阶”标注（后缀）
     const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
-    columns.push({ label, csv: ds.csv });
+    columns.push({ label, csv: ds.csv, fullScore: Number(ds.fullScore) || null });
   });
 
   const loaded = await Promise.all(
@@ -2376,14 +2479,18 @@ async function renderMatrix() {
     return;
   }
 
-  // model -> { 列名: 得分字符串 }
+  // model -> { 列名: 得分字符串 }（百分制模式下按子项满分折算并加 %）
   const modelScores = new Map();
   activeCols.forEach(({ col, rows, modelIdx, scoreIdx }) => {
     rows.forEach((row) => {
       const model = String(row[modelIdx] || "").trim();
       if (!model) return;
       if (!modelScores.has(model)) modelScores.set(model, {});
-      modelScores.get(model)[col.label] = String(row[scoreIdx] || "").trim();
+      const rawScore = String(row[scoreIdx] || "").trim();
+      modelScores.get(model)[col.label] =
+        state.scoreScale === "percent" && col.fullScore
+          ? scaleScoreText(rawScore, col.fullScore)
+          : rawScore;
     });
   });
 
@@ -2476,6 +2583,7 @@ async function renderMatrix() {
   if (dataset) {
     updateMeta(dataset);
   }
+  renderTableNote();
   elements.inferenceFilter.disabled = true;
 }
 
@@ -2669,8 +2777,16 @@ function renderTable() {
 function renderTableNote() {
   const note = elements.tableNote;
   if (!note) return;
-  note.hidden = true;
+  // 百分制切换开启且有结果时，在表下给出折算规则说明
+  const percentActive =
+    state.scoreScale === "percent" &&
+    scoreScaleApplicable() &&
+    state.filteredRows.length > 0;
+  note.hidden = !percentActive;
   note.innerHTML = "";
+  if (percentActive) {
+    note.textContent = t("percent.note");
+  }
 }
 
 function toggleSort(columnIndex) {
@@ -2730,6 +2846,7 @@ function showPlaceholder(message) {
   const container = elements.tableContainer;
   container.classList.remove("mobile-cards");
   container.innerHTML = `<div class="placeholder" role="status">${message}</div>`;
+  renderTableNote();
 }
 
 /* ---------------- 视图切换 ---------------- */

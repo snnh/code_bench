@@ -14,7 +14,8 @@
       "tableIndex": 0,
       "title": "core",
       "csv": "data/code_bench/v1.3-core.csv",
-      "tier": "basic"
+      "tier": "basic",
+      "fullScore": 30
     },
     {
       "category": "code_detail",
@@ -22,7 +23,8 @@
       "tableIndex": 1,
       "title": "server",
       "csv": "data/code_bench/v1.3-server.csv",
-      "tier": "basic"
+      "tier": "basic",
+      "fullScore": 30
     },
     {
       "category": "code_detail",
@@ -30,7 +32,8 @@
       "tableIndex": 2,
       "title": "web v2",
       "csv": "data/code_bench/v1.3-web.csv",
-      "tier": "basic"
+      "tier": "basic",
+      "fullScore": 30
     },
     {
       "category": "code_detail",
@@ -38,7 +41,8 @@
       "tableIndex": 3,
       "title": "full",
       "csv": "data/code_bench/v1.3-full.csv",
-      "tier": "advanced"
+      "tier": "advanced",
+      "fullScore": 50
     },
     {
       "category": "code_detail",
@@ -46,7 +50,8 @@
       "tableIndex": 4,
       "title": "rust v2",
       "csv": "data/code_bench/v1.3-rust.csv",
-      "tier": "advanced"
+      "tier": "advanced",
+      "fullScore": 50
     },
     {
       "category": "ocr_bench",

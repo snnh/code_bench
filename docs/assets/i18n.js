@@ -89,6 +89,22 @@ const TRANSLATIONS = {
     "zh-CN": "其他模型",
     "en-US": "Other models",
   },
+  "controls.scoreScale.label": {
+    "zh-CN": "分数显示",
+    "en-US": "Score scale",
+  },
+  "controls.scoreScale.aria": {
+    "zh-CN": "切换分数显示方式",
+    "en-US": "Switch score scale",
+  },
+  "controls.scoreScale.option.raw": {
+    "zh-CN": "原始分",
+    "en-US": "Raw",
+  },
+  "percent.note": {
+    "zh-CN": "百分制显示：积分按子项满分折算并加 %（如 26.2/30 → 87.3%）。",
+    "en-US": "Percent mode: score ÷ full score × 100, shown with “%” (e.g. 26.2/30 → 87.3%).",
+  },
   "controls.search.label": {
     "zh-CN": "搜索",
     "en-US": "Search",
@@ -360,6 +376,10 @@ const TRANSLATIONS = {
   "table.header.percentScale": {
     "zh-CN": "百分制",
     "en-US": "Percent",
+  },
+  "table.header.percentSuffix": {
+    "zh-CN": "（百分制）",
+    "en-US": " (percent)",
   },
   "table.header.changeSinceLast": {
     "zh-CN": "较上次变更",
