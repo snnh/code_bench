@@ -32,6 +32,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | glm5.3(max)                       |
 | qwen3.8-flash(max)                |
 | deepseek-v4-pro0813(max)          |
+| deepseek-v4-flash0902(max) |
 | glm-5.3-flash(max)                |
 | deepseek-v4-flash-vision-exp(max) |
 | glm-ox-alpha(max)                 |
@@ -53,6 +54,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|
 | kimi-k3(high)              | 26.2 | 54.89元 | 394k        | 98.7%(16.485m) |
 | deepseek-v4-pro0813(max)   | 26   | 9.33-18.66元 | 315k        | 99.8%(37.834m) |
+| deepseek-v4-flash0902(max) | 25.8 | 6.43-12.86元  | 528k        | 99.8%(90.021m) |
 | glm5.3(max)                | 25.6 | 82.19元      | 455k        | 99.3%(37.21m)  |
 | glm-5.3-flash(max)                | 24.9 |  3.83元      | 499k        | 99.1%(29.582m)  |
 | deepseek-v4-flash-vision-exp(max) | 25.2 | 3.53-7.06元 | 352k | 99.7%(46.685m) |
@@ -106,6 +108,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(max) | 38.54 | 23.08元 | 2.07 | 264k | 97%(4.21m) | kimi订阅 | kimicode预设 |
 | kimi-k3(high) | 36.95 | 13.05元 | 1.04 | 168k | 95%(1.953m) | kimi订阅 | kimicode预设 |
 | deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
+| deepseek-v4-flash0902(max) | 30.47 | 2.41-4.82元 | 无 | 337k | 99.5%(23.753m) | 官方api | 无 |
 | deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
 | glm-5.3-flash(max) | 28.66 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
 | deepseek-v4-flash0731(max) | 未测试 | ?元 | 无 | ? | ?% | 官方api | 无 |
