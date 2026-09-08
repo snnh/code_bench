@@ -199,13 +199,16 @@ function formatCurrencyForLocale(value) {
 // 纯数字计数字段展示时加千分位（原始数据不变，排序/搜索不受影响）
 const THOUSANDS_SEPARATOR_HEADERS = new Set(["Token", "平均Token"]);
 
-// 百分制折算：把纯数字得分按满分换算为 0-100 并加 %（如 26.2/30 -> 87.3%）。
-// 非纯数字单元格（未测试 / "-" / "22.7/24.7" 等）原样返回。
+// 百分制折算：把得分按满分换算为 0-100 并加 %（如 26.2/30 -> 87.3%）。
+// 带括号注释的得分（如 41.36(疑似优势区间)）折算后保留注释：82.7%(疑似优势区间)。
+// 其余非纯数字单元格（未测试 / "-" / "22.7/24.7" 等）原样返回。
 function scaleScoreText(value, fullScore) {
   if (!fullScore || fullScore <= 0) return value;
   const text = String(value ?? "").trim();
-  if (!/^\d+(\.\d+)?$/.test(text)) return value;
-  return `${((Number(text) / fullScore) * 100).toFixed(1)}%`;
+  const match = text.match(/^(\d+(?:\.\d+)?)(\s*[（(].*[）)])?$/);
+  if (!match) return value;
+  const percent = `${((Number(match[1]) / fullScore) * 100).toFixed(1)}%`;
+  return match[2] ? `${percent}${match[2]}` : percent;
 }
 
 // 榜单明细表（非矩阵）中按表头决定是否折算：仅“积分”列
