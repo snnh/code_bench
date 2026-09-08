@@ -29,6 +29,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(max)                     |
 | kimi-k3(high)                     |
 | hy4-preview(high) |
+| deepseek-v4.1-flash-expires-on-0910(max) |
 | glm5.3(max)                       |
 | qwen3.8-flash(max)                |
 | deepseek-v4-pro0813(max)          |
@@ -104,6 +105,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|---|
 | hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
 | qwen3.8-flash(max) | 41.36 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 40.56 | 2.09-4.18元 | 无 | 240k | 99.7%(24.017m) | 官方api | 无 |
 | glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | zcode预设 |
 | kimi-k3(max) | 38.54 | 23.08元 | 2.07 | 264k | 97%(4.21m) | kimi订阅 | kimicode预设 |
 | kimi-k3(high) | 36.95 | 13.05元 | 1.04 | 168k | 95%(1.953m) | kimi订阅 | kimicode预设 |
