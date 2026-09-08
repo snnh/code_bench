@@ -54,6 +54,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 |
 |---|---|---|---|---|
 | kimi-k3(high)              | 26.2 | 54.89元 | 394k        | 98.7%(16.485m) |
+| deepseek-v4.1-flash-expires-on-0910(max) | 26 | 3.24-6.48元 | 525k | 99.1%(36.854m) |
 | deepseek-v4-pro0813(max)   | 26   | 9.33-18.66元 | 315k        | 99.8%(37.834m) |
 | deepseek-v4-flash0902(max) | 25.8 | 6.43-12.86元  | 528k        | 99.8%(90.021m) |
 | glm5.3(max)                | 25.6 | 82.19元      | 455k        | 99.3%(37.21m)  |
@@ -69,8 +70,9 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|
 | kimi-k3(high)              | 27.2      | 14.63元      | 138k        | 97.8%(4.085m)  |
 | glm5.3(max)                | 25.1      | 约30-40元     | ?k          | ?%(?m)         |
-| glm-5.3-flash(max)         | 23.8 |  5.44元      | 573k        | 99.1%(43.651m)  |
+| deepseek-v4.1-flash-expires-on-0910(max) | 25.8 | 2.31-4.62元 | 499k | 97.7%(20.219m) |
 | deepseek-v4-pro0813(max)   | 25.8      | 4.75-9.5元   | 221k        | 99.5%(17.062m) |
+| glm-5.3-flash(max)         | 23.8 |  5.44元      | 573k        | 99.1%(43.651m)  |
 | deepseek-v4-flash0731(max) | 22.7/24.7 | 20.9-41.8元  | 12563k      | 72%(30.052m)   |
 | gemini-3.7-flash(high)     | 测试中      | 元           | k           | %(m)           |
 | … | 未测试 | 元 | k | %(m) |
@@ -104,7 +106,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
 | hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
-| qwen3.8-flash(max) | 41.36 | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
+| qwen3.8-flash(max) | 41.36(疑似优势区间) | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
 | deepseek-v4.1-flash-expires-on-0910(max) | 40.56 | 2.09-4.18元 | 无 | 240k | 99.7%(24.017m) | 官方api | 无 |
 | glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | zcode预设 |
 | kimi-k3(max) | 38.54 | 23.08元 | 2.07 | 264k | 97%(4.21m) | kimi订阅 | kimicode预设 |
