@@ -69,8 +69,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 |
 |---|---|---|---|---|
 | kimi-k3(high)              | 27.2      | 14.63元      | 138k        | 97.8%(4.085m)  |
-| glm5.3(max)                | 25.1      | 约30-40元     | ?k          | ?%(?m)         |
 | deepseek-v4.1-flash-expires-on-0910(max) | 25.8 | 2.31-4.62元 | 499k | 97.7%(20.219m) |
+| glm5.3(max)                | 25.1      | 约30-40元     | ?k          | ?%(?m)         |
 | deepseek-v4-pro0813(max)   | 25.8      | 4.75-9.5元   | 221k        | 99.5%(17.062m) |
 | glm-5.3-flash(max)         | 23.8 |  5.44元      | 573k        | 99.1%(43.651m)  |
 | deepseek-v4-flash0731(max) | 22.7/24.7 | 20.9-41.8元  | 12563k      | 72%(30.052m)   |
@@ -83,6 +83,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
 | glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 24 | 4.22-8.44元 | 无 | 339k | 99.8%(60.087m) | 官方api | 无 |
 | qwen3.8-flash(max) | 23.6 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
 | glm5.3(max) | 23.4 | 32.14元       | 310k        | 98.7%(13.454m) | 官方订阅 | zcode预设 |
 | hy4-preview(high) | 23.4 | 12.28元 | - | 636k | 97.8%(21.541m) | 官方API | 无 |
@@ -125,7 +126,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 1. K3的high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来
 2. 单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分
 3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
-4. v4.1f-0910稳定性不如glm5.3好于v4p，但速度极快
+4. gemini-3.7-flash(high)web错误：f2-stop-visible / f3-tool-block / f3-tool-done「找不到 composer」实为找不到 send + f3-reload-auto/persist
 5. ...
 
 ---
