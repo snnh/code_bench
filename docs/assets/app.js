@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260818-seo";
+} from "./i18n.js?v=20260910-notes";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -18,6 +18,7 @@ const DATASET_TITLE_KEYS = {
   "高阶题总分": "dataset.title.advancedTotal",
   "高阶题": "dataset.title.full",
   "full": "dataset.title.full",
+  "full_v2": "dataset.title.fullV2",
   "rust": "dataset.title.rust",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
@@ -161,6 +162,8 @@ const TRENDS_MAX_MONTHS = 18;
 const TRENDS_RECENT_MONTHS = 6;
 const TRENDS_DEFAULT_SELECTED = 6;
 const MODEL_LOGO_MAP_PATH = "data/model-logo-map.json";
+// 站点底部说明（由 scripts/sync_md.py 从 md 的「分析/声明/致谢」小节生成）
+const NOTES_PATH = "data/notes.json";
 const MODEL_LOGO_POINT_SIZE = 17;
 const SERIES_PALETTE_LIGHT = [
   "#1f4e79", "#9e3b32", "#3a6b4f", "#8a6d1f",
@@ -576,6 +579,7 @@ const state = {
   locale: getCurrentLocale(),
   collator: createCollator(getCurrentLocale()),
   manifest: [],
+  notes: [],
   categoryOptions: [],
   currentCategory: null,
   currentDatasetKey: null,
@@ -633,6 +637,7 @@ const elements = {
   themeToggle: document.getElementById("themeToggle"),
   languageToggle: document.getElementById("languageToggle"),
   footerNote: document.getElementById("footerNote"),
+  siteNotes: document.getElementById("siteNotes"),
   chartSection: document.getElementById("chartSection"),
   chartCanvas: document.getElementById("benchmarkChart"),
   chartCaption: document.getElementById("chartCaption"),
@@ -689,6 +694,7 @@ function initializeLocaleUi() {
     state.locale = locale;
     state.collator = createCollator(locale);
     updateStaticCopy();
+    renderSiteNotes();
     renderCategoryNav({ preserveSelection: true });
     if (state.currentCategory) {
       refreshDatasetOptions();
@@ -1124,7 +1130,11 @@ async function applyStateFromHash(rawHash = window.location.hash) {
 
 async function init() {
   showPlaceholder(t("placeholders.loadingData"));
-  const [manifest] = await Promise.all([fetchManifest(), loadModelLogoAssets()]);
+  const [manifest] = await Promise.all([
+    fetchManifest(),
+    loadModelLogoAssets(),
+    loadSiteNotes(),
+  ]);
   if (!manifest.length) {
     showPlaceholder(t("placeholders.noDatasets"));
     return;
@@ -1217,6 +1227,96 @@ function getModelLogoImage(modelName) {
     normalizedName.startsWith(alias)
   );
   return matcher ? state.modelLogos.images.get(matcher.logoPath) || null : null;
+}
+
+// ---------------------------------------------------------------- 站点底部说明
+// 数据来自 docs/data/notes.json（由 scripts/sync_md.py 从 md 的「分析/声明/致谢」小节生成）
+
+async function loadSiteNotes() {
+  if (!elements.siteNotes) return;
+  try {
+    const response = await fetch(NOTES_PATH, { cache: "no-cache" });
+    if (!response.ok) {
+      throw new Error(`Unable to load notes: ${response.status}`);
+    }
+    const payload = await response.json();
+    state.notes = Array.isArray(payload?.groups) ? payload.groups : [];
+  } catch (error) {
+    // 说明部分是渐进增强，加载失败不影响榜单
+    console.warn("Unable to load site notes.", error);
+    state.notes = [];
+  }
+  renderSiteNotes();
+}
+
+function renderSiteNotes() {
+  const container = elements.siteNotes;
+  if (!container) return;
+
+  const groups = state.notes.filter(
+    (group) => Array.isArray(group?.sections) && group.sections.length
+  );
+  if (!groups.length) {
+    container.hidden = true;
+    container.textContent = "";
+    return;
+  }
+
+  container.textContent = "";
+
+  const heading = document.createElement("h2");
+  heading.className = "site-notes-title";
+  heading.textContent = t("notes.heading");
+  container.appendChild(heading);
+
+  const intro = document.createElement("p");
+  intro.className = "site-notes-intro";
+  intro.textContent = t("notes.intro");
+  container.appendChild(intro);
+
+  groups.forEach((group) => {
+    const card = document.createElement("article");
+    card.className = "notes-group";
+
+    const head = document.createElement("header");
+    head.className = "notes-group-head";
+    const title = document.createElement("h3");
+    title.textContent = group.label || "";
+    head.appendChild(title);
+    if (group.path) {
+      const source = document.createElement("p");
+      source.className = "notes-group-source";
+      source.textContent = t("notes.source", { path: group.path });
+      head.appendChild(source);
+    }
+    card.appendChild(head);
+
+    const body = document.createElement("div");
+    body.className = "notes-group-body";
+    group.sections.forEach((section) => {
+      const block = document.createElement("section");
+      block.className = "notes-block";
+
+      const label = document.createElement("h4");
+      label.textContent = section.id
+        ? t(`notes.section.${section.id}`, undefined, section.title)
+        : section.title || "";
+      block.appendChild(label);
+
+      const content = document.createElement("div");
+      content.className = "notes-content";
+      // 内容由 sync_md.py 从仓库内 md 生成，为受信任的静态 HTML
+      content.innerHTML = section.html || "";
+      block.appendChild(content);
+
+      body.appendChild(block);
+    });
+    card.appendChild(body);
+
+    container.appendChild(card);
+  });
+
+  container.hidden = false;
 }
 
 function renderCategoryNav({ preserveSelection = false } = {}) {

@@ -18,9 +18,9 @@
 
 复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的编程题评测：
 
-- **总榜**：模型 × 子项矩阵（core / server / web v2 / full / rust v2，无总分列）
+- **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v2，无总分列）
 - **基础题**：core / server / web v2（旧版 web 已归档）
-- **高阶题**：full / rust v2（另有高阶题总分表）
+- **高阶题**：full_v2 / rust v2
 - **归档**：rust（v1）与旧版 web
 
 - 说明页：`docs/bench.html`
@@ -43,7 +43,7 @@ GitHub Pages 站点由 `docs/` 提供：
 
 | 页面 | 内容 |
 | --- | --- |
-| `index.html` | 榜单仪表盘（总榜矩阵、交互筛选、排序、搜索、趋势图） |
+| `index.html` | 榜单仪表盘（总榜矩阵、交互筛选、排序、搜索、趋势图，底部为 md 自动生成的说明与分析） |
 | `bench.html` | code_bench v1.3 题目说明 |
 | `archive.html` | code_bench 归档（rust 与旧版 web 题目、榜单） |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
@@ -54,15 +54,17 @@ GitHub Pages 站点由 `docs/` 提供：
 
 ## 站点自动同步
 
-`docs/` 下的说明页与榜单 CSV **由 Markdown 自动生成**，Markdown 是唯一数据源：
+`docs/` 下的说明页、榜单 CSV 与站点底部说明 **由 Markdown 自动生成**，Markdown 是唯一数据源：
 
-| 数据源 | 生成的说明页 | 生成的榜单 CSV |
-| --- | --- | --- |
-| `code/code_bench.md` | `docs/bench.html` | `docs/data/code_bench/*.csv`（含 `v1.3-rank.csv`） |
-| `code/code_bench_archive.md` | `docs/archive.html` | `docs/data/code_bench/archive-rust.csv`、`archive-web.csv` |
-| `ocr/ocr_benchmark_v5.md` | `docs/ocr_bench.html` | `docs/data/ocr_bench/*.csv` |
+| 数据源 | 生成的说明页 | 生成的榜单 CSV | 生成的底部说明 |
+| --- | --- | --- | --- |
+| `code/code_bench.md` | `docs/bench.html` | `docs/data/code_bench/*.csv`（含 `v1.3-rank.csv`） | `docs/data/notes.json`（「分析 / 声明 / 致谢」小节） |
+| `code/code_bench_archive.md` | `docs/archive.html` | `docs/data/code_bench/archive-rust.csv`、`archive-web.csv` | — |
+| `ocr/ocr_benchmark_v5.md` | `docs/ocr_bench.html` | `docs/data/ocr_bench/*.csv` | — |
 
-修改上述 Markdown 并推送到 `main` 后，GitHub Actions（`.github/workflows/sync-md.yml`）自动运行 `scripts/sync_md.py`，重新生成 HTML 与 CSV 并提交。工作流监听 `code/**` 与 `ocr/**` 路径。
+修改上述 Markdown 并推送到 `main` 后，GitHub Actions（`.github/workflows/sync-md.yml`）自动运行 `scripts/sync_md.py`，重新生成 HTML、CSV 与 `notes.json` 并提交。工作流监听 `code/**` 与 `ocr/**` 路径。
+
+榜单页（`index.html`）底部的「说明与分析」板块由 `docs/data/notes.json` 驱动（`app.js` 的 `loadSiteNotes` / `renderSiteNotes`）：内容取自 md 里的小节，改 md 即自动更新；要新增小节只需在 `scripts/sync_md.py` 的 `notes.sections` 中登记小节名。
 
 ### 本地预览
 
@@ -89,4 +91,4 @@ cd docs && python3 -m http.server   # 本地预览站点
 ## 致谢
 
 1. 感谢 [llm2014](https://github.com/llm2014/llm_benchmark) 的网站模板，欢迎大家前往他的 benchmark，他才是真大佬。
-2. 感谢 shyliuli 提供的 glm5.3 server 项目评测环境。
+2. 感谢 shyliuli 和 Karpy II

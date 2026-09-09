@@ -9,7 +9,7 @@
 | 基础题 · web  v2  | 30      | 复刻 React 19 + Vite 前端  基于owc1.9.9版本提交          |
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
-| 高阶题 · full      | 50      | 三层完整复刻（独立一张卷）                                  |
+| 高阶题 · full_v2      | 100   |   3大+1小模块，开发一个coding agent    |
 | 高阶题 · rust v2   | 50      | 一个网络服务开发，包含规则引擎 + 报文编解码 + 稀疏配置 + CLI四部分        |
 
 ---
@@ -74,7 +74,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4-pro0813(max)   | 25.8      | 4.75-9.5元   | 221k        | 99.5%(17.062m) |
 | glm-5.3-flash(max)         | 23.8 |  5.44元      | 573k        | 99.1%(43.651m)  |
 | deepseek-v4-flash0731(max) | 22.7/24.7 | 20.9-41.8元  | 12563k      | 72%(30.052m)   |
-| gemini-3.7-flash(high)     | 测试中      | 元           | k           | %(m)           |
+| gemini-3.7-flash(high)     | - | 元           | k           | %(m)           |
 | … | 未测试 | 元 | k | %(m) |
 
 **web v2**
@@ -83,10 +83,10 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
 | glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
-| deepseek-v4.1-flash-expires-on-0910(max) | 24 | 4.22-8.44元 | 无 | 339k | 99.8%(60.087m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 24 | 4.22-8.44元 | 339k | 99.8%(60.087m) | 官方api | 无 |
 | qwen3.8-flash(max) | 23.6 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
 | glm5.3(max) | 23.4 | 32.14元       | 310k        | 98.7%(13.454m) | 官方订阅 | zcode预设 |
-| hy4-preview(high) | 23.4 | 12.28元 | - | 636k | 97.8%(21.541m) | 官方API | 无 |
+| hy4-preview(high) | 23.4 | 12.28元 | 636k | 97.8%(21.541m) | 官方API | 无 |
 | deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
 | … | 未测试 | 元 | k | %(m) | 官方 | 无 |
@@ -94,13 +94,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 ### 高阶题
 
-**full**
+**full_v2**
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
-| kimi-k3(high) | 未测试 | ?元 | ? | ?% | kimi订阅 | kimicode预设 |
-| deepseek-v4-flash0731(max) | 未测试 | ?元 | ? | ?% | 官方api | 无 |
-| deepseek-v4-pro0813(max) | 未测试 | ?元 | ? | ?% | 官方api | dsh-minimal预设 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 测试中 | ?元 | ? | ?% | 官方api | 无 |
 
 **rust v2**
 
@@ -134,10 +132,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 ## 声明
 
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
-2. bench内容将在彻底完善之后开源
+2. 接受模型送测(不收费)
+3. 欢迎赞助token
 
 ---
 
 ## 致谢
 
-1. 感谢shyliuli提供的glm5.3 server项目评测环境
+1. 感谢shyliuli和Karpy II提供的glm5.3评测环境

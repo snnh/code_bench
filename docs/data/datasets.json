@@ -39,10 +39,10 @@
       "category": "code_detail",
       "reportDate": "v1.3",
       "tableIndex": 3,
-      "title": "full",
+      "title": "full_v2",
       "csv": "data/code_bench/v1.3-full.csv",
       "tier": "advanced",
-      "fullScore": 50
+      "fullScore": 100
     },
     {
       "category": "code_detail",

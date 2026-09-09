@@ -1232,6 +1232,103 @@ a.view-tab {
   padding-top: 12px;
 }
 
+/* ---------------- 站点说明（底部，由 md 数据源生成） ---------------- */
+
+.site-notes {
+  margin-top: 44px;
+  padding-top: 26px;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-notes-title {
+  margin: 0 0 6px;
+  font-family: var(--font-family-serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.site-notes-intro {
+  margin: 0 0 18px;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.notes-group {
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.notes-group:last-child {
+  margin-bottom: 0;
+}
+
+.notes-group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-bottom: 4px;
+}
+
+.notes-group-head h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.notes-group-source {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.notes-block + .notes-block {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.notes-block h4 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.notes-content {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--color-muted);
+}
+
+.notes-content p {
+  margin: 8px 0 0;
+}
+
+.notes-content ol,
+.notes-content ul {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.notes-content li {
+  margin: 6px 0;
+}
+
+.notes-content code {
+  font-family: var(--font-family-mono);
+  font-size: 0.92em;
+  background: var(--color-accent-soft);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
 /* ---------------- 页脚 ---------------- */
 
 .page-footer {
@@ -1608,6 +1705,19 @@ a.view-tab {
     border-width: 0 0 0 2px;
     border-radius: 0;
     background: transparent;
+  }
+
+  .site-notes {
+    margin-top: 32px;
+    padding-top: 20px;
+  }
+
+  .notes-group {
+    padding: 14px 12px;
+  }
+
+  .notes-content {
+    font-size: 13px;
   }
 
 }

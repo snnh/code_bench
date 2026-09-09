@@ -217,6 +217,10 @@ const TRANSLATIONS = {
     "zh-CN": "full",
     "en-US": "Full",
   },
+  "dataset.title.fullV2": {
+    "zh-CN": "full_v2",
+    "en-US": "Full v2",
+  },
   "dataset.title.advancedTotal": {
     "zh-CN": "高阶题总分",
     "en-US": "Advanced total",
@@ -719,6 +723,30 @@ const TRANSLATIONS = {
   "trends.tooltip.score": {
     "zh-CN": "当月得分",
     "en-US": "Score",
+  },
+  "notes.heading": {
+    "zh-CN": "说明与分析",
+    "en-US": "Notes & Analysis",
+  },
+  "notes.intro": {
+    "zh-CN": "以下内容由各评测的 Markdown 数据源自动生成，随榜单同步更新。",
+    "en-US": "The notes below are generated from each benchmark's Markdown source and update with the leaderboard (maintained in Chinese).",
+  },
+  "notes.source": {
+    "zh-CN": "数据源：{{path}}",
+    "en-US": "Source: {{path}}",
+  },
+  "notes.section.analysis": {
+    "zh-CN": "分析",
+    "en-US": "Analysis",
+  },
+  "notes.section.statement": {
+    "zh-CN": "声明",
+    "en-US": "Statement",
+  },
+  "notes.section.thanks": {
+    "zh-CN": "致谢",
+    "en-US": "Acknowledgements",
   },
 };
 

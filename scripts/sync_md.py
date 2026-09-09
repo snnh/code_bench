@@ -4,6 +4,7 @@
 code_bench 站点同步脚本：以仓库内 Markdown 为唯一数据源，自动生成：
   1. docs/<page>.html        —— 题目说明页（整页由 md 渲染）
   2. docs/data/<bench>/      —— 榜单 CSV（供仪表盘查询）
+  3. docs/data/notes.json    —— 站点底部说明（md 的「分析 / 声明 / 致谢」小节）
 
 用法：
   python3 scripts/sync_md.py [--check]
@@ -12,11 +13,20 @@ code_bench 站点同步脚本：以仓库内 Markdown 为唯一数据源，自�
 新增 bench（如 OCR）：在 SYNC_CONFIG 中按 ocr/ocr_benchmark_v5.md 的格式
 添加条目即可，推送后 GitHub Actions 自动运行本脚本。
 """
+import json
 import os
 import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 站点底部说明：由各 md 的指定小节汇总生成，前端（app.js）读取渲染
+NOTES_TARGET = "docs/data/notes.json"
+NOTE_SECTION_KEYS = {
+    "分析": "analysis",
+    "声明": "statement",
+    "致谢": "thanks",
+}
 
 # ---------------------------------------------------------------- 配置
 
@@ -44,7 +54,7 @@ SYNC_CONFIG = {
             ("基础题", "core"): "docs/data/code_bench/v1.3-core.csv",
             ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
             ("基础题", "web v2"): "docs/data/code_bench/v1.3-web.csv",
-            ("高阶题", "full"): "docs/data/code_bench/v1.3-full.csv",
+            ("高阶题", "full_v2"): "docs/data/code_bench/v1.3-full.csv",
             ("高阶题", "rust v2"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
@@ -66,6 +76,11 @@ SYNC_CONFIG = {
             "docs/data/code_bench/v1.3-rust.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
+        },
+        # 站点底部说明：抽取这些 h2 小节汇总进 docs/data/notes.json（顺序即展示顺序）
+        "notes": {
+            "label": "code_bench v1.3",
+            "sections": ["分析", "声明", "致谢"],
         },
     },
     "code/code_bench_archive.md": {
@@ -471,6 +486,55 @@ def extract_csvs(blocks, csv_config, expected_headers):
     return outputs
 
 
+def extract_notes(blocks, sections):
+    """抽取指定 h2 小节（到下一个 h1/h2/h3 为止）的内容 → 站点底部说明条目。"""
+    notes = []
+    wanted = list(sections or [])
+    current = None
+    collected = []
+
+    def flush():
+        if current is None:
+            return
+        html = blocks_to_html(collected).strip()
+        if html:
+            notes.append(
+                {
+                    "title": current,
+                    "id": NOTE_SECTION_KEYS.get(current, ""),
+                    "html": html,
+                }
+            )
+
+    for kind, payload in blocks:
+        if kind in ("h1", "h2", "h3"):
+            flush()
+            collected = []
+            current = payload if (kind == "h2" and payload in wanted) else None
+            continue
+        if current is None or kind == "hr":
+            # 未命中说明小节，或小节之间的分隔线，均不进入正文
+            continue
+        collected.append((kind, payload))
+    flush()
+    return notes
+
+
+def build_notes_payload(groups):
+    """汇总各 md 的说明小节 → docs/data/notes.json 内容（前端读取渲染）。"""
+    return (
+        json.dumps(
+            {
+                "source": "Markdown 数据源自动生成（scripts/sync_md.py）",
+                "groups": groups,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n"
+    )
+
+
 # ---------------------------------------------------------------- 主流程
 
 def sync_one(md_path, config, check_only=False):
@@ -493,6 +557,20 @@ def sync_one(md_path, config, check_only=False):
     for rel, content in sorted(csvs.items()):
         write_if_changed(os.path.join(ROOT, rel), content, check_only)
 
+    # 3) 站点底部说明（可选）
+    notes_config = config.get("notes")
+    if not notes_config:
+        return None
+    sections = extract_notes(blocks, notes_config.get("sections"))
+    if not sections:
+        return None
+    print("  - 说明小节：%s" % "、".join(item["title"] for item in sections))
+    return {
+        "label": notes_config.get("label", md_path),
+        "path": md_path,
+        "sections": sections,
+    }
+
 
 def write_if_changed(path, content, check_only):
     if os.path.exists(path):
@@ -511,11 +589,22 @@ def write_if_changed(path, content, check_only):
 
 def main():
     check_only = "--check" in sys.argv
+    note_groups = []
     for md_path, config in SYNC_CONFIG.items():
         if not os.path.exists(os.path.join(ROOT, md_path)):
             print("[%s] 跳过：文件不存在（等待添加）" % md_path)
             continue
-        sync_one(md_path, config, check_only)
+        group = sync_one(md_path, config, check_only)
+        if group:
+            note_groups.append(group)
+
+    if note_groups:
+        print("[站点底部说明]")
+        write_if_changed(
+            os.path.join(ROOT, NOTES_TARGET),
+            build_notes_payload(note_groups),
+            check_only,
+        )
 
 
 if __name__ == "__main__":
