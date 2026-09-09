@@ -98,7 +98,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
-| deepseek-v4.1-flash-expires-on-0910(max) | 测试中 | ?元 | ? | ?% | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 311k | 99.7%(23.698m) | 官方api | 无 |
 
 **rust v2**
 
@@ -133,7 +133,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 0. full_v2项目主要反映模型从0到1的理解用户需求，规划和开发能力
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
-2. 接受模型送测(只是为了多体验更多模型)
+2. 接受模型送测(不收费)
 3. 欢迎赞助token
 
 ---
