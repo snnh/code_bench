@@ -102,7 +102,8 @@ const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
 const VALID_COUNTRY_FILTERS = new Set(["all", "china", "usa", "other"]);
 // 分数显示方式：raw = 原始分（如 26.2/30），percent = 按数据集满分折算百分制并加 %（如 87.3%）
-const DEFAULT_SCORE_SCALE = "raw";
+// 默认百分制（子项满分不同，百分制更利于横向比较）；URL 用 percent=0 记录“原始分”
+const DEFAULT_SCORE_SCALE = "percent";
 const VALID_SCORE_SCALES = new Set(["raw", "percent"]);
 const SCORE_HEADER_NAME = "积分";
 const MOBILE_BREAKPOINT_PX = 768;
@@ -817,8 +818,8 @@ function updateStaticCopy() {
     setSelectOptions(
       elements.scoreScaleSelect,
       [
-        { value: "raw", label: t("controls.scoreScale.option.raw") },
         { value: "percent", label: t("table.header.percentScale") },
+        { value: "raw", label: t("controls.scoreScale.option.raw") },
       ],
       state.scoreScale
     );
@@ -1045,6 +1046,13 @@ function normalizeCountryFilter(value) {
   return VALID_COUNTRY_FILTERS.has(value) ? value : DEFAULT_COUNTRY_FILTER;
 }
 
+// percent=1 → 百分制；percent=0 → 原始分；缺省 → 默认（百分制）
+function parseScoreScaleParam(value) {
+  if (value === "0") return "raw";
+  if (value === "1") return "percent";
+  return DEFAULT_SCORE_SCALE;
+}
+
 function parseHashState(rawHash = window.location.hash) {
   const hash = String(rawHash || "").replace(/^#/, "");
   const params = new URLSearchParams(hash);
@@ -1058,7 +1066,7 @@ function parseHashState(rawHash = window.location.hash) {
     inferenceFilter: normalizeInferenceFilter((params.get("inference") || "").trim()),
     countryFilter: normalizeCountryFilter((params.get("country") || "").trim()),
     searchQuery: (params.get("search") || "").trim(),
-    scoreScale: params.get("percent") === "1" ? "percent" : DEFAULT_SCORE_SCALE,
+    scoreScale: parseScoreScaleParam(params.get("percent")),
   };
 }
 
@@ -1104,8 +1112,8 @@ function buildHashFromState() {
   if (state.searchQuery) {
     params.set("search", state.searchQuery);
   }
-  if (state.scoreScale === "percent" && scoreScaleApplicable()) {
-    params.set("percent", "1");
+  if (state.scoreScale === "raw" && scoreScaleApplicable()) {
+    params.set("percent", "0");
   }
   return params.toString();
 }
@@ -3470,10 +3478,17 @@ function renderChart() {
   // 推理类别交换横纵坐标：横轴 = 指标（成本/耗时），纵轴 = 分数
   const swapped = !!config.swapAxes;
 
-  const scoreLabel =
+  const scoreLabelBase =
     state.currentCategory === "code"
       ? t("chart.axis.multiTurnScore")
       : t(config.scoreLabelKey || "chart.axis.maxScore");
+  // 百分制显示时分数轴同步折算，保证表格与图上的数值一致
+  const scoreScaleFactor =
+    state.scoreScale === "percent" && Number(state.activeFullScore) > 0
+      ? 100 / Number(state.activeFullScore)
+      : 1;
+  const scoreLabel =
+    scoreScaleFactor === 1 ? scoreLabelBase : `${scoreLabelBase}${t("table.header.percentSuffix")}`;
   const metricLabel =
     yAxisType === "cost"
       ? t("chart.axis.cost")
@@ -3516,6 +3531,16 @@ function renderChart() {
       const modelName = row.cells[modelIndex] || "Unknown";
 
       if (xValue === null || yValue === null) return null;
+
+      if (scoreScaleFactor !== 1) {
+        // 交换坐标时分数在纵轴，否则在横轴
+        if (swapped) {
+          yValue *= scoreScaleFactor;
+        } else {
+          xValue *= scoreScaleFactor;
+        }
+      }
+
       if (yAxisType === "cost" && state.locale === "en-US") {
         // 货币换算作用于指标值（交换后指标在横轴）
         if (swapped) {
