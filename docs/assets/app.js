@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260910-notes";
+} from "./i18n.js?v=20260910-upstream-sync";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -111,7 +111,7 @@ const MODEL_COUNTRY_HEADER_CANDIDATES = ["模型", "Model", "方案", "最佳方
 const CHINA_MODEL_PATTERNS = [
   /[\u4e00-\u9fff]/,
   /^k2(?:\b|[.\s-])/i,
-  /\b(?:baichuan|chatglm|deepseek|doubao|ernie|erine|glm|hunyuan|kat|kimi|ling|longcat|minimax|mimo|openpangu|pangu|qwen|qwn|qvq|qwq|ring|seed|sensenova|step|tencent|yi)(?=$|[^a-z0-9]|[0-9])/i,
+  /\b(?:baichuan|chatglm|deepseek|dots|doubao|ernie|erine|glm|hunyuan|hy|kat|kimi|ling|longcat|minimax|mimo|openpangu|pangu|qwen|qwn|qvq|qwq|ring|seed|sensechat|sensenova|spark|step|tencent|tiangong|yi)(?=$|[^a-z0-9]|[0-9])/i,
 ];
 const US_MODEL_PATTERNS = [
   /\b(?:anthropic|chatgpt|claude|fable|gemini|gemm3|gemma|gpt|grok|haiku|llama|muse|o1|o3|o4|openai|opus|sonnet)(?=$|[^a-z0-9]|[0-9])/i,
@@ -145,6 +145,15 @@ const CATEGORY_CHART_CONFIG = {
     time: "平均耗时(秒)",
     scoreFallbacks: ["多轮总分"],
   },
+  // code_bench 子项榜单：积分 × 成本 / token 效率象限图（无耗时列，故不提供“平均耗时”轴）
+  code_detail: {
+    score: "积分",
+    scoreLabelKey: "chart.axis.points",
+    cost: "成本(折算API价格)",
+    token: "token(不算缓存)",
+    // 子项榜单不是月度榜单，不参与趋势视图，仅用于象限图
+    trends: false,
+  },
   vision: {
     score: "极限分数",
     cost: "成本",
@@ -155,7 +164,10 @@ const CATEGORY_CHART_CONFIG = {
   },
 };
 const TRENDS_SUPPORTED = new Set(
-  Object.keys(CATEGORY_CHART_CONFIG).filter((category) => !HIDDEN_CATEGORIES.has(category))
+  Object.keys(CATEGORY_CHART_CONFIG).filter(
+    (category) =>
+      !HIDDEN_CATEGORIES.has(category) && CATEGORY_CHART_CONFIG[category].trends !== false
+  )
 );
 // 趋势视图只取相对最新数据集的最近 18 期（动态计算，随数据更新滚动）
 const TRENDS_MAX_MONTHS = 18;
@@ -818,18 +830,7 @@ function updateStaticCopy() {
   if (elements.yAxisLabel) {
     updateMetricAxisLabel();
   }
-  if (elements.yAxisSelect) {
-    elements.yAxisSelect.setAttribute("aria-label", t("chart.yAxis.aria"));
-    const currentValue = elements.yAxisSelect.value || "cost";
-    setSelectOptions(
-      elements.yAxisSelect,
-      [
-        { value: "cost", label: t("chart.yAxis.option.cost") },
-        { value: "time", label: t("chart.yAxis.option.time") },
-      ],
-      currentValue
-    );
-  }
+  updateChartMetricOptions();
   if (elements.footerNote) {
     elements.footerNote.textContent = t("footer.note");
   }
@@ -879,6 +880,80 @@ function updateMetricAxisLabel() {
   elements.yAxisLabel.textContent = swapped
     ? t("chart.xAxis.label")
     : t("chart.yAxis.label");
+}
+
+// 纵轴（交换坐标时为横轴）可选指标：按当前类别配置与数据集实际列动态生成，
+// 例如 code_bench 子项榜单有成本与 token、没有耗时列。
+function updateChartMetricOptions() {
+  if (!elements.yAxisSelect) return;
+  const config = state.currentCategory ? CATEGORY_CHART_CONFIG[state.currentCategory] : null;
+  const headers = Array.isArray(state.headers) ? state.headers : [];
+  const ariaKey = config?.swapAxes ? "chart.xAxis.aria" : "chart.yAxis.aria";
+  const candidates = [
+    { value: "cost", label: t("chart.yAxis.option.cost"), column: config?.cost },
+    { value: "time", label: t("chart.yAxis.option.time"), column: config?.time },
+    { value: "token", label: t("chart.yAxis.option.token"), column: config?.token },
+  ].filter((item) => item.column && headers.includes(item.column));
+
+  if (!candidates.length && config?.cost) {
+    // 数据集尚未加载或缺少成本列时，至少保留一个可选项，避免下拉为空
+    candidates.push({ value: "cost", label: t("chart.yAxis.option.cost") });
+  }
+
+  const currentValue = elements.yAxisSelect.value;
+  const values = candidates.map((item) => item.value);
+  const nextValue = values.includes(currentValue) ? currentValue : values[0] || "cost";
+  elements.yAxisSelect.setAttribute("aria-label", t(ariaKey));
+  setSelectOptions(
+    elements.yAxisSelect,
+    candidates.map(({ value, label }) => ({ value, label })),
+    nextValue
+  );
+}
+
+// 成本列常写作 “3.24-6.48元”（订阅价/API 价区间），象限图取下界做近似
+function parseCostValue(value) {
+  if (value === undefined || value === null) return null;
+  const trimmed = String(value).trim();
+  if (!trimmed) return null;
+  const range = trimmed.match(/([\d.]+)\s*[-~]\s*[\d.]+/);
+  if (range) {
+    const lower = Number(range[1]);
+    return Number.isFinite(lower) ? lower : null;
+  }
+  return parseSortableNumber(trimmed);
+}
+
+// token 列写作 “394k / 12563k” 之类，需按 K/M 后缀还原真实数量级
+function parseTokenValue(value) {
+  if (value === undefined || value === null) return null;
+  const trimmed = String(value).trim();
+  if (!trimmed) return null;
+  const match = trimmed.match(/^([\d.]+)\s*([kKmM])?/);
+  if (!match) return parseSortableNumber(trimmed);
+  const base = Number(match[1]);
+  if (!Number.isFinite(base)) return null;
+  const unit = (match[2] || "").toLowerCase();
+  const factor = unit === "k" ? 1000 : unit === "m" ? 1000000 : 1;
+  return base * factor;
+}
+
+function parseChartMetricValue(value, metricType) {
+  if (metricType === "token") return parseTokenValue(value);
+  if (metricType === "cost") return parseCostValue(value);
+  return parseSortableNumber(value);
+}
+
+// Token 轴刻度：按 K/M 缩写，避免 10 万级刻度挤在一起
+function formatTokenTick(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "";
+  if (Math.abs(number) >= 1000000) {
+    const millions = number / 1000000;
+    return `${Number.isInteger(millions) ? millions : millions.toFixed(1)}M`;
+  }
+  const thousands = number / 1000;
+  return `${Number.isInteger(thousands) ? thousands : thousands.toFixed(1)}K`;
 }
 
 function updateLanguageToggle() {
@@ -1229,6 +1304,22 @@ function getModelLogoImage(modelName) {
   return matcher ? state.modelLogos.images.get(matcher.logoPath) || null : null;
 }
 
+// 固定尺寸的 logo 槽位：命中 logo 时放入图片，未命中时留空占位，
+// 使同一列中所有模型名左边缘对齐（加载中/缺失都不跳动）。
+function createModelLogoSlot(logo) {
+  const slot = document.createElement("span");
+  slot.className = "model-logo-slot";
+  if (logo) {
+    const img = logo.cloneNode(false);
+    img.className = "model-logo";
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+    img.setAttribute("decoding", "async");
+    slot.appendChild(img);
+  }
+  return slot;
+}
+
 // ---------------------------------------------------------------- 站点底部说明
 // 数据来自 docs/data/notes.json（由 scripts/sync_md.py 从 md 的「分析/声明/致谢」小节生成）
 
@@ -1556,6 +1647,7 @@ async function handleCategoryChange(category, options = {}) {
   const { preferredDatasetKey = null } = options;
   state.currentCategory = category;
   updateMetricAxisLabel();
+  updateChartMetricOptions();
   state.currentDatasetKey = null;
   state.currentDatasetDirectory = null;
   elements.datasetSelect.disabled = true;
@@ -1714,6 +1806,7 @@ async function loadDatasetByKey(key) {
   }
 
   state.headers = displayHeaders;
+  updateChartMetricOptions();
   state.rows = rows.map((row) => {
     const cells =
       thinkIndex === -1 ? row.slice() : row.filter((_, index) => index !== thinkIndex);
@@ -2191,14 +2284,7 @@ function createMobileCard(row, layout, headerIndexMap, modelColumnIndex) {
   titleGroup.className = "mobile-card-title-group";
 
   const logo = modelColumnIndex >= 0 ? getModelLogoImage(row.cells[modelColumnIndex]) : null;
-  if (logo) {
-    const img = logo.cloneNode(false);
-    img.className = "model-logo";
-    img.alt = "";
-    img.setAttribute("aria-hidden", "true");
-    img.setAttribute("decoding", "async");
-    titleGroup.appendChild(img);
-  }
+  titleGroup.appendChild(createModelLogoSlot(logo));
 
   const title = document.createElement("h3");
   title.className = "mobile-card-title";
@@ -2458,13 +2544,7 @@ function createMatrixTable(models, activeCols, modelScores, colStats) {
     const modelInner = document.createElement("div");
     modelInner.className = "matrix-model-inner";
     const logo = getModelLogoImage(model);
-    if (logo) {
-      const img = logo.cloneNode(false);
-      img.className = "model-logo";
-      img.alt = "";
-      img.setAttribute("aria-hidden", "true");
-      modelInner.appendChild(img);
-    }
+    modelInner.appendChild(createModelLogoSlot(logo));
     const nameSpan = document.createElement("span");
     nameSpan.className = "model-cell-name";
     nameSpan.textContent = model;
@@ -2495,14 +2575,7 @@ function renderMobileMatrix(container, models, activeCols, modelScores, colStats
     const titleGroup = document.createElement("div");
     titleGroup.className = "mobile-card-title-group";
     const logo = getModelLogoImage(model);
-    if (logo) {
-      const img = logo.cloneNode(false);
-      img.className = "model-logo";
-      img.alt = "";
-      img.setAttribute("aria-hidden", "true");
-      img.setAttribute("decoding", "async");
-      titleGroup.appendChild(img);
-    }
+    titleGroup.appendChild(createModelLogoSlot(logo));
     const title = document.createElement("h3");
     title.className = "mobile-card-title";
     title.textContent = model;
@@ -2774,19 +2847,14 @@ function renderTable() {
       const displayValue = cell ? formatCellForDisplay(state.headers[columnIndex], cell) : "—";
 
       if (columnIndex === modelColumnIndex) {
-        // 模型单元格：logo + 名称横向排列（无匹配 logo 时退化为纯文本）
+        // 模型单元格：logo 槽位 + 名称横向排列（无匹配 logo 时槽位留空，保持文字对齐）
         const inner = document.createElement("span");
         inner.className = "model-cell-inner";
         const logo = getModelLogoImage(cell);
         if (logo) {
           td.classList.add("has-logo");
-          const img = logo.cloneNode(false);
-          img.className = "model-logo";
-          img.alt = "";
-          img.setAttribute("aria-hidden", "true");
-          img.setAttribute("decoding", "async");
-          inner.appendChild(img);
         }
+        inner.appendChild(createModelLogoSlot(logo));
         const name = document.createElement("span");
         name.className = "model-cell-name";
         name.textContent = displayValue;
@@ -3347,13 +3415,35 @@ function getCssVariable(name, fallback = "") {
   return value || fallback;
 }
 
+// 当前筛选结果里是否至少有一行可画点（分数与指标都能解析出数值）。
+// 只有“测试中/未测试/区间值”等占位数据的数据集不会显示空的图区。
+function hasChartableRows(config) {
+  if (!config) return false;
+  const scoreIndex = state.headers.indexOf(config.score);
+  if (scoreIndex === -1) return false;
+  const metricEntries = [
+    { type: "cost", column: config.cost },
+    { type: "time", column: config.time },
+    { type: "token", column: config.token },
+  ]
+    .filter((entry) => entry.column)
+    .map((entry) => ({ ...entry, index: state.headers.indexOf(entry.column) }))
+    .filter((entry) => entry.index !== -1);
+  if (!metricEntries.length) return false;
+  return state.filteredRows.some((row) => {
+    if (parseSortableNumber(row.cells[scoreIndex]) === null) return false;
+    return metricEntries.some(
+      (entry) => parseChartMetricValue(row.cells[entry.index], entry.type) !== null
+    );
+  });
+}
+
 function updateChartVisibility() {
   if (!elements.chartSection) return;
 
   const show =
     state.view === "board" &&
-    !!CATEGORY_CHART_CONFIG[state.currentCategory] &&
-    state.filteredRows.length > 0;
+    hasChartableRows(CATEGORY_CHART_CONFIG[state.currentCategory]);
 
   elements.chartSection.style.display = show ? "block" : "none";
 }
@@ -3375,13 +3465,21 @@ function renderChart() {
 
   // 使用 CSV 原始列名定位（非翻译后名称）
   const yAxisType = elements.yAxisSelect ? elements.yAxisSelect.value : "cost";
-  const yAxisColumnName = yAxisType === "cost" ? config.cost : config.time;
+  const metricColumns = { cost: config.cost, time: config.time, token: config.token };
+  const yAxisColumnName = metricColumns[yAxisType] || config.cost;
   // 推理类别交换横纵坐标：横轴 = 指标（成本/耗时），纵轴 = 分数
   const swapped = !!config.swapAxes;
 
   const scoreLabel =
-    state.currentCategory === "code" ? t("chart.axis.multiTurnScore") : t("chart.axis.maxScore");
-  const metricLabel = yAxisType === "cost" ? t("chart.axis.cost") : t("chart.axis.avgTime");
+    state.currentCategory === "code"
+      ? t("chart.axis.multiTurnScore")
+      : t(config.scoreLabelKey || "chart.axis.maxScore");
+  const metricLabel =
+    yAxisType === "cost"
+      ? t("chart.axis.cost")
+      : yAxisType === "token"
+        ? t("chart.axis.avgTokens")
+        : t("chart.axis.avgTime");
 
   let scoreIndex = -1;
   let metricIndex = -1;
@@ -3409,10 +3507,12 @@ function renderChart() {
   const chartXLabel = swapped ? metricLabel : scoreLabel;
   const chartYLabel = swapped ? scoreLabel : metricLabel;
 
+  const parseMetricValue = (value) => parseChartMetricValue(value, yAxisType);
+
   const chartData = state.filteredRows
     .map((row) => {
-      let xValue = parseSortableNumber(row.cells[xAxisIndex]);
-      let yValue = parseSortableNumber(row.cells[yAxisIndex]);
+      let xValue = parseMetricValue(row.cells[xAxisIndex]);
+      let yValue = parseMetricValue(row.cells[yAxisIndex]);
       const modelName = row.cells[modelIndex] || "Unknown";
 
       if (xValue === null || yValue === null) return null;
@@ -3446,7 +3546,7 @@ function renderChart() {
     return;
   }
 
-  // 指标数值跨度超过一个数量级时启用对数轴（成本常横跨 ¥2–¥207）
+  // 指标数值跨度超过一个数量级时启用对数轴（成本 ¥2–¥207、token 138k–12563k）
   const metricValues = chartData.map((point) => (swapped ? point.x : point.y));
   const minMetric = Math.min(...metricValues);
   const maxMetric = Math.max(...metricValues);
@@ -3454,9 +3554,9 @@ function renderChart() {
 
   const medianX = median(chartData.map((point) => point.x));
   const medianY = median(chartData.map((point) => point.y));
-  // 性能 × 成本图以 40 分作为固定性能分界；成本分界仍取当月中位数。
-  const quadrantX = yAxisType === "cost" && !swapped ? 40 : medianX;
-  const quadrantY = yAxisType === "cost" && swapped ? 40 : medianY;
+  // 分界一律取当前数据集的中位数：code_bench 子项满分不同（30/50/100），固定阈值不具可比性
+  const quadrantX = medianX;
+  const quadrantY = medianY;
 
   const ctx = elements.chartCanvas.getContext("2d");
   const chartTextColor = getCssVariable("--color-text", "#212428");
@@ -3518,7 +3618,9 @@ function renderChart() {
                   ? state.locale === "en-US"
                     ? formatUsd(metricValue)
                     : `¥${metricValue}`
-                  : `${metricValue}`;
+                  : yAxisType === "token"
+                    ? Number(metricValue).toLocaleString("en-US")
+                    : `${metricValue}`;
               return [
                 `${t("chart.tooltip.model")}: ${point.label}`,
                 `${chartXLabel}: ${swapped ? metricText : point.x}`,
@@ -3532,7 +3634,7 @@ function renderChart() {
           medianY: quadrantY,
           sweetBg: getCssVariable("--color-chart-quadrant-sweet", "rgba(58, 107, 79, 0.05)"),
           secondBg:
-            yAxisType === "cost"
+            yAxisType === "cost" || yAxisType === "token"
               ? getCssVariable("--color-chart-quadrant-second", "rgba(34, 197, 94, 0.14)")
               : null,
           lineColor: getCssVariable("--color-chart-median-line", "rgba(111, 108, 101, 0.75)"),
@@ -3566,8 +3668,7 @@ function renderChart() {
       scales: {
         x: {
           type: swapped && useLogScale ? "logarithmic" : "linear",
-          suggestedMin: yAxisType === "cost" && !swapped ? 40 : undefined,
-          suggestedMax: yAxisType === "cost" && !swapped ? 40 : undefined,
+          beginAtZero: yAxisType === "token" && swapped && !useLogScale,
           title: {
             display: true,
             text: chartXLabel,
@@ -3585,12 +3686,12 @@ function renderChart() {
             font: {
               size: 11,
             },
+            callback: yAxisType === "token" && swapped ? formatTokenTick : undefined,
           },
         },
         y: {
           type: !swapped && useLogScale ? "logarithmic" : "linear",
-          suggestedMin: yAxisType === "cost" && swapped ? 40 : undefined,
-          suggestedMax: yAxisType === "cost" && swapped ? 40 : undefined,
+          beginAtZero: yAxisType === "token" && !swapped && !useLogScale,
           title: {
             display: true,
             text: chartYLabel,
@@ -3608,6 +3709,7 @@ function renderChart() {
             font: {
               size: 11,
             },
+            callback: yAxisType === "token" && !swapped ? formatTokenTick : undefined,
           },
         },
       },

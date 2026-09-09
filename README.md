@@ -43,7 +43,7 @@ GitHub Pages 站点由 `docs/` 提供：
 
 | 页面 | 内容 |
 | --- | --- |
-| `index.html` | 榜单仪表盘（总榜矩阵、交互筛选、排序、搜索、趋势图，底部为 md 自动生成的说明与分析） |
+| `index.html` | 榜单仪表盘（总榜矩阵、象限图、交互筛选、排序、搜索、趋势图，底部为 md 自动生成的说明与分析） |
 | `bench.html` | code_bench v1.3 题目说明 |
 | `archive.html` | code_bench 归档（rust 与旧版 web 题目、榜单） |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
@@ -65,6 +65,8 @@ GitHub Pages 站点由 `docs/` 提供：
 修改上述 Markdown 并推送到 `main` 后，GitHub Actions（`.github/workflows/sync-md.yml`）自动运行 `scripts/sync_md.py`，重新生成 HTML、CSV 与 `notes.json` 并提交。工作流监听 `code/**` 与 `ocr/**` 路径。
 
 榜单页（`index.html`）底部的「说明与分析」板块由 `docs/data/notes.json` 驱动（`app.js` 的 `loadSiteNotes` / `renderSiteNotes`）：内容取自 md 里的小节，改 md 即自动更新；要新增小节只需在 `scripts/sync_md.py` 的 `notes.sections` 中登记小节名。
+
+code 子项榜单另带**象限图**（积分 × 成本 / Token 效率），指标下拉按当前 CSV 实际列动态生成，分界取当前数据集的中位数；成本为区间（如 `3.24-6.48元`）时取下界，token 的 `k`/`m` 后缀按真实数量级还原。
 
 ### 本地预览
 

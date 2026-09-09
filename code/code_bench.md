@@ -131,6 +131,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 ## 声明
 
+0. full_v2项目主要反映模型从0到1的理解用户需求，规划和开发能力
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
 2. 接受模型送测(不收费)
 3. 欢迎赞助token
