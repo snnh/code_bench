@@ -10,7 +10,7 @@
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
 | 高阶题 · full_v2      | 100   |   3大+1小模块，开发一个coding agent    |
-| 高阶题 · rust v2   | 50      | 一个网络服务开发，包含规则引擎 + 报文编解码 + 稀疏配置 + CLI四部分        |
+| 高阶题 · rust v2.1   | 50      | 一个网络服务开发，包含规则引擎 + 报文编解码 + 稀疏配置 + CLI四部分        |
 
 ---
 
@@ -102,20 +102,21 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 354k | 99.7%(27.732m) | 官方api | 无 |
 | deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 311k | 99.7%(23.698m) | 官方api | 无 |
 
-**rust v2**
+**rust v2.1**
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
 | hy4-preview(high) | 43.62 | 6.77元 | - | 412k | 97.5%(12.4m) | codebuddy | codebuddy cli(hy4-preview-x) |
-| qwen3.8-flash(max) | 41.36(疑似优势区间) | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
-| deepseek-v4.1-flash-expires-on-0910(max) | 40.56 | 2.09-4.18元 | 无 | 240k | 99.7%(24.017m) | 官方api | 无 |
-| glm5.3(max) | 40.54 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | zcode预设 |
-| kimi-k3(max) | 38.54 | 23.08元 | 2.07 | 264k | 97%(4.21m) | kimi订阅 | kimicode预设 |
-| kimi-k3(high) | 36.95 | 13.05元 | 1.04 | 168k | 95%(1.953m) | kimi订阅 | kimicode预设 |
-| deepseek-v4-pro0813(max) | 31.27 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
-| deepseek-v4-flash0902(max) | 30.47 | 2.41-4.82元 | 无 | 337k | 99.5%(23.753m) | 官方api | 无 |
-| deepseek-v4-flash-vision-exp(max) | 30.03 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
-| glm-5.3-flash(max) | 28.66 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
+| deepseek-v4.1-flash(max) | 41.57 | 1.03-2.06元 | 无 | 249k | 99.4%(13.376m) | 官方api | 无 |
+| qwen3.8-flash(max) | 41.26(疑似优势区间) | 1.21元 | 0.363元 | 321k | 97%(6.324m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 40.46 | 2.09-4.18元 | 无 | 240k | 99.7%(24.017m) | 官方api | 无 |
+| glm5.3(max) | 40.43 | 26.18元 | 2.09元 | 407k | 97.4%(10.063m) | 官方api | zcode预设 |
+| kimi-k3(max) | 38.74 | 23.08元 | 2.07 | 264k | 97%(4.21m) | kimi订阅 | kimicode预设 |
+| kimi-k3(high) | 36.36 | 13.05元 | 1.04 | 168k | 95%(1.953m) | kimi订阅 | kimicode预设 |
+| deepseek-v4-pro0813(max) | 30.87 | 4.54-9.08元 | 无 | 261k | 99.3%(11.981m) | 官方api | dsh-minimal预设 |
+| deepseek-v4-flash0902(max) | 30.87 | 2.41-4.82元 | 无 | 337k | 99.5%(23.753m) | 官方api | 无 |
+| deepseek-v4-flash-vision-exp(max) | 29.63 | 1.76-3.52元 | 无 | 290k | 99.2%(16.964m) | 官方api | 无 |
+| glm-5.3-flash(max) | 28.46 | 1.99元 | 0.517元 | 557k | 98%(12.657m) | 官方api | 无 |
 | deepseek-v4-flash0731(max) | 未测试 | ?元 | 无 | ? | ?% | 官方api | 无 |
 
 

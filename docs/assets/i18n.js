@@ -229,6 +229,10 @@ const TRANSLATIONS = {
     "zh-CN": "rust",
     "en-US": "Rust",
   },
+  "dataset.title.rustV21": {
+    "zh-CN": "rust v2.1",
+    "en-US": "Rust v2.1",
+  },
   "dataset.title.shortPrompt": {
     "zh-CN": "短提示榜",
     "en-US": "Short-prompt leaderboard",

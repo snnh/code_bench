@@ -18,9 +18,9 @@
 
 复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的编程题评测：
 
-- **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v2，无总分列）
+- **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v2.1，无总分列）
 - **基础题**：core / server / web v2（旧版 web 已归档）
-- **高阶题**：full_v2 / rust v2
+- **高阶题**：full_v2 / rust v2.1
 - **归档**：rust（v1）与旧版 web
 
 - 说明页：`docs/bench.html`

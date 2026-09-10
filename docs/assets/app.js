@@ -20,6 +20,7 @@ const DATASET_TITLE_KEYS = {
   "full": "dataset.title.full",
   "full_v2": "dataset.title.fullV2",
   "rust": "dataset.title.rust",
+  "rust v2.1": "dataset.title.rustV21",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
   "类别诊断": "dataset.title.categoryDiagnosis",
@@ -2654,7 +2655,7 @@ async function renderMatrix() {
     })
   );
 
-  // 只保留真正有数据的列（丢弃空占位列，如 rust v2）
+  // 只保留真正有数据的列（丢弃尚无成绩的子项占位列）
   const activeCols = loaded.filter(
     (entry) => entry.modelIdx >= 0 && entry.scoreIdx >= 0 && entry.rows.length > 0
   );

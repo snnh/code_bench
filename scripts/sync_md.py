@@ -55,7 +55,7 @@ SYNC_CONFIG = {
             ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
             ("基础题", "web v2"): "docs/data/code_bench/v1.3-web.csv",
             ("高阶题", "full_v2"): "docs/data/code_bench/v1.3-full.csv",
-            ("高阶题", "rust v2"): "docs/data/code_bench/v1.3-rust.csv",
+            ("高阶题", "rust v2.1"): "docs/data/code_bench/v1.3-rust.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/v1.3-rank.csv": [
