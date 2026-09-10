@@ -26,9 +26,9 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型                              |
 | --------------------------------- |
+| deepseek-v4.1-flash(max) |
 | kimi-k3(max)                     |
 | kimi-k3(high)                     |
-| deepseek-v4.1-flash(max) |
 | hy4-preview(high) |
 | deepseek-v4.1-flash-expires-on-0910(max) |
 | glm5.3(max)                       |
@@ -101,6 +101,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|
 | deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 354k | 99.7%(27.732m) | 官方api | 无 |
 | deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 311k | 99.7%(23.698m) | 官方api | 无 |
+| glm5.3(max) | 61.5 | 98.28元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
 
 **rust v2.1**
 
