@@ -50,7 +50,8 @@
       "tableIndex": 5,
       "title": "rust v3",
       "csv": "data/code_bench/v1.3-rust-v3.csv",
-      "tier": "advanced"
+      "tier": "advanced",
+      "fullScore": 50
     },
     {
       "category": "code_detail",
