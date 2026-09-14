@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260910-upstream-sync";
+} from "./i18n.js?v=20260915-rust-v3";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -21,6 +21,7 @@ const DATASET_TITLE_KEYS = {
   "full_v2": "dataset.title.fullV2",
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
+  "rust v3": "dataset.title.rustV3",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
   "类别诊断": "dataset.title.categoryDiagnosis",
@@ -2655,9 +2656,18 @@ async function renderMatrix() {
     })
   );
 
-  // 只保留真正有数据的列（丢弃尚无成绩的子项占位列）
+  // 只保留真正有数据的列：整列都是占位符（- / —）的待测子项不进矩阵，
+  // 但“未测试 / 测试中”这类有状态含义的值仍保留列
+  const hasMeaningfulScore = (row, scoreIdx) => {
+    const value = String(row[scoreIdx] ?? "").trim();
+    return value !== "" && !/^[-—]+$/.test(value);
+  };
   const activeCols = loaded.filter(
-    (entry) => entry.modelIdx >= 0 && entry.scoreIdx >= 0 && entry.rows.length > 0
+    (entry) =>
+      entry.modelIdx >= 0 &&
+      entry.scoreIdx >= 0 &&
+      entry.rows.length > 0 &&
+      entry.rows.some((row) => hasMeaningfulScore(row, entry.scoreIdx))
   );
   if (!activeCols.length) {
     showPlaceholder(t("placeholders.noDatasets"));

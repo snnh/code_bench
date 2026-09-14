@@ -105,6 +105,20 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(max) | 62.91 | 92.12元 | 803k | 98.1%(29.29m) | kimi订阅 | kimicode预设 |
 | glm5.3(max) | 60.7 | 98.28元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
 
+**rust v3**
+
+| 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
+|---|---|---|---|---|---|---|---|
+| deepseek-v4.1-flash(max) | - | -元 | 无 | -k | -%(-m) | 官方api | 无 |
+| glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
+| glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
+| hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
+| kimi-k2.8-preview(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
+| kimi-k3(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
+| kimi-k3(high) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
+| qwen3.8-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | 无 |
+
+
 **rust v2.1**
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
@@ -128,11 +142,12 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 ## 分析
 
-1. K3的high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来
+1. K3在C部分相当高效，但在full_v2项目C之外的部分表现不佳，（high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来）
 2. 单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分
 3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
 4. v4.1f-0910稳定性不如glm5.3好于v4p，但速度极快
-5. ...
+5. rust等我重测
+6. ...
 
 ---
 
