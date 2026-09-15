@@ -2,7 +2,7 @@
   "source": "Markdown 数据源自动生成（scripts/sync_md.py）",
   "groups": [
     {
-      "label": "code_bench v1.3",
+      "label": "code_bench v1.4",
       "path": "code/code_bench.md",
       "sections": [
         {

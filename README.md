@@ -14,19 +14,19 @@
 
 ## 评测项目
 
-### code_bench v1.3
+### code_bench v1.4
 
 复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的编程题评测：
 
-- **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v2.1 / rust v3（待测），无总分列）
+- **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v2.1 / rust v3，无总分列）
 - **基础题**：core / server / web v2（旧版 web 已归档）
-- **高阶题**：full_v2 / rust v2.1 / rust v3（名单已登记，成绩待补）
+- **高阶题**：full_v2 / rust v2.1 / rust v3（满分 100，名单已登记，成绩陆续补测）
 - **归档**：rust（v1）与旧版 web
 
 - 说明页：`docs/bench.html`
 - 归档页：`docs/archive.html`
 - 榜单数据：`docs/data/code_bench/*.csv`
-- 排行：`docs/data/code_bench/v1.3-rank.csv`（总榜默认排序依据）
+- 排行：`docs/data/code_bench/v1.4-rank.csv`（总榜默认排序依据）
 
 ### 开发场景 OCR Benchmark v5
 
@@ -44,11 +44,11 @@ GitHub Pages 站点由 `docs/` 提供：
 | 页面 | 内容 |
 | --- | --- |
 | `index.html` | 榜单仪表盘（总榜矩阵、象限图、交互筛选、排序、搜索、趋势图，底部为 md 自动生成的说明与分析） |
-| `bench.html` | code_bench v1.3 题目说明 |
+| `bench.html` | code_bench v1.4 题目说明 |
 | `archive.html` | code_bench 归档（rust 与旧版 web 题目、榜单） |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
 
-榜单数据以 CSV 存于 `docs/data/<bench>/`，由 `docs/assets/app.js` + `docs/data/datasets.json` 驱动。code 类别提供**总榜矩阵**：`datasets.json` 中 `type:"matrix"` 的条目（`code_total` → 总榜）不直接渲染自身 CSV，而是由 `app.js` 跨同类别 `code_detail` 各子项 CSV 按「模型」列 JOIN 成模型 × 子项矩阵（无总分列），默认按 `v1.3-rank.csv` 行序排序，`tier:"advanced"` 的子项列名加“(高阶)”后缀。
+榜单数据以 CSV 存于 `docs/data/<bench>/`，由 `docs/assets/app.js` + `docs/data/datasets.json` 驱动。code 类别提供**总榜矩阵**：`datasets.json` 中 `type:"matrix"` 的条目（`code_total` → 总榜）不直接渲染自身 CSV，而是由 `app.js` 跨同类别 `code_detail` 各子项 CSV 按「模型」列 JOIN 成模型 × 子项矩阵（无总分列），默认按 `v1.4-rank.csv` 行序排序，`tier:"advanced"` 的子项列名加“(高阶)”后缀。
 
 ---
 
@@ -58,7 +58,7 @@ GitHub Pages 站点由 `docs/` 提供：
 
 | 数据源 | 生成的说明页 | 生成的榜单 CSV | 生成的底部说明 |
 | --- | --- | --- | --- |
-| `code/code_bench.md` | `docs/bench.html` | `docs/data/code_bench/*.csv`（含 `v1.3-rank.csv`） | `docs/data/notes.json`（「分析 / 声明 / 致谢」小节） |
+| `code/code_bench.md` | `docs/bench.html` | `docs/data/code_bench/*.csv`（含 `v1.4-rank.csv`） | `docs/data/notes.json`（「分析 / 声明 / 致谢」小节） |
 | `code/code_bench_archive.md` | `docs/archive.html` | `docs/data/code_bench/archive-rust.csv`、`archive-web.csv` | — |
 | `ocr/ocr_benchmark_v5.md` | `docs/ocr_bench.html` | `docs/data/ocr_bench/*.csv` | — |
 

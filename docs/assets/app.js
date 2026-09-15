@@ -2633,7 +2633,7 @@ async function renderMatrix() {
   );
   showPlaceholder(t("placeholders.loadingTable"));
 
-  // 由子项 CSV 路径推导版本号（如 v1.3），构造总分列
+  // 由子项 CSV 路径推导版本号（如 v1.4），构造总分列
   const versionMatch = String(subItems[0] && subItems[0].csv).match(/(v[^/]+)-[^/]+\.csv$/);
   const version = versionMatch ? versionMatch[1] : "";
 

@@ -2,63 +2,63 @@
   "datasets": [
     {
       "category": "code_total",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 0,
       "title": "总榜",
-      "csv": "data/code_bench/v1.3-core.csv",
+      "csv": "data/code_bench/v1.4-core.csv",
       "type": "matrix"
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 0,
       "title": "core",
-      "csv": "data/code_bench/v1.3-core.csv",
+      "csv": "data/code_bench/v1.4-core.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 1,
       "title": "server",
-      "csv": "data/code_bench/v1.3-server.csv",
+      "csv": "data/code_bench/v1.4-server.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 2,
       "title": "web v2",
-      "csv": "data/code_bench/v1.3-web.csv",
+      "csv": "data/code_bench/v1.4-web.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 3,
       "title": "full_v2",
-      "csv": "data/code_bench/v1.3-full.csv",
+      "csv": "data/code_bench/v1.4-full.csv",
       "tier": "advanced",
       "fullScore": 100
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 5,
       "title": "rust v3",
-      "csv": "data/code_bench/v1.3-rust-v3.csv",
+      "csv": "data/code_bench/v1.4-rust-v3.csv",
       "tier": "advanced",
-      "fullScore": 50
+      "fullScore": 100
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.3",
+      "reportDate": "v1.4",
       "tableIndex": 4,
       "title": "rust v2.1",
-      "csv": "data/code_bench/v1.3-rust.csv",
+      "csv": "data/code_bench/v1.4-rust.csv",
       "tier": "advanced",
       "fullScore": 50
     },

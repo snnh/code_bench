@@ -1,4 +1,4 @@
-# code_bench v1.3
+# code_bench v1.4
 
 ## 题目结构
 
@@ -11,6 +11,7 @@
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
 | 高阶题 · full_v2      | 100   |   3大+1小模块，开发一个coding agent    |
 | 高阶题 · rust v2.1   | 50      | 一个网络服务开发，包含规则引擎 + 报文编解码 + 稀疏配置 + CLI四部分        |
+| 高阶题 · rust v3   | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
 
 ---
 
@@ -49,7 +50,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * kimi订阅倍率约0.07-0.08(199档实测)
 * glm5.3订阅倍率约0.08(官方api文档说明)
 * glm5.3flash订阅倍率约0.26(官方api文档说明)
-* qwen订阅倍率约0.3(官方api文档说明)
+* qwen订阅倍率约0.2495(官方api文档说明)
 
 **core**
 
@@ -103,7 +104,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 354k | 99.7%(27.732m) | 官方api | 无 |
 | deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 311k | 99.7%(23.698m) | 官方api | 无 |
 | kimi-k3(max) | 62.91 | 92.12元 | 803k | 98.1%(29.29m) | kimi订阅 | kimicode预设 |
-| kimi-k2.8-preview(max) | 61.9 | ?元 | 636k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
+| kimi-k2.8-preview(max) | 61.9 | ?元(50+) | 636k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
 | glm5.3(max) | 60.7 | 98.28元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
 
 **rust v3**
@@ -117,7 +118,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k2.8-preview(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 | kimi-k3(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 | kimi-k3(high) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
-| qwen3.8-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | 无 |
+| qwen3.8-flash(max) | 57.9 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
 
 
 **rust v2.1**

@@ -36,54 +36,54 @@ SYNC_CONFIG = {
     "code/code_bench.md": {
         "doc_page": "docs/bench.html",
         "page": {
-            "title": "code_bench v1.3｜题目说明",
-            "h1": "code_bench v1.3",
+            "title": "code_bench v1.4｜题目说明",
+            "h1": "code_bench v1.4",
             "subtitle": "大模型复刻 openwebcode 项目评测榜单 · 题目说明",
-            "description": "code_bench v1.3 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
+            "description": "code_bench v1.4 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明", "active": True},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
                 {"href": "archive.html", "label": "归档"},
             ],
-            "tip": "本页为 code_bench v1.3 完整题目与说明；榜单数据可在"
+            "tip": "本页为 code_bench v1.4 完整题目与说明；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
         },
         "csvs": {
-            ("排行", None): "docs/data/code_bench/v1.3-rank.csv",
-            ("基础题", "core"): "docs/data/code_bench/v1.3-core.csv",
-            ("基础题", "server"): "docs/data/code_bench/v1.3-server.csv",
-            ("基础题", "web v2"): "docs/data/code_bench/v1.3-web.csv",
-            ("高阶题", "full_v2"): "docs/data/code_bench/v1.3-full.csv",
-            ("高阶题", "rust v3"): "docs/data/code_bench/v1.3-rust-v3.csv",
-            ("高阶题", "rust v2.1"): "docs/data/code_bench/v1.3-rust.csv",
+            ("排行", None): "docs/data/code_bench/v1.4-rank.csv",
+            ("基础题", "core"): "docs/data/code_bench/v1.4-core.csv",
+            ("基础题", "server"): "docs/data/code_bench/v1.4-server.csv",
+            ("基础题", "web v2"): "docs/data/code_bench/v1.4-web.csv",
+            ("高阶题", "full_v2"): "docs/data/code_bench/v1.4-full.csv",
+            ("高阶题", "rust v3"): "docs/data/code_bench/v1.4-rust-v3.csv",
+            ("高阶题", "rust v2.1"): "docs/data/code_bench/v1.4-rust.csv",
         },
         "expected_headers": {
-            "docs/data/code_bench/v1.3-rank.csv": [
+            "docs/data/code_bench/v1.4-rank.csv": [
                 "模型",
             ],
-            "docs/data/code_bench/v1.3-core.csv": [
+            "docs/data/code_bench/v1.4-core.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
-            "docs/data/code_bench/v1.3-server.csv": [
+            "docs/data/code_bench/v1.4-server.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
             ],
-            "docs/data/code_bench/v1.3-web.csv": [
+            "docs/data/code_bench/v1.4-web.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.3-full.csv": [
+            "docs/data/code_bench/v1.4-full.csv": [
                 "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.3-rust-v3.csv": [
+            "docs/data/code_bench/v1.4-rust-v3.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.3-rust.csv": [
+            "docs/data/code_bench/v1.4-rust.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
         },
         # 站点底部说明：抽取这些 h2 小节汇总进 docs/data/notes.json（顺序即展示顺序）
         "notes": {
-            "label": "code_bench v1.3",
+            "label": "code_bench v1.4",
             "sections": ["分析", "声明", "致谢"],
         },
     },
