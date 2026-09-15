@@ -103,7 +103,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 354k | 99.7%(27.732m) | 官方api | 无 |
 | deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 311k | 99.7%(23.698m) | 官方api | 无 |
 | kimi-k3(max) | 62.91 | 92.12元 | 803k | 98.1%(29.29m) | kimi订阅 | kimicode预设 |
-| kimi-k2.8-preview(max) | 61.9 | 46+元 | 636k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
+| kimi-k2.8-preview(max) | 61.9 | ?元 | 636k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
 | glm5.3(max) | 60.7 | 98.28元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
 
 **rust v3**
@@ -148,7 +148,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
 4. v4.1f-0910稳定性不如glm5.3好于v4p，但速度极快
 5. rust等我重测
-6. ...
+6. kimi-k2.8-preview细节不行，虽然不影响得分，但影响后续开发速度和体验
+7. ...
 
 ---
 
