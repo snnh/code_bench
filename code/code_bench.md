@@ -112,13 +112,14 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
 | deepseek-v4.1-flash(max) | 63.7 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
+| gpt-5.6-luna(max) | 58.65 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
+| qwen3.8-flash(max) | 56.3 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
 | kimi-k2.8-preview(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 | kimi-k3(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 | kimi-k3(high) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
-| qwen3.8-flash(max) | 57.9 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
 
 
 **rust v2.1**
