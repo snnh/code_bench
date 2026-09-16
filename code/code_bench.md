@@ -111,7 +111,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
-| deepseek-v4.1-flash(max) | - | -元 | 无 | -k | -%(-m) | 官方api | 无 |
+| deepseek-v4.1-flash(max) | 63.7 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
