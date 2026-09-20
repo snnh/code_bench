@@ -54,15 +54,6 @@
       "fullScore": 100
     },
     {
-      "category": "code_detail",
-      "reportDate": "v1.4",
-      "tableIndex": 4,
-      "title": "rust v2.1",
-      "csv": "data/code_bench/v1.4-rust.csv",
-      "tier": "advanced",
-      "fullScore": 50
-    },
-    {
       "category": "ocr_bench",
       "reportDate": "v5",
       "tableIndex": 0,

@@ -56,7 +56,6 @@ SYNC_CONFIG = {
             ("基础题", "web v2"): "docs/data/code_bench/v1.4-web.csv",
             ("高阶题", "full_v2"): "docs/data/code_bench/v1.4-full.csv",
             ("高阶题", "rust v3"): "docs/data/code_bench/v1.4-rust-v3.csv",
-            ("高阶题", "rust v2.1"): "docs/data/code_bench/v1.4-rust.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/v1.4-rank.csv": [
@@ -77,9 +76,6 @@ SYNC_CONFIG = {
             "docs/data/code_bench/v1.4-rust-v3.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
-            "docs/data/code_bench/v1.4-rust.csv": [
-                "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
-            ],
         },
         # 站点底部说明：抽取这些 h2 小节汇总进 docs/data/notes.json（顺序即展示顺序）
         "notes": {
@@ -93,23 +89,27 @@ SYNC_CONFIG = {
             "title": "code_bench 归档｜rust 题目",
             "h1": "code_bench 归档",
             "subtitle": "已归档题目与榜单",
-            "description": "code_bench 已归档的 rust 高阶题题目说明与榜单。",
+            "description": "code_bench 已归档的 rust 高阶题（v1 / v2.1）与旧版 web 题目说明与榜单。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明"},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
                 {"href": "archive.html", "label": "归档", "active": True},
             ],
-            "tip": "本页为 code_bench 已归档的 rust 题目与榜单；榜单数据可在"
+            "tip": "本页为 code_bench 已归档的 rust（v1 / v2.1）与旧版 web 题目与榜单；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看。",
         },
         "csvs": {
             ("高阶题 · rust（已归档）", "rust 榜单"): "docs/data/code_bench/archive-rust.csv",
+            ("高阶题 · rust v2.1（已归档）", "rust v2.1 榜单"): "docs/data/code_bench/archive-rust-v2.1.csv",
             ("基础题 · web（已归档）", "web 榜单"): "docs/data/code_bench/archive-web.csv",
         },
         "expected_headers": {
             "docs/data/code_bench/archive-rust.csv": [
                 "模型", "积分", "成本", "token", "缓存", "接入方式", "备注",
+            ],
+            "docs/data/code_bench/archive-rust-v2.1.csv": [
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
             ],
             "docs/data/code_bench/archive-web.csv": [
                 "模型", "积分", "成本", "token", "缓存",
