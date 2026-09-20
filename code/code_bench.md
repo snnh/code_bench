@@ -34,6 +34,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | hy4-preview(high) |
 | deepseek-v4.1-flash-expires-on-0910(max) |
 | glm5.3(max)                       |
+| step-5-preview(high) |
 | qwen3.8-flash(max)                |
 | deepseek-v4-pro0813(max)          |
 | deepseek-v4-flash0902(max) |
@@ -114,6 +115,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-v4.1-flash(max) | 63.7 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
 | gpt-5.6-luna(max) | 58.65 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
 | qwen3.8-flash(max) | 56.3 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
+| step-5-preview(high) | 46.91 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
