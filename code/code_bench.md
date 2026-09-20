@@ -52,6 +52,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * glm5.3订阅倍率约0.08(官方api文档说明)
 * glm5.3flash订阅倍率约0.26(官方api文档说明)
 * qwen订阅倍率约0.2495(官方api文档说明)
+* step订阅倍率约0.025(官方api文档说明)
 
 **core**
 
