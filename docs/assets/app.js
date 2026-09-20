@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260920-matrix-avg";
+} from "./i18n.js?v=20260920-tier-weight";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -2411,6 +2411,24 @@ function renderMobileCards(container) {
 const MATRIX_CATEGORY = "code_total";
 const MATRIX_MODEL_CANDIDATES = ["模型", "Model", "方案"];
 const MATRIX_SCORE_CANDIDATES = ["积分", "总积分", "最终积分"];
+// 未上榜模型“平均分”的子项权重：高阶子项权重高于基础子项
+const MATRIX_TIER_WEIGHTS = { basic: 1, advanced: 2 };
+
+// 平均分：各子项得分按各自满分折算成百分制后，再按子项 tier 权重求加权均值
+// （缺失值 / 占位符不计入；无任何有效成绩返回 null）
+function computeMatrixAverageScore(columns, rawScores) {
+  let sum = 0;
+  let weightTotal = 0;
+  columns.forEach((col) => {
+    const numeric = parseFloat(rawScores[col.label]);
+    if (!Number.isFinite(numeric)) return;
+    const weight = MATRIX_TIER_WEIGHTS[col.tier] || MATRIX_TIER_WEIGHTS.basic;
+    const percent = col.fullScore ? (numeric / col.fullScore) * 100 : numeric;
+    sum += percent * weight;
+    weightTotal += weight;
+  });
+  return weightTotal ? sum / weightTotal : null;
+}
 
 // 依据得分在列内的相对位置着色，越高越绿、越低越红
 function matrixBandClass(ratio) {
@@ -2653,7 +2671,12 @@ async function renderMatrix() {
     seen.add(ds.title);
     // 高阶题项目表头加“高阶”标注（后缀）
     const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
-    columns.push({ label, csv: ds.csv, fullScore: Number(ds.fullScore) || null });
+    columns.push({
+      label,
+      csv: ds.csv,
+      fullScore: Number(ds.fullScore) || null,
+      tier: ds.tier === "advanced" ? "advanced" : "basic",
+    });
   });
 
   const loaded = await Promise.all(
@@ -2684,9 +2707,9 @@ async function renderMatrix() {
   }
 
   // model -> { 列名: 得分字符串 }（百分制模式下按子项满分折算并加 %）
-  // 同时累计各模型的平均分（各子项折算百分制后取均值），供未上榜模型兜底排序
+  // modelRawScores：未处理过的原始得分，用于计算未上榜模型的平均分（加权，见 computeMatrixAverageScore）
   const modelScores = new Map();
-  const modelAverages = new Map();
+  const modelRawScores = new Map();
   activeCols.forEach(({ col, rows, modelIdx, scoreIdx }) => {
     const fullScore = Number(col.fullScore) || null;
     rows.forEach((row) => {
@@ -2698,18 +2721,17 @@ async function renderMatrix() {
         state.scoreScale === "percent" && fullScore
           ? scaleScoreText(rawScore, fullScore)
           : rawScore;
-      const numeric = parseFloat(rawScore);
-      if (!Number.isFinite(numeric)) return;
-      // 按子项满分折算成百分制后累加，避免 30 分项与 100 分项直接平均
-      const acc = modelAverages.get(model) || { sum: 0, count: 0 };
-      acc.sum += fullScore ? (numeric / fullScore) * 100 : numeric;
-      acc.count += 1;
-      modelAverages.set(model, acc);
+      if (!modelRawScores.has(model)) modelRawScores.set(model, {});
+      modelRawScores.get(model)[col.label] = rawScore;
     });
   });
   const averageScores = new Map();
-  modelAverages.forEach((acc, model) => {
-    if (acc.count) averageScores.set(model, acc.sum / acc.count);
+  modelRawScores.forEach((rawScores, model) => {
+    const average = computeMatrixAverageScore(
+      activeCols.map(({ col }) => col),
+      rawScores
+    );
+    if (average !== null) averageScores.set(model, average);
   });
 
   const allModels = Array.from(modelScores.keys());

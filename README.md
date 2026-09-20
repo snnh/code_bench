@@ -48,7 +48,7 @@ GitHub Pages 站点由 `docs/` 提供：
 | `archive.html` | code_bench 归档（rust v1 / rust v2.1 与旧版 web 题目、榜单） |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
 
-榜单数据以 CSV 存于 `docs/data/<bench>/`，由 `docs/assets/app.js` + `docs/data/datasets.json` 驱动。code 类别提供**总榜矩阵**：`datasets.json` 中 `type:"matrix"` 的条目（`code_total` → 总榜）不直接渲染自身 CSV，而是由 `app.js` 跨同类别 `code_detail` 各子项 CSV 按「模型」列 JOIN 成模型 × 子项矩阵（无总分列），默认按 `v1.4-rank.csv` 行序排序（未上榜模型排在其后、按平均分降序兜底），`tier:"advanced"` 的子项列名加“(高阶)”后缀。
+榜单数据以 CSV 存于 `docs/data/<bench>/`，由 `docs/assets/app.js` + `docs/data/datasets.json` 驱动。code 类别提供**总榜矩阵**：`datasets.json` 中 `type:"matrix"` 的条目（`code_total` → 总榜）不直接渲染自身 CSV，而是由 `app.js` 跨同类别 `code_detail` 各子项 CSV 按「模型」列 JOIN 成模型 × 子项矩阵（无总分列），默认按 `v1.4-rank.csv` 行序排序（未上榜模型排在其后、按加权平均分降序：各子项折算百分制后高阶项权重 2、基础项权重 1），`tier:"advanced"` 的子项列名加“(高阶)”后缀。
 
 ---
 
