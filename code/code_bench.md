@@ -31,16 +31,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k2.8-preview(max)    |
 | kimi-k3(high)                     |
 | hy4-preview(high) |
-| deepseek-v4.1-flash-expires-on-0910(max) |
 | glm5.3(max)                       |
-| step-5-preview(high) |
+| gpt-5.6-luna(max) |
 | qwen3.8-flash(max)                |
-| deepseek-v4-pro0813(max)          |
-| deepseek-v4-flash0902(max) |
 | glm-5.3-flash(max)                |
-| deepseek-v4-flash-vision-exp(max) |
-| glm-ox-alpha(max)                 |
-| deepseek-v4-flash0731(max)        |
+| step-5-preview(high) |
 | gemini-3.7-flash(high)            |
 | ...                               |
 

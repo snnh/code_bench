@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260915-rust-v3";
+} from "./i18n.js?v=20260920-matrix-avg";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -2423,7 +2423,8 @@ function matrixBandClass(ratio) {
 
 // 排序：默认按用户给定的“排行”表（rankMap）升序；点表头后按该列（columnIndex，0=模型列）
 // 缺失值排到末尾（升序 +Infinity / 降序 -Infinity）
-function sortVisibleMatrixModels(models, modelScores, rankMap) {
+// 未出现在“排行”表中的模型排在已上榜模型之后，按平均分（averageScores）降序，兜底按名称
+function sortVisibleMatrixModels(models, modelScores, rankMap, averageScores) {
   const colIndex = state.sort.columnIndex;
   const dir = state.sort.direction === "asc" ? 1 : -1;
   if (colIndex === 0) {
@@ -2432,11 +2433,19 @@ function sortVisibleMatrixModels(models, modelScores, rankMap) {
   }
   if (colIndex === null) {
     if (rankMap && rankMap.size) {
-      // 默认：按给定名次升序；未上榜排最后（按名称兜底）
+      // 默认：已上榜按给定名次升序；未上榜按平均分降序（各子项折算百分制后取均值），兜底按名称
+      const averageOf = (model) =>
+        averageScores && averageScores.has(model) ? averageScores.get(model) : -Infinity;
       models.sort((a, b) => {
         const ra = rankMap.has(a) ? rankMap.get(a) : Infinity;
         const rb = rankMap.has(b) ? rankMap.get(b) : Infinity;
-        if (ra !== rb) return ra - rb;
+        const aRanked = Number.isFinite(ra);
+        const bRanked = Number.isFinite(rb);
+        if (aRanked && bRanked) return ra - rb;
+        if (aRanked !== bRanked) return aRanked ? -1 : 1;
+        const avgA = averageOf(a);
+        const avgB = averageOf(b);
+        if (avgA !== avgB) return avgB - avgA;
         return a.localeCompare(b, state.locale);
       });
     } else {
@@ -2675,18 +2684,32 @@ async function renderMatrix() {
   }
 
   // model -> { 列名: 得分字符串 }（百分制模式下按子项满分折算并加 %）
+  // 同时累计各模型的平均分（各子项折算百分制后取均值），供未上榜模型兜底排序
   const modelScores = new Map();
+  const modelAverages = new Map();
   activeCols.forEach(({ col, rows, modelIdx, scoreIdx }) => {
+    const fullScore = Number(col.fullScore) || null;
     rows.forEach((row) => {
       const model = String(row[modelIdx] || "").trim();
       if (!model) return;
       if (!modelScores.has(model)) modelScores.set(model, {});
       const rawScore = String(row[scoreIdx] || "").trim();
       modelScores.get(model)[col.label] =
-        state.scoreScale === "percent" && col.fullScore
-          ? scaleScoreText(rawScore, col.fullScore)
+        state.scoreScale === "percent" && fullScore
+          ? scaleScoreText(rawScore, fullScore)
           : rawScore;
+      const numeric = parseFloat(rawScore);
+      if (!Number.isFinite(numeric)) return;
+      // 按子项满分折算成百分制后累加，避免 30 分项与 100 分项直接平均
+      const acc = modelAverages.get(model) || { sum: 0, count: 0 };
+      acc.sum += fullScore ? (numeric / fullScore) * 100 : numeric;
+      acc.count += 1;
+      modelAverages.set(model, acc);
     });
+  });
+  const averageScores = new Map();
+  modelAverages.forEach((acc, model) => {
+    if (acc.count) averageScores.set(model, acc.sum / acc.count);
   });
 
   const allModels = Array.from(modelScores.keys());
@@ -2750,7 +2773,7 @@ async function renderMatrix() {
   state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
   state.rows = allModels.slice();
   // 排序：默认按用户给定排名；点表头则按该列
-  sortVisibleMatrixModels(visibleModels, modelScores, rankMap);
+  sortVisibleMatrixModels(visibleModels, modelScores, rankMap, averageScores);
   state.filteredRows = visibleModels.slice();
   state.hasThinkColumn = false;
   state.hasModelColumn = true;
