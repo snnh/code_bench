@@ -54,6 +54,15 @@
       "fullScore": 100
     },
     {
+      "category": "code_history",
+      "reportDate": "v1.4",
+      "tableIndex": 0,
+      "title": "历史模型",
+      "csv": "data/code_bench/v1.4-history.csv",
+      "type": "matrix",
+      "matrixScope": "history"
+    },
+    {
       "category": "ocr_bench",
       "reportDate": "v5",
       "tableIndex": 0,

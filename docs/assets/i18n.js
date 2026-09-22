@@ -181,9 +181,17 @@ const TRANSLATIONS = {
     "zh-CN": "code明细",
     "en-US": "Code Detail",
   },
+  "category.code_history": {
+    "zh-CN": "历史模型",
+    "en-US": "Legacy Models",
+  },
   "category.ocr_bench": {
     "zh-CN": "OCR Bench",
     "en-US": "OCR Bench",
+  },
+  "dataset.title.history": {
+    "zh-CN": "历史模型",
+    "en-US": "Legacy models",
   },
   "dataset.title.default": {
     "zh-CN": "主要数据",

@@ -21,6 +21,7 @@
 - **总榜**：模型 × 子项矩阵（core / server / web v2 / full_v2 / rust v3，无总分列）
 - **基础题**：core / server / web v2（旧版 web 已归档）
 - **高阶题**：full_v2 / rust v3（满分 100，名单已登记，成绩陆续补测）
+- **历史模型**：已退出现行排行的模型单独成「历史模型」数据集（数据源为 md 的「历史模型」小节 → `v1.4-history.csv`，不与总榜矩阵合并显示）
 - **归档**：rust（v1）、rust v2.1 与旧版 web
 
 - 说明页：`docs/bench.html`

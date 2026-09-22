@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260920-history-order";
+} from "./i18n.js?v=20260921-history-dataset";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -22,6 +22,7 @@ const DATASET_TITLE_KEYS = {
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
+  "历史模型": "dataset.title.history",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
   "类别诊断": "dataset.title.categoryDiagnosis",
@@ -98,7 +99,15 @@ const HEADER_TRANSLATIONS = {
   severe: "table.header.severe",
 };
 
-const CATEGORY_ORDER = ["code_total", "code_detail", "ocr_bench", "logic", "code", "vision"];
+const CATEGORY_ORDER = [
+  "code_total",
+  "code_detail",
+  "code_history",
+  "ocr_bench",
+  "logic",
+  "code",
+  "vision",
+];
 const DEFAULT_INFERENCE_FILTER = "all";
 const VALID_INFERENCE_FILTERS = new Set(["all", "think", "non-think"]);
 const DEFAULT_COUNTRY_FILTER = "all";
@@ -2439,21 +2448,6 @@ function matrixBandClass(ratio) {
   return "m-band-critical";
 }
 
-// 合并“历史模型”表到名次映射：名次接在“排行”最大值之后，块内保留表内行序
-function mergeMatrixRankMap(rankMap, historyRows, historyModelIdx) {
-  let nextRank = 0;
-  rankMap.forEach((rank) => {
-    if (Number.isFinite(rank) && rank > nextRank) nextRank = rank;
-  });
-  historyRows.forEach((row) => {
-    const model = String(row[historyModelIdx] || "").trim();
-    if (!model || rankMap.has(model)) return;
-    nextRank += 1;
-    rankMap.set(model, nextRank);
-  });
-  return rankMap;
-}
-
 // 排序：默认按用户给定的“排行”表（rankMap）升序；点表头后按该列（columnIndex，0=模型列）
 // 缺失值排到末尾（升序 +Infinity / 降序 -Infinity）
 // 未出现在“排行”表中的模型排在已上榜模型之后，按平均分（averageScores）降序，兜底按名称
@@ -2751,7 +2745,9 @@ async function renderMatrix() {
 
   const allModels = Array.from(modelScores.keys());
 
-  // 默认排序依据：用户给定的“排行”表（模型 → 名次），其后可接“历史模型”表（接在排行之后）
+  // 默认排序依据：用户给定的“排行”表（模型 → 名次），以及“历史模型”表（独立数据集，块内按表内行序）
+  const historyRankMap = new Map();
+  const historyModels = new Set();
   let rankMap = new Map();
   try {
     const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
@@ -2763,33 +2759,46 @@ async function renderMatrix() {
         if (!m) return;
         // 有“排名”列则用其数值，否则用数据行顺序作为名次
         const rk = rankIdx >= 0 ? parseInt(r[rankIdx], 10) : index + 1;
-        if (m && Number.isFinite(rk)) rankMap.set(m, rk);
+        if (Number.isFinite(rk)) rankMap.set(m, rk);
       });
     }
   } catch (e) {
     rankMap = new Map();
   }
 
-  // “历史模型”表：紧接在“排行”之后，块内保留表内行序（不影响主排行）
-  if (rankMap.size) {
-    try {
-      const historyRes = await fetchCsvDataset(`data/code_bench/${version}-history.csv`);
-      const historyModelIdx = historyRes.headers.findIndex((h) =>
-        MATRIX_MODEL_CANDIDATES.includes(h)
-      );
-      if (historyModelIdx >= 0) {
-        mergeMatrixRankMap(rankMap, historyRes.rows, historyModelIdx);
-      }
-    } catch (e) {
-      // 无“历史模型”表时忽略，仍按平均分兜底
+  // “历史模型”表：历史模型数据集专用（行序即名次），并从总榜矩阵中剔除
+  try {
+    const historyRes = await fetchCsvDataset(`data/code_bench/${version}-history.csv`);
+    const historyModelIdx = historyRes.headers.findIndex((h) =>
+      MATRIX_MODEL_CANDIDATES.includes(h)
+    );
+    if (historyModelIdx >= 0) {
+      historyRes.rows.forEach((row, index) => {
+        const m = String(row[historyModelIdx] || "").trim();
+        if (!m || historyModels.has(m)) return;
+        historyModels.add(m);
+        historyRankMap.set(m, index + 1);
+      });
     }
+  } catch (e) {
+    // 无“历史模型”表时忽略
   }
 
-  // 每列数值范围（基于全部模型，保证过滤后着色仍稳定）
+  // 数据集范围：历史模型数据集只显示历史模型，总榜矩阵只显示现行（非历史）模型
+  const datasetEntry = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  const historyOnly = Boolean(datasetEntry && datasetEntry.matrixScope === "history");
+  const scopedModels = historyModels.size
+    ? allModels.filter((model) => historyModels.has(model) === historyOnly)
+    : allModels;
+  const orderMap = historyOnly ? historyRankMap : rankMap;
+
+  // 每列数值范围（基于本数据集实际展示的模型，保证过滤后着色仍稳定）
   const colStats = activeCols.map(({ col }) => {
     let min = Infinity;
     let max = -Infinity;
-    allModels.forEach((model) => {
+    scopedModels.forEach((model) => {
       const n = parseFloat(modelScores.get(model)[col.label]);
       if (Number.isFinite(n)) {
         if (n > max) max = n;
@@ -2805,7 +2814,7 @@ async function renderMatrix() {
 
   // 搜索（模型名 + 各子项得分）
   const query = String(state.searchQuery || "").trim().toLocaleLowerCase(state.locale);
-  let visibleModels = allModels;
+  let visibleModels = scopedModels;
   if (query) {
     visibleModels = visibleModels.filter((model) => {
       const haystack = [model]
@@ -2823,9 +2832,9 @@ async function renderMatrix() {
   }
   // 供 meta 统计与后续逻辑使用（先设 headers，排序需据此取列名）
   state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
-  state.rows = allModels.slice();
+  state.rows = scopedModels.slice();
   // 排序：默认按用户给定排名；点表头则按该列
-  sortVisibleMatrixModels(visibleModels, modelScores, rankMap, averageScores);
+  sortVisibleMatrixModels(visibleModels, modelScores, orderMap, averageScores);
   state.filteredRows = visibleModels.slice();
   state.hasThinkColumn = false;
   state.hasModelColumn = true;
