@@ -51,6 +51,7 @@ SYNC_CONFIG = {
         },
         "csvs": {
             ("排行", None): "docs/data/code_bench/v1.4-rank.csv",
+            ("历史模型", None): "docs/data/code_bench/v1.4-history.csv",
             ("基础题", "core"): "docs/data/code_bench/v1.4-core.csv",
             ("基础题", "server"): "docs/data/code_bench/v1.4-server.csv",
             ("基础题", "web v2"): "docs/data/code_bench/v1.4-web.csv",
@@ -59,6 +60,9 @@ SYNC_CONFIG = {
         },
         "expected_headers": {
             "docs/data/code_bench/v1.4-rank.csv": [
+                "模型",
+            ],
+            "docs/data/code_bench/v1.4-history.csv": [
                 "模型",
             ],
             "docs/data/code_bench/v1.4-core.csv": [

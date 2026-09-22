@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260920-tier-weight";
+} from "./i18n.js?v=20260920-history-order";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -2439,6 +2439,21 @@ function matrixBandClass(ratio) {
   return "m-band-critical";
 }
 
+// 合并“历史模型”表到名次映射：名次接在“排行”最大值之后，块内保留表内行序
+function mergeMatrixRankMap(rankMap, historyRows, historyModelIdx) {
+  let nextRank = 0;
+  rankMap.forEach((rank) => {
+    if (Number.isFinite(rank) && rank > nextRank) nextRank = rank;
+  });
+  historyRows.forEach((row) => {
+    const model = String(row[historyModelIdx] || "").trim();
+    if (!model || rankMap.has(model)) return;
+    nextRank += 1;
+    rankMap.set(model, nextRank);
+  });
+  return rankMap;
+}
+
 // 排序：默认按用户给定的“排行”表（rankMap）升序；点表头后按该列（columnIndex，0=模型列）
 // 缺失值排到末尾（升序 +Infinity / 降序 -Infinity）
 // 未出现在“排行”表中的模型排在已上榜模型之后，按平均分（averageScores）降序，兜底按名称
@@ -2736,7 +2751,7 @@ async function renderMatrix() {
 
   const allModels = Array.from(modelScores.keys());
 
-  // 默认排序依据：用户给定的“排行”表（模型 → 名次）
+  // 默认排序依据：用户给定的“排行”表（模型 → 名次），其后可接“历史模型”表（接在排行之后）
   let rankMap = new Map();
   try {
     const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
@@ -2753,6 +2768,21 @@ async function renderMatrix() {
     }
   } catch (e) {
     rankMap = new Map();
+  }
+
+  // “历史模型”表：紧接在“排行”之后，块内保留表内行序（不影响主排行）
+  if (rankMap.size) {
+    try {
+      const historyRes = await fetchCsvDataset(`data/code_bench/${version}-history.csv`);
+      const historyModelIdx = historyRes.headers.findIndex((h) =>
+        MATRIX_MODEL_CANDIDATES.includes(h)
+      );
+      if (historyModelIdx >= 0) {
+        mergeMatrixRankMap(rankMap, historyRes.rows, historyModelIdx);
+      }
+    } catch (e) {
+      // 无“历史模型”表时忽略，仍按平均分兜底
+    }
   }
 
   // 每列数值范围（基于全部模型，保证过滤后着色仍稳定）
