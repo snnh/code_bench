@@ -24,20 +24,32 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 ## 排行
 
-| 模型                              |
-| --------------------------------- |
+| 模型 |
+| --- |
+| mimo-v2.6-pro(thinking) |
 | deepseek-v4.1-flash(max) |
-| kimi-k3(max)                     |
+| kimi-k3(max) |
 | kimi-k2.8-preview(max)    |
-| kimi-k3(high)                     |
+| kimi-k3(high) |
 | hy4-preview(high) |
-| glm5.3(max)                       |
+| glm5.3(max) |
+| qwen3.8-flash(max) |
 | gpt-5.6-luna(max) |
-| qwen3.8-flash(max)                |
-| glm-5.3-flash(max)                |
+| glm-5.3-flash(max) |
 | step-5-preview(high) |
-| gemini-3.7-flash(high)            |
+| gemini-3.7-flash(high) |
 | ...                               |
+
+### 历史模型
+
+| 模型 |
+| --- |
+| deepseek-v4-pro0813(max) |
+| deepseek-v4-flash0902(max) |
+| deepseek-v4.1-flash-expires-on-0910(max) |
+| deepseek-v4-flash-vision-exp(max) |
+| glm-ox-alpha(max) |
+| deepseek-v4-flash0731(max) |
 
 ### 基础题
 
@@ -47,6 +59,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * glm5.3flash订阅倍率约0.26(官方api文档说明)
 * qwen订阅倍率约0.2495(官方api文档说明)
 * step订阅倍率约0.025(官方api文档说明)
+* mimo订阅倍率约0.81
 
 **core**
 
@@ -108,10 +121,11 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
-| deepseek-v4.1-flash(max) | 63.7 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
-| gpt-5.6-luna(max) | 58.65 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
-| qwen3.8-flash(max) | 56.3 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
-| step-5-preview(high) | 46.91 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
+| deepseek-v4.1-flash(max) | 61.66 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
+| mimo-v2.6-pro(thinking) | 61.36 | 1.8元 | 1.458元 | 367k | 97.7%(9.146m) | 官方api | 无 |
+| qwen3.8-flash(max) | 54.7 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
+| gpt-5.6-luna(max) | 50.96 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
+| step-5-preview(high) | 42.68 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
