@@ -142,7 +142,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 2. 单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分
 3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
 4. v4.1f-0910稳定性不如glm5.3好于v4p，但速度极快
-5. rust等我重测
+5. step5preview有些复古
 6. kimi-k2.8-preview细节不行，虽然不影响得分，但影响后续开发速度和体验
 7. ...
 
