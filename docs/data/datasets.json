@@ -6,7 +6,8 @@
       "tableIndex": 0,
       "title": "总榜",
       "csv": "data/code_bench/v1.4-core.csv",
-      "type": "matrix"
+      "type": "matrix",
+      "disclaimerKey": "dataset.disclaimer.codeTotal"
     },
     {
       "category": "code_detail",
@@ -48,8 +49,8 @@
       "category": "code_detail",
       "reportDate": "v1.4",
       "tableIndex": 5,
-      "title": "rust v3",
-      "csv": "data/code_bench/v1.4-rust-v3.csv",
+      "title": "rust v3.1",
+      "csv": "data/code_bench/v1.4-rust-v3.1.csv",
       "tier": "advanced",
       "fullScore": 100
     },

@@ -10,7 +10,7 @@
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
 | 高阶题 · full_v2      | 100   |   3大+1小模块，开发一个coding agent    |
-| 高阶题 · rust v3   | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
+| 高阶题 · rust v3.1 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
 
 ---
 
@@ -26,24 +26,25 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 | 模型 |
 | --- |
-| deepseek-v4.1-flash(max) |
-| mimo-v2.6-pro(thinking) |
+| qwen-latest-series-invite-2609(max) |
 | kimi-k3(max) |
+| mimo-v2.6-pro(thinking) |
+| deepseek-v4.1-flash(max) |
 | kimi-k2.8-preview(max)    |
-| kimi-k3(high) |
 | hy4-preview(high) |
 | glm5.3(max) |
-| qwen3.8-flash(max) |
 | gpt-5.6-luna(max) |
 | glm-5.3-flash(max) |
 | step-5-preview(high) |
 | gemini-3.7-flash(high) |
-| ...                               |
+| ... |
 
 ### 历史模型
 
 | 模型 |
 | --- |
+| kimi-k3(high) |
+| qwen3.8-flash(max) |
 | deepseek-v4-pro0813(max) |
 | deepseek-v4-flash0902(max) |
 | deepseek-v4.1-flash-expires-on-0910(max) |
@@ -118,15 +119,16 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | glm5.3(max) | 60.7 | 98.28元 | 7.86元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
 | step-5-preview(high) | 44.75 | 43.74元 | 1.094元 | 3157k | 95.3%(58.102m) | step订阅 | 无 |
 
-**rust v3**
+**rust v3.1**
 
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
-| deepseek-v4.1-flash(max) | 61.66 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
-| mimo-v2.6-pro(thinking) | 61.36 | 1.8元 | 1.458元 | 367k | 97.7%(9.146m) | 官方api | 无 |
-| qwen3.8-flash(max) | 54.7 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
-| gpt-5.6-luna(max) | 50.96 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
-| step-5-preview(high) | 42.68 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
+| qwen-latest-series-invite-2609(max) | 59.83 | -元 | - | 966k | 97%(21.792m) | 官方api | 无 |
+| mimo-v2.6-pro(thinking) | 58 | 1.8元 | 1.458元 | 367k | 97.7%(9.146m) | 官方api | 无 |
+| deepseek-v4.1-flash(max) | 56.17 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
+| qwen3.8-flash(max) | 53.63 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
+| gpt-5.6-luna(max) | 48.67 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
+| step-5-preview(high) | 41.1 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |

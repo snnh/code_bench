@@ -197,6 +197,11 @@ const TRANSLATIONS = {
     "zh-CN": "主要数据",
     "en-US": "Primary data",
   },
+  "dataset.disclaimer.codeTotal": {
+    "zh-CN": "免责声明：总榜顺序只代表作者的大致印象；模型具体水平请按照具体子项分别判断。",
+    "en-US":
+      "Disclaimer: the overall ranking only reflects the author's rough impression — judge each model by its individual sub-item results.",
+  },
   "dataset.title.monthly": {
     "zh-CN": "月榜",
     "en-US": "Monthly ranking",
@@ -240,6 +245,10 @@ const TRANSLATIONS = {
   "dataset.title.rustV21": {
     "zh-CN": "rust v2.1",
     "en-US": "Rust v2.1",
+  },
+  "dataset.title.rustV31": {
+    "zh-CN": "rust v3.1",
+    "en-US": "Rust v3.1",
   },
   "dataset.title.rustV3": {
     "zh-CN": "rust v3",

@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260921-history-dataset";
+} from "./i18n.js?v=20260927-total-disclaimer";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -22,6 +22,7 @@ const DATASET_TITLE_KEYS = {
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
+  "rust v3.1": "dataset.title.rustV31",
   "历史模型": "dataset.title.history",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
@@ -651,6 +652,7 @@ const elements = {
   tableStickyScope: document.getElementById("tableStickyScope"),
   tableContainer: document.getElementById("tableContainer"),
   tableNote: document.getElementById("tableNote"),
+  tableDisclaimer: document.getElementById("tableDisclaimer"),
   datasetMeta: document.getElementById("datasetMeta"),
   datasetLabel: document.getElementById("datasetLabel"),
   inferenceLabel: document.getElementById("inferenceLabel"),
@@ -2863,6 +2865,7 @@ async function renderMatrix() {
     updateMeta(dataset);
   }
   renderTableNote();
+  renderTableDisclaimer();
   elements.inferenceFilter.disabled = true;
 }
 
@@ -2878,6 +2881,7 @@ function renderTable() {
   container.innerHTML = "";
   container.classList.remove("mobile-cards");
   renderTableNote();
+  renderTableDisclaimer();
 
   if (!state.headers.length) {
     showPlaceholder(t("placeholders.selectDataset"));
@@ -3048,6 +3052,20 @@ function renderTable() {
   container.appendChild(table);
 }
 
+// 数据集免责声明：由 datasets.json 条目的 disclaimerKey 指定 i18n 文案
+// （当前仅总榜声明“排序只代表作者大致印象，具体水平看各子项”）
+function renderTableDisclaimer() {
+  const box = elements.tableDisclaimer;
+  if (!box) return;
+  const dataset = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
+  );
+  const key = dataset && dataset.disclaimerKey;
+  const text = key ? t(key, undefined, "") : "";
+  box.hidden = !text;
+  box.textContent = text;
+}
+
 function renderTableNote() {
   const note = elements.tableNote;
   if (!note) return;
@@ -3121,6 +3139,7 @@ function showPlaceholder(message) {
   container.classList.remove("mobile-cards");
   container.innerHTML = `<div class="placeholder" role="status">${message}</div>`;
   renderTableNote();
+  renderTableDisclaimer();
 }
 
 /* ---------------- 视图切换 ---------------- */

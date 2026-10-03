@@ -1060,6 +1060,20 @@ a.view-tab {
   display: none;
 }
 
+/* ---------------- 数据集免责声明（表格上方，如总榜排序说明） ---------------- */
+
+.table-disclaimer {
+  margin: 0 0 14px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-accent-soft);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
 /* ---------------- 表格底部说明（档位说明） ---------------- */
 
 .table-note {
