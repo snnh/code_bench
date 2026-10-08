@@ -30,6 +30,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k3(max) |
 | mimo-v2.6-pro(thinking) |
 | deepseek-v4.1-flash(max) |
+| claude-haiku-5.5(xhigh) |
 | kimi-k2.8-preview(max)    |
 | hy4-preview(high) |
 | glm5.3(max) |
@@ -125,7 +126,8 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 |---|---|---|---|---|---|---|---|
 | qwen-latest-series-invite-2609(max) | 59.83 | -元 | - | 966k | 97%(21.792m) | 官方api | 无 |
 | mimo-v2.6-pro(thinking) | 58 | 1.8元 | 1.458元 | 367k | 97.7%(9.146m) | 官方api | 无 |
-| deepseek-v4.1-flash(max) | 56.17 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
+| claude-haiku-5.5(xhigh) | 57.93 | 约10元 | - | 2380k | 87.4%(10.214m) | zenmux api | claudecode预设 |
+| deepseek-v4.1-flash(max) | 54.37 | 1.67-3.34元 | 无 | 683k | 97.7%(20.114m) | 官方api | 无 |
 | qwen3.8-flash(max) | 53.63 | 4.98元 | 1.243元 | 1001k | 98%(36.75m) | 官方api | 无 |
 | gpt-5.6-luna(max) | 48.67 | 4.19元 | - | 410k | 98.6%(19.426m) | zenmux api | 无 |
 | step-5-preview(high) | 41.1 | 24.6元 | 0.61元 | 449k | 99.7%(55.503m) | step订阅 | 无 |
