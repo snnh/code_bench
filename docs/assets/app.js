@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20260927-total-disclaimer";
+} from "./i18n.js?v=20261017-output-token";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -75,6 +75,7 @@ const HEADER_TRANSLATIONS = {
   "成本(折算API价格)": "table.header.costApiPrice",
   订阅折算: "table.header.subscriptionEquivalent",
   "token(不算缓存)": "table.header.tokensExclCache",
+  输出token: "table.header.outputTokens",
   缓存: "table.header.cache",
   接入渠道: "table.header.accessChannel",
   接入方式: "table.header.accessMethod",
@@ -164,6 +165,7 @@ const CATEGORY_CHART_CONFIG = {
     scoreLabelKey: "chart.axis.points",
     cost: "成本(折算API价格)",
     token: "token(不算缓存)",
+    tokenFallbacks: ["输出token"],
     // 子项榜单不是月度榜单，不参与趋势视图，仅用于象限图
     trends: false,
   },
@@ -520,7 +522,7 @@ const MOBILE_CARD_LAYOUTS = {
     fieldGroups: [
       ["总积分", "积分"],
       ["成本(折算API价格)", "成本", "测试成本(元)", "成本(元)", "使用成本(元)"],
-      ["token(不算缓存)", "token", "Token", "平均Token"],
+      ["token(不算缓存)", "输出token", "token", "Token", "平均Token"],
       ["缓存"],
       ["订阅折算"],
     ],
@@ -896,18 +898,25 @@ function updateMetricAxisLabel() {
     : t("chart.yAxis.label");
 }
 
+// 图表指标列解析：配置列名优先，缺失时回退（如 rust v3.1 起统计“输出token”）
+function resolveChartColumn(config, type) {
+  if (!config) return null;
+  const candidates = [config[type], ...(config[`${type}Fallbacks`] || [])].filter(Boolean);
+  const headers = Array.isArray(state.headers) ? state.headers : [];
+  return candidates.find((column) => headers.includes(column)) || null;
+}
+
 // 纵轴（交换坐标时为横轴）可选指标：按当前类别配置与数据集实际列动态生成，
 // 例如 code_bench 子项榜单有成本与 token、没有耗时列。
 function updateChartMetricOptions() {
   if (!elements.yAxisSelect) return;
   const config = state.currentCategory ? CATEGORY_CHART_CONFIG[state.currentCategory] : null;
-  const headers = Array.isArray(state.headers) ? state.headers : [];
   const ariaKey = config?.swapAxes ? "chart.xAxis.aria" : "chart.yAxis.aria";
   const candidates = [
-    { value: "cost", label: t("chart.yAxis.option.cost"), column: config?.cost },
-    { value: "time", label: t("chart.yAxis.option.time"), column: config?.time },
-    { value: "token", label: t("chart.yAxis.option.token"), column: config?.token },
-  ].filter((item) => item.column && headers.includes(item.column));
+    { value: "cost", label: t("chart.yAxis.option.cost"), column: resolveChartColumn(config, "cost") },
+    { value: "time", label: t("chart.yAxis.option.time"), column: resolveChartColumn(config, "time") },
+    { value: "token", label: t("chart.yAxis.option.token"), column: resolveChartColumn(config, "token") },
+  ].filter((item) => item.column);
 
   if (!candidates.length && config?.cost) {
     // 数据集尚未加载或缺少成本列时，至少保留一个可选项，避免下拉为空
@@ -3543,14 +3552,12 @@ function hasChartableRows(config) {
   if (!config) return false;
   const scoreIndex = state.headers.indexOf(config.score);
   if (scoreIndex === -1) return false;
-  const metricEntries = [
-    { type: "cost", column: config.cost },
-    { type: "time", column: config.time },
-    { type: "token", column: config.token },
-  ]
-    .filter((entry) => entry.column)
-    .map((entry) => ({ ...entry, index: state.headers.indexOf(entry.column) }))
-    .filter((entry) => entry.index !== -1);
+  const metricEntries = ["cost", "time", "token"]
+    .map((type) => {
+      const column = resolveChartColumn(config, type);
+      return column ? { type, column, index: state.headers.indexOf(column) } : null;
+    })
+    .filter((entry) => entry && entry.index !== -1);
   if (!metricEntries.length) return false;
   return state.filteredRows.some((row) => {
     if (parseSortableNumber(row.cells[scoreIndex]) === null) return false;
@@ -3587,8 +3594,7 @@ function renderChart() {
 
   // 使用 CSV 原始列名定位（非翻译后名称）
   const yAxisType = elements.yAxisSelect ? elements.yAxisSelect.value : "cost";
-  const metricColumns = { cost: config.cost, time: config.time, token: config.token };
-  const yAxisColumnName = metricColumns[yAxisType] || config.cost;
+  const yAxisColumnName = resolveChartColumn(config, yAxisType) || config.cost;
   // 推理类别交换横纵坐标：横轴 = 指标（成本/耗时），纵轴 = 分数
   const swapped = !!config.swapAxes;
 

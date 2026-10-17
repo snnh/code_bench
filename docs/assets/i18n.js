@@ -442,6 +442,10 @@ const TRANSLATIONS = {
     "zh-CN": "token(不算缓存)",
     "en-US": "Tokens (excl. cache)",
   },
+  "table.header.outputTokens": {
+    "zh-CN": "输出token",
+    "en-US": "Output tokens",
+  },
   "table.header.cache": {
     "zh-CN": "缓存",
     "en-US": "Cache",
