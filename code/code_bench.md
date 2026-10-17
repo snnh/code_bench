@@ -94,15 +94,15 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 **web v2**
 
-| 模型 | 积分 | 成本(折算API价格) | token(不算缓存) | 缓存 | 接入方式 | 备注 |
+| 模型 | 积分 | 成本(折算API价格) | 输出token | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|
 | kimi-k3(high) | - | -元        | -k         | -%(-m)   | kimi订阅 | 无 |
-| glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 307k | 98.8%(14.674m) | 官方api | 无 |
-| deepseek-v4.1-flash-expires-on-0910(max) | 24 | 4.22-8.44元 | 339k | 99.8%(60.087m) | 官方api | 无 |
-| qwen3.8-flash(max) | 23.6 | 4.25元 | 735k | 98.5%(31.408m) | 官方api | 无 |
-| glm5.3(max) | 23.4 | 32.14元       | 310k        | 98.7%(13.454m) | 官方订阅 | zcode预设 |
-| hy4-preview(high) | 23.4 | 12.28元 | 636k | 97.8%(21.541m) | 官方API | 无 |
-| deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 503k  | 97.9%(15.849m)   | 官方api | 无 |
+| glm-5.3-flash(max) | 24 | 1.94元(限时5折) | 129k | 98.8%(14.674m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 24 | 4.22-8.44元 | 219k | 99.8%(60.087m) | 官方api | 无 |
+| qwen3.8-flash(max) | 23.6 | 4.25元 | 257k | 98.5%(31.408m) | 官方api | 无 |
+| glm5.3(max) | 23.4 | 32.14元       | 133k        | 98.7%(13.454m) | 官方订阅 | zcode预设 |
+| hy4-preview(high) | 23.4 | 12.28元 | 151k | 97.8%(21.541m) | 官方API | 无 |
+| deepseek-v4-flash-vision-exp(max) | 13.3 | 1.99元 | 163k  | 97.9%(15.849m)   | 官方api | 无 |
 | deepseek-v4-pro0813(max) | - | -元    | -k        | -%(-m) | 官方api | 无 |
 | … | 未测试 | 元 | k | %(m) | 官方 | 无 |
 
@@ -111,15 +111,15 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 
 **full_v2**
 
-| 模型 | 积分 | 成本(折算API价格) | 订阅折算 | token(不算缓存) | 缓存 | 接入方式 | 备注 |
+| 模型 | 积分 | 成本(折算API价格) | 订阅折算 | 输出token | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
-| deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 无 | 354k | 99.7%(27.732m) | 官方api | 无 |
-| mimo-v2.6-pro(thinking) | 67.1 | 2.63元 | 2.13元 | 495k | 98.6%(19.615m) | 官方api | 无 |
-| deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 无 | 311k | 99.7%(23.698m) | 官方api | 无 |
-| kimi-k3(max) | 62.91 | 92.12元 | 7.36元 | 803k | 98.1%(29.29m) | kimi订阅 | kimicode预设 |
-| kimi-k2.8-preview(max) | 61.9 | 40元(不确定了) | 3.2元 | 636k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
-| glm5.3(max) | 60.7 | 98.28元 | 7.86元 | 766k | 98.7%(44.189m) | glm订阅 | zcode |
-| step-5-preview(high) | 44.75 | 43.74元 | 1.094元 | 3157k | 95.3%(58.102m) | step订阅 | 无 |
+| deepseek-v4.1-flash(max) | 73.54 | 1.765-3.53元 | 无 | 271k | 99.7%(27.732m) | 官方api | 无 |
+| mimo-v2.6-pro(thinking) | 67.1 | 2.63元 | 2.13元 | 216k | 98.6%(19.615m) | 官方api | 无 |
+| deepseek-v4.1-flash-expires-on-0910(max) | 65.8 | 2.37-4.74元 | 无 | 240k | 99.7%(23.698m) | 官方api | 无 |
+| kimi-k3(max) | 62.91 | 92.12元 | 7.36元 | 236k | 98.1%(29.29m) | kimi订阅 | kimicode预设 |
+| kimi-k2.8-preview(max) | 61.9 | 40元(不确定了) | 3.2元 | 283k | 98.8%(29.051m) | kimi订阅 | kimicode预设 |
+| glm5.3(max) | 60.7 | 98.28元 | 7.86元 | 184k | 98.7%(44.189m) | glm订阅 | zcode |
+| step-5-preview(high) | 44.75 | 43.74元 | 1.094元 | 292k  | 95.3%(58.102m) | step订阅 | 无 |
 
 **rust v3.1**
 
