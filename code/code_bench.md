@@ -35,6 +35,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | kimi-k2.8-preview(max)    |
 | hy4-preview(high) |
 | glm5.3(max) |
+| minimax-m3.1-flash(max) |
 | gpt-5.6-luna(max) |
 | glm-5.3-flash(max) |
 | step-5-preview(high) |
@@ -131,6 +132,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | claude-haiku-5.5(xhigh) | 57.93 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
 | deepseek-v4.1-flash(max) | 54.37 | 1.67-3.34元 | 无 | 283k | 97.7%(20.114m) | 官方api | 无 |
 | qwen3.8-flash(max) | 53.63 | 4.98元 | 1.243元 | 261k | 98%(36.75m) | 官方api | 无 |
+| minimax-m3.1-flash(max) | 49.2 | 7.82元 | - | 432k | 99.8%(58.965m) | zenmux api | 无 |
 | gpt-5.6-luna(max) | 48.67 | 4.19元 | - | 140k | 98.6%(19.426m) | zenmux api | 无 |
 | step-5-preview(high) | 41.1 | 24.6元 | 0.61元 | 258k | 99.7%(55.503m) | step订阅 | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
