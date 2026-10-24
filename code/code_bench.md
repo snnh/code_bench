@@ -27,6 +27,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 |
 | --- |
 | deepseek-flash-1017(max) |
+| kimi-k3.1-pro(high) |
 | qwen-latest-series-invite-2609(max) |
 | kimi-k3(max) |
 | mimo-v2.6-pro(thinking) |
@@ -127,6 +128,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 | 积分 | 成本(折算API价格) | 订阅折算 | 输出token | 缓存 | 接入方式 | 备注 |
 |---|---|---|---|---|---|---|---|
 | deepseek-flash-1017(max) | 61.17 | 3.28-6.56元 | 无 | 214k | 92.2%(23.151m) | 官方api | 无 |
+| kimi-k3.1-pro(high) | 60.77 | 34.34元 | 2.74元 | 81k | 98.5%(19.301m) | kimi订阅 | 无 |
 | qwen-latest-series-invite-2609(max) | 59.83 | -元 | - | 266k | 97%(21.792m) | 官方api | 无 |
 | mimo-v2.6-pro(thinking) | 58 | 1.8元 | 1.458元 | 155k | 97.7%(9.146m) | 官方api | 无 |
 | claude-haiku-5.5(xhigh) | 57.93 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
@@ -140,7 +142,6 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |
 | kimi-k2.8-preview(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 | kimi-k3(max) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
-| kimi-k3(high) | - | -元 | - | -k | -%(-m) | kimi订阅 | kimicode预设 |
 
 
 ---
