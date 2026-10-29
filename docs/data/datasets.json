@@ -2,66 +2,109 @@
   "datasets": [
     {
       "category": "code_total",
-      "reportDate": "v1.4",
+      "reportDate": "2026-10",
       "tableIndex": 0,
-      "title": "总榜",
-      "csv": "data/code_bench/v1.4-core.csv",
+      "title": "月榜",
+      "csv": "data/code_bench/v1.5-core.csv",
       "type": "matrix",
+      "matrixColumns": [
+        "full_v3",
+        "rust v3.1"
+      ],
+      "matrixOnlyScored": true,
+      "disclaimerKey": "dataset.disclaimer.codeTotal",
+      "matrixExcludeModels": [
+        "kimi-k3(high)",
+        "qwen3.8-flash(max)",
+        "deepseek-v4-pro0813(max)",
+        "deepseek-v4-flash0902(max)",
+        "deepseek-v4.1-flash-expires-on-0910(max)",
+        "deepseek-v4-flash-vision-exp(max)",
+        "glm-ox-alpha(max)",
+        "deepseek-v4-flash0731(max)"
+      ]
+    },
+    {
+      "category": "code_total",
+      "reportDate": "2026-09",
+      "tableIndex": 0,
+      "title": "月榜",
+      "csv": "data/code_bench/v1.5-monthly-2026-09.csv",
+      "type": "matrix",
+      "matrixSource": "snapshot",
+      "columns": [
+        {
+          "label": "core",
+          "fullScore": 30,
+          "tier": "basic"
+        },
+        {
+          "label": "server",
+          "fullScore": 30,
+          "tier": "basic"
+        },
+        {
+          "label": "web v2",
+          "fullScore": 30,
+          "tier": "basic"
+        },
+        {
+          "label": "full_v2",
+          "fullScore": 100,
+          "tier": "advanced"
+        },
+        {
+          "label": "rust v3",
+          "fullScore": 100,
+          "tier": "advanced"
+        }
+      ],
       "disclaimerKey": "dataset.disclaimer.codeTotal"
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.4",
+      "reportDate": "v1.5",
       "tableIndex": 0,
       "title": "core",
-      "csv": "data/code_bench/v1.4-core.csv",
+      "csv": "data/code_bench/v1.5-core.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.4",
+      "reportDate": "v1.5",
       "tableIndex": 1,
       "title": "server",
-      "csv": "data/code_bench/v1.4-server.csv",
+      "csv": "data/code_bench/v1.5-server.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.4",
+      "reportDate": "v1.5",
       "tableIndex": 2,
       "title": "web v2",
-      "csv": "data/code_bench/v1.4-web.csv",
+      "csv": "data/code_bench/v1.5-web.csv",
       "tier": "basic",
       "fullScore": 30
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.4",
+      "reportDate": "v1.5",
       "tableIndex": 3,
-      "title": "full_v2",
-      "csv": "data/code_bench/v1.4-full.csv",
+      "title": "full_v3",
+      "csv": "data/code_bench/v1.5-full-v3.csv",
       "tier": "advanced",
       "fullScore": 100
     },
     {
       "category": "code_detail",
-      "reportDate": "v1.4",
+      "reportDate": "v1.5",
       "tableIndex": 5,
       "title": "rust v3.1",
-      "csv": "data/code_bench/v1.4-rust-v3.1.csv",
+      "csv": "data/code_bench/v1.5-rust-v3.1.csv",
       "tier": "advanced",
       "fullScore": 100
-    },
-    {
-      "category": "code_history",
-      "reportDate": "v1.4",
-      "tableIndex": 0,
-      "title": "历史模型",
-      "csv": "data/code_bench/v1.4-history.csv",
-      "type": "matrix",
-      "matrixScope": "history"
     },
     {
       "category": "ocr_bench",

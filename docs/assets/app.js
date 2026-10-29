@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20261017-output-token";
+} from "./i18n.js?v=20261029-monthly";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -19,6 +19,7 @@ const DATASET_TITLE_KEYS = {
   "高阶题": "dataset.title.full",
   "full": "dataset.title.full",
   "full_v2": "dataset.title.fullV2",
+  "full_v3": "dataset.title.fullV3",
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
@@ -2674,39 +2675,72 @@ async function renderMatrix() {
   const container = elements.tableContainer;
   if (!container) return;
   container.classList.remove("mobile-cards");
-
-  const subItems = (getDatasetsForCategory("code_detail") || []).filter(
-    (ds) => ds && ds.csv
+  const datasetEntry = state.manifest.find(
+    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
   );
+  // 月度快照：直接读快照 CSV（模型 × 子项），不 JOIN 当前 code_detail
+  const snapshot = Boolean(datasetEntry && datasetEntry.matrixSource === "snapshot");
   showPlaceholder(t("placeholders.loadingTable"));
 
-  // 由子项 CSV 路径推导版本号（如 v1.4），构造总分列
+  // 由子项 CSV 路径推导版本号（如 v1.5），供排行 / 历史模型表使用
+  const subItems = snapshot
+    ? []
+    : (getDatasetsForCategory("code_detail") || []).filter((ds) => ds && ds.csv);
   const versionMatch = String(subItems[0] && subItems[0].csv).match(/(v[^/]+)-[^/]+\.csv$/);
   const version = versionMatch ? versionMatch[1] : "";
 
-  const columns = [];
-  const seen = new Set();
-  subItems.forEach((ds) => {
-    if (!ds.title || seen.has(ds.title)) return;
-    seen.add(ds.title);
-    // 高阶题项目表头加“高阶”标注（后缀）
-    const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
-    columns.push({
-      label,
-      csv: ds.csv,
-      fullScore: Number(ds.fullScore) || null,
-      tier: ds.tier === "advanced" ? "advanced" : "basic",
+  let loaded = [];
+  let snapshotRows = [];
+  if (snapshot) {
+    const { headers, rows } = await fetchCsvDataset(datasetEntry.csv);
+    snapshotRows = rows;
+    const modelIdx = headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
+    const meta = Array.isArray(datasetEntry.columns) ? datasetEntry.columns : [];
+    loaded = meta
+      .map((item) => {
+        const scoreIdx = headers.indexOf(item.label);
+        if (scoreIdx < 0) return null;
+        return {
+          col: {
+            label: item.tier === "advanced" ? `${item.label}(高阶)` : item.label,
+            fullScore: Number(item.fullScore) || null,
+            tier: item.tier === "advanced" ? "advanced" : "basic",
+          },
+          rows,
+          modelIdx,
+          scoreIdx,
+        };
+      })
+      .filter(Boolean);
+  } else {
+    // 实时总榜：默认 JOIN 全部 code_detail 子项；datasets.json 可用 matrixColumns 限定列
+    const wanted = Array.isArray(datasetEntry?.matrixColumns)
+      ? new Set(datasetEntry.matrixColumns)
+      : null;
+    const columns = [];
+    const seen = new Set();
+    subItems.forEach((ds) => {
+      if (!ds.title || seen.has(ds.title)) return;
+      if (wanted && !wanted.has(ds.title)) return;
+      seen.add(ds.title);
+      // 高阶题项目表头加“高阶”标注（后缀）
+      const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
+      columns.push({
+        label,
+        csv: ds.csv,
+        fullScore: Number(ds.fullScore) || null,
+        tier: ds.tier === "advanced" ? "advanced" : "basic",
+      });
     });
-  });
-
-  const loaded = await Promise.all(
-    columns.map(async (col) => {
-      const { headers, rows } = await fetchCsvDataset(col.csv);
-      const modelIdx = headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
-      const scoreIdx = headers.findIndex((h) => MATRIX_SCORE_CANDIDATES.includes(h));
-      return { col, rows, modelIdx, scoreIdx };
-    })
-  );
+    loaded = await Promise.all(
+      columns.map(async (col) => {
+        const { headers, rows } = await fetchCsvDataset(col.csv);
+        const modelIdx = headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
+        const scoreIdx = headers.findIndex((h) => MATRIX_SCORE_CANDIDATES.includes(h));
+        return { col, rows, modelIdx, scoreIdx };
+      })
+    );
+  }
 
   // 只保留真正有数据的列：整列都是占位符（- / —）的待测子项不进矩阵，
   // 但“未测试 / 测试中”这类有状态含义的值仍保留列
@@ -2754,51 +2788,73 @@ async function renderMatrix() {
     if (average !== null) averageScores.set(model, average);
   });
 
-  const allModels = Array.from(modelScores.keys());
+  // 实时月榜可只保留在限定列里真正有成绩的模型（如 10 月只保留 v3.x 有成绩的模型）
+  let allModels = Array.from(modelScores.keys());
+  if (!snapshot && datasetEntry && datasetEntry.matrixOnlyScored) {
+    allModels = allModels.filter((model) =>
+      activeCols.some(({ col }) => {
+        const value = parseFloat(modelScores.get(model)[col.label]);
+        return Number.isFinite(value);
+      })
+    );
+  }
+  // 历史模型已归档到月榜快照，不再进入实时总榜
+  if (!snapshot && datasetEntry && Array.isArray(datasetEntry.matrixExcludeModels)) {
+    const excluded = new Set(datasetEntry.matrixExcludeModels);
+    allModels = allModels.filter((model) => !excluded.has(model));
+  }
 
   // 默认排序依据：用户给定的“排行”表（模型 → 名次），以及“历史模型”表（独立数据集，块内按表内行序）
   const historyRankMap = new Map();
   const historyModels = new Set();
   let rankMap = new Map();
-  try {
-    const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
-    const rankIdx = rankRes.headers.indexOf("排名");
-    const rankModelIdx = rankRes.headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
-    if (rankModelIdx >= 0) {
-      rankRes.rows.forEach((r, index) => {
-        const m = String(r[rankModelIdx] || "").trim();
-        if (!m) return;
-        // 有“排名”列则用其数值，否则用数据行顺序作为名次
-        const rk = rankIdx >= 0 ? parseInt(r[rankIdx], 10) : index + 1;
-        if (Number.isFinite(rk)) rankMap.set(m, rk);
+  if (snapshot) {
+    // 快照的行序即当月名次
+    const modelIdx = loaded[0] ? loaded[0].modelIdx : -1;
+    if (modelIdx >= 0) {
+      snapshotRows.forEach((row, index) => {
+        const m = String(row[modelIdx] || "").trim();
+        if (m) rankMap.set(m, index + 1);
       });
     }
-  } catch (e) {
-    rankMap = new Map();
-  }
+  } else {
+    try {
+      const rankRes = await fetchCsvDataset(`data/code_bench/${version}-rank.csv`);
+      const rankIdx = rankRes.headers.indexOf("排名");
+      const rankModelIdx = rankRes.headers.findIndex((h) => MATRIX_MODEL_CANDIDATES.includes(h));
+      if (rankModelIdx >= 0) {
+        rankRes.rows.forEach((r, index) => {
+          const m = String(r[rankModelIdx] || "").trim();
+          if (!m) return;
+          // 有“排名”列则用其数值，否则用数据行顺序作为名次
+          const rk = rankIdx >= 0 ? parseInt(r[rankIdx], 10) : index + 1;
+          if (Number.isFinite(rk)) rankMap.set(m, rk);
+        });
+      }
+    } catch (e) {
+      rankMap = new Map();
+    }
 
-  // “历史模型”表：历史模型数据集专用（行序即名次），并从总榜矩阵中剔除
-  try {
-    const historyRes = await fetchCsvDataset(`data/code_bench/${version}-history.csv`);
-    const historyModelIdx = historyRes.headers.findIndex((h) =>
-      MATRIX_MODEL_CANDIDATES.includes(h)
-    );
-    if (historyModelIdx >= 0) {
-      historyRes.rows.forEach((row, index) => {
-        const m = String(row[historyModelIdx] || "").trim();
-        if (!m || historyModels.has(m)) return;
-        historyModels.add(m);
-        historyRankMap.set(m, index + 1);
-      });
+    // “历史模型”表：历史模型数据集专用（行序即名次），并从总榜矩阵中剔除
+    try {
+      const historyRes = await fetchCsvDataset(`data/code_bench/${version}-history.csv`);
+      const historyModelIdx = historyRes.headers.findIndex((h) =>
+        MATRIX_MODEL_CANDIDATES.includes(h)
+      );
+      if (historyModelIdx >= 0) {
+        historyRes.rows.forEach((row, index) => {
+          const m = String(row[historyModelIdx] || "").trim();
+          if (!m || historyModels.has(m)) return;
+          historyModels.add(m);
+          historyRankMap.set(m, index + 1);
+        });
+      }
+    } catch (e) {
+      // 无“历史模型”表时忽略
     }
-  } catch (e) {
-    // 无“历史模型”表时忽略
   }
 
   // 数据集范围：历史模型数据集只显示历史模型，总榜矩阵只显示现行（非历史）模型
-  const datasetEntry = state.manifest.find(
-    (entry) => buildDatasetKey(entry) === state.currentDatasetKey
-  );
   const historyOnly = Boolean(datasetEntry && datasetEntry.matrixScope === "history");
   const scopedModels = historyModels.size
     ? allModels.filter((model) => historyModels.has(model) === historyOnly)

@@ -230,6 +230,10 @@ const TRANSLATIONS = {
     "zh-CN": "full",
     "en-US": "Full",
   },
+  "dataset.title.fullV3": {
+    "zh-CN": "full_v3",
+    "en-US": "Full v3",
+  },
   "dataset.title.fullV2": {
     "zh-CN": "full_v2",
     "en-US": "Full v2",

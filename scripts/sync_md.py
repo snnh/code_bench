@@ -36,76 +36,201 @@ SYNC_CONFIG = {
     "code/code_bench.md": {
         "doc_page": "docs/bench.html",
         "page": {
-            "title": "code_bench v1.4｜题目说明",
-            "h1": "code_bench v1.4",
+            "title": "code_bench v1.5｜题目说明",
+            "h1": "code_bench v1.5",
             "subtitle": "大模型复刻 openwebcode 项目评测榜单 · 题目说明",
-            "description": "code_bench v1.4 题目结构、评测环境、基础题与高阶题排行、分析、声明与致谢。",
+            "description": "code_bench v1.5 题目结构、评测环境、实时排行、分析与声明。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明", "active": True},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
                 {"href": "archive.html", "label": "归档"},
             ],
-            "tip": "本页为 code_bench v1.4 完整题目与说明；榜单数据可在"
-                   "<a href=\"./\">榜单查询</a> 中交互查看（筛选、排序、搜索）。",
+            "tip": "本页为 code_bench v1.5 总说明与实时排行；子项明细见 "
+                   "<a href=\"core.html\">core</a> / <a href=\"server.html\">server</a> / "
+                   "<a href=\"web-v2.html\">web v2</a> / <a href=\"full-v3.html\">full_v3</a> / "
+                   "<a href=\"rust-v3-1.html\">rust v3.1</a>，历史月榜见 "
+                   "<a href=\"monthly-2026-09.html\">2026-09</a>；榜单数据可在"
+                   "<a href=\"./\">榜单查询</a> 中交互查看。",
         },
         "csvs": {
-            ("排行", None): "docs/data/code_bench/v1.4-rank.csv",
-            ("历史模型", None): "docs/data/code_bench/v1.4-history.csv",
-            ("基础题", "core"): "docs/data/code_bench/v1.4-core.csv",
-            ("基础题", "server"): "docs/data/code_bench/v1.4-server.csv",
-            ("基础题", "web v2"): "docs/data/code_bench/v1.4-web.csv",
-            ("高阶题", "full_v2"): "docs/data/code_bench/v1.4-full.csv",
-            ("高阶题", "rust v3.1"): "docs/data/code_bench/v1.4-rust-v3.1.csv",
+            ("排行", None): "docs/data/code_bench/v1.5-rank.csv",
         },
         "expected_headers": {
-            "docs/data/code_bench/v1.4-rank.csv": [
+            "docs/data/code_bench/v1.5-rank.csv": [
                 "模型",
-            ],
-            "docs/data/code_bench/v1.4-history.csv": [
-                "模型",
-            ],
-            "docs/data/code_bench/v1.4-core.csv": [
-                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
-            ],
-            "docs/data/code_bench/v1.4-server.csv": [
-                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
-            ],
-            "docs/data/code_bench/v1.4-web.csv": [
-                "模型", "积分", "成本(折算API价格)", "输出token", "缓存", "接入方式", "备注",
-            ],
-            "docs/data/code_bench/v1.4-full.csv": [
-                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
-            ],
-            "docs/data/code_bench/v1.4-rust-v3.1.csv": [
-                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
             ],
         },
         # 站点底部说明：抽取这些 h2 小节汇总进 docs/data/notes.json（顺序即展示顺序）
         "notes": {
-            "label": "code_bench v1.4",
+            "label": "code_bench v1.5",
             "sections": ["分析", "声明", "致谢"],
+        },
+    },
+    "code/core.md": {
+        "doc_page": "docs/core.html",
+        "page": {
+            "title": "code_bench 明细｜core",
+            "h1": "code_bench · core",
+            "subtitle": "基础题 · core（满分 30）",
+            "description": "code_bench core 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 core 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-core.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-core.csv": [
+                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
+            ],
+        },
+    },
+    "code/server.md": {
+        "doc_page": "docs/server.html",
+        "page": {
+            "title": "code_bench 明细｜server",
+            "h1": "code_bench · server",
+            "subtitle": "基础题 · server（满分 30）",
+            "description": "code_bench server 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 server 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-server.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-server.csv": [
+                "模型", "积分", "成本(折算API价格)", "token(不算缓存)", "缓存",
+            ],
+        },
+    },
+    "code/web-v2.md": {
+        "doc_page": "docs/web-v2.html",
+        "page": {
+            "title": "code_bench 明细｜web v2",
+            "h1": "code_bench · web v2",
+            "subtitle": "基础题 · web v2（满分 30）",
+            "description": "code_bench web v2 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 web v2 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-web.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-web.csv": [
+                "模型", "积分", "成本(折算API价格)", "输出token", "缓存", "接入方式", "备注",
+            ],
+        },
+    },
+    "code/full-v3.md": {
+        "doc_page": "docs/full-v3.html",
+        "page": {
+            "title": "code_bench 明细｜full_v3",
+            "h1": "code_bench · full_v3",
+            "subtitle": "高阶题 · full_v3（满分 100）",
+            "description": "code_bench full_v3 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 full_v3 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-full-v3.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-full-v3.csv": [
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
+            ],
+        },
+    },
+    "code/rust-v3-1.md": {
+        "doc_page": "docs/rust-v3-1.html",
+        "page": {
+            "title": "code_bench 明细｜rust v3.1",
+            "h1": "code_bench · rust v3.1",
+            "subtitle": "高阶题 · rust v3.1（满分 100）",
+            "description": "code_bench rust v3.1 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 rust v3.1 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-rust-v3.1.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-rust-v3.1.csv": [
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
+            ],
+        },
+    },
+    "code/monthly/2026-09.md": {
+        "doc_page": "docs/monthly-2026-09.html",
+        "page": {
+            "title": "code_bench 月榜｜2026-09",
+            "h1": "code_bench 月榜",
+            "subtitle": "2026-09 快照",
+            "description": "code_bench 2026-09 月榜快照（含历史模型）。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 2026-09 月榜快照；实时月榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("2026-09", None): "docs/data/code_bench/v1.5-monthly-2026-09.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-monthly-2026-09.csv": [
+                "模型", "core", "server", "web v2", "full_v2", "rust v3",
+            ],
         },
     },
     "code/code_bench_archive.md": {
         "doc_page": "docs/archive.html",
         "page": {
-            "title": "code_bench 归档｜rust 题目",
+            "title": "code_bench 归档｜rust / full_v2 题目",
             "h1": "code_bench 归档",
             "subtitle": "已归档题目与榜单",
-            "description": "code_bench 已归档的 rust 高阶题（v1 / v2.1）与旧版 web 题目说明与榜单。",
+            "description": "code_bench 已归档的 rust 高阶题（v1 / v2.1）、full_v2 与旧版 web 题目说明与榜单。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明"},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
                 {"href": "archive.html", "label": "归档", "active": True},
             ],
-            "tip": "本页为 code_bench 已归档的 rust（v1 / v2.1）与旧版 web 题目与榜单；榜单数据可在"
+            "tip": "本页为 code_bench 已归档的 rust（v1 / v2.1）、full_v2 与旧版 web 题目与榜单；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看。",
         },
         "csvs": {
             ("高阶题 · rust（已归档）", "rust 榜单"): "docs/data/code_bench/archive-rust.csv",
             ("高阶题 · rust v2.1（已归档）", "rust v2.1 榜单"): "docs/data/code_bench/archive-rust-v2.1.csv",
+            ("高阶题 · full_v2（已归档）", "full_v2 榜单"): "docs/data/code_bench/archive-full-v2.csv",
             ("基础题 · web（已归档）", "web 榜单"): "docs/data/code_bench/archive-web.csv",
         },
         "expected_headers": {
@@ -114,6 +239,9 @@ SYNC_CONFIG = {
             ],
             "docs/data/code_bench/archive-rust-v2.1.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "token(不算缓存)", "缓存", "接入方式", "备注",
+            ],
+            "docs/data/code_bench/archive-full-v2.csv": [
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
             ],
             "docs/data/code_bench/archive-web.csv": [
                 "模型", "积分", "成本", "token", "缓存",
