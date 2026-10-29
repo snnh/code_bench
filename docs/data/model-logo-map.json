@@ -41,7 +41,10 @@
     "SenseNova": "assets/logo/sensetime.svg",
     "Spark": "assets/logo/xunfei.svg",
     "Step": "assets/logo/stepfun.svg",
-    "YI": "assets/logo/zeroone.svg"
+    "YI": "assets/logo/zeroone.svg",
+    "Baichuan": "assets/logo/baichuan.svg",
+    "KAT-Coder": "assets/logo/kwaikat.svg",
+    "TianGong": "assets/logo/tiangong.svg"
   },
   "prefixAliases": {
     "Baichuan": [
@@ -172,6 +175,7 @@
       "阶跃星辰"
     ],
     "TianGong": [
+      "TianGong",
       "天工",
       "昆仑天工"
     ],

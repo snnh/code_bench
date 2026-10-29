@@ -10,6 +10,7 @@ The local filenames map to these upstream icon slugs:
 | --- | --- |
 | `anthropic.svg` | `anthropic` |
 | `baidu.svg` | `baidu-color` |
+| `baichuan.svg` | `baichuan-color` |
 | `bytedance.svg` | `bytedance-color` |
 | `deepseek.svg` | `deepseek-color` |
 | `glm.svg` | `zai` |
@@ -17,6 +18,7 @@ The local filenames map to these upstream icon slugs:
 | `huawei.svg` | `huawei-color` |
 | `hy.svg` | `hunyuan-color` |
 | `kimi.svg` | `kimi` |
+| `kwaikat.svg` | `kwaikat` |
 | `longcat.svg` | `longcat-color` |
 | `meta.svg` | `meta-color` |
 | `mimo.svg` | `xiaomimimo` |
@@ -26,6 +28,7 @@ The local filenames map to these upstream icon slugs:
 | `qwen.svg` | `qwen-color` |
 | `sensetime.svg` | `sensenova-color` |
 | `stepfun.svg` | `stepfun-color` |
+| `tiangong.svg` | `tiangong-color` |
 | `xai.svg` | `xai` |
 | `xunfei.svg` | `spark-color` |
 | `zeroone.svg` | `zeroone-color` |

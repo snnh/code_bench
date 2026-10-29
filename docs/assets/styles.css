@@ -788,6 +788,7 @@ a.view-tab {
   [src$="/openai.svg"],
   [src$="/glm.svg"],
   [src$="/kimi.svg"],
+  [src$="/kwaikat.svg"],
   [src$="/xai.svg"]
 ) {
   filter: invert(1);
@@ -799,6 +800,7 @@ a.view-tab {
     [src$="/openai.svg"],
     [src$="/glm.svg"],
     [src$="/kimi.svg"],
+    [src$="/kwaikat.svg"],
     [src$="/xai.svg"]
   ) {
     filter: invert(1);

@@ -1886,11 +1886,12 @@ function findCountryModelColumnIndex(headers) {
 
 function classifyModelCountry(modelName) {
   const normalizedName = String(modelName || "").trim();
-  if (CHINA_MODEL_PATTERNS.some((pattern) => pattern.test(normalizedName))) {
-    return "china";
-  }
+  // 先判美国：少数模型名同时命中中美关键词，按上游口径以美国优先
   if (US_MODEL_PATTERNS.some((pattern) => pattern.test(normalizedName))) {
     return "usa";
+  }
+  if (CHINA_MODEL_PATTERNS.some((pattern) => pattern.test(normalizedName))) {
+    return "china";
   }
   return "other";
 }
