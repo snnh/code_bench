@@ -290,6 +290,16 @@ SYNC_CONFIG = {
 # 占位行（"… | 未测试 ..."）不写入 CSV
 PLACEHOLDER_FIRST_CELLS = {"…", "..."}
 
+# 对比行（首列形如"仅对比xxx"）只在 md 页面里展示，不当成模型写入 CSV
+SKIP_ROW_PREFIXES = ("仅对比",)
+
+
+def is_skip_row(row):
+    if not row:
+        return True
+    first = (row[0] or "").strip()
+    return first in PLACEHOLDER_FIRST_CELLS or first.startswith(SKIP_ROW_PREFIXES)
+
 # ---------------------------------------------------------------- 页面模板
 
 def render_page(content, meta):
@@ -610,7 +620,7 @@ def extract_csvs(blocks, csv_config, expected_headers):
             if target in used_targets:
                 print("  ! 跳过重复表：%s（%s）" % (key, target))
                 continue
-            rows = [row for row in payload if row and row[0] not in PLACEHOLDER_FIRST_CELLS]
+            rows = [row for row in payload if not is_skip_row(row)]
             expected = expected_headers[target]
             if rows and rows[0] != expected:
                 raise SystemExit(

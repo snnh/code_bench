@@ -31,6 +31,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | 模型 |
 | --- |
 | deepseek-flash-1017(max) |
+| hy4(high) |
 | kimi-k3.1-pro(high) |
 | qwen-latest-series-invite-2609(max) |
 | kimi-k3(max) |
@@ -60,6 +61,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * qwen订阅倍率约0.2495(官方api文档说明)
 * step订阅倍率约0.025(官方api文档说明)
 * mimo订阅倍率约0.81
+* hy4按照0.25x倍率进行推算
 
 ---
 
