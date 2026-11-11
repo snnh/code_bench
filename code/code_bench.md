@@ -33,6 +33,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-flash-1017(max) |
 | hy4(high) |
 | kimi-k3.1-pro(high) |
+| ernie-light-dt-1.0(max) |
 | qwen-latest-series-invite-2609(xhigh) |
 | kimi-k3(max) |
 | ernie-5.5-flash-preview(high) |
@@ -64,6 +65,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * step订阅倍率约0.025(官方api文档说明)
 * mimo订阅倍率约0.81
 * hy4按照0.25x倍率进行推算
+* 千帆tokenplan倍率约0.3x
 
 ---
 

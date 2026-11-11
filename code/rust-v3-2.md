@@ -10,9 +10,10 @@
 |---|---|---|---|---|---|---|---|
 | deepseek-flash-1017(max) | 61.34 | 3.28-6.56元 | 无 | 214k | 92.2%(23.151m) | 官方api | 无 |
 | kimi-k3.1-pro(high) | 60.26 | 34.34元 | 2.74元 | 81k | 98.5%(19.301m) | kimi订阅 | 无 |
+| ernie-light-dt-1.0(max) | 59.83 | 46.64元 | 14元 | 242k | 99.3%(46.514m) | 千帆tokenplan | 无 |
 | qwen-latest-series-invite-2609(xhigh) | 58.85 | -元 | - | 266k | 97%(21.792m) | 官方api | 无 |
 | claude-haiku-5.5(xhigh) | 58.22 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
-| ernie-5.5-flash-preview(high) | 58.14 | 5.9元 | 无 | 146k | 98.3%(45.293m) | 官方api | 无 |
+| ernie-5.5-flash-preview(high) | 58.14 | 5.9元 | 1.77元 | 146k | 98.3%(45.293m) | 官方api | 无 |
 | mimo-v2.6-pro(thinking) | 57.82 | 1.8元 | 1.458元 | 155k | 97.7%(9.146m) | 官方api | 无 |
 | qwen4-max-preview(xhigh) | 57.82 | -元 | 1125credits | 163k | 89.8%(17.308m) | qwen tokenplan | 无 |
 | deepseek-v4.1-flash(max) | 54.23 | 1.67-3.34元 | 无 | 283k | 97.7%(20.114m) | 官方api | 无 |
