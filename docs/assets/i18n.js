@@ -45,6 +45,34 @@ const TRANSLATIONS = {
     "zh-CN": "选择数据集",
     "en-US": "Choose a dataset",
   },
+  "controls.sort.label": {
+    "zh-CN": "排序",
+    "en-US": "Sort",
+  },
+  "controls.sort.aria": {
+    "zh-CN": "选择排序依据的列",
+    "en-US": "Choose the column to sort by",
+  },
+  "controls.sort.default": {
+    "zh-CN": "默认顺序",
+    "en-US": "Default order",
+  },
+  "controls.sort.asc": {
+    "zh-CN": "升序（点击切换为降序）",
+    "en-US": "Ascending (click for descending)",
+  },
+  "controls.sort.desc": {
+    "zh-CN": "降序（点击切换为升序）",
+    "en-US": "Descending (click for ascending)",
+  },
+  "controls.sort.ascShort": {
+    "zh-CN": "升序 ↑",
+    "en-US": "Asc ↑",
+  },
+  "controls.sort.descShort": {
+    "zh-CN": "降序 ↓",
+    "en-US": "Desc ↓",
+  },
   "controls.inference.label": {
     "zh-CN": "模型模式",
     "en-US": "Model mode",

@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20261112-rust-v32";
+} from "./i18n.js?v=20261120-sort-fix";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -2005,32 +2005,41 @@ function applyFiltersAndRender() {
 
 function sortRows(rows, columnIndex, direction) {
   const multiplier = direction === "desc" ? -1 : 1;
-  const numbers = rows
-    .map((row) => parseSortableNumber(row.cells[columnIndex]))
-    .filter((value) => value !== null);
-  const isMostlyNumeric = numbers.length >= rows.length / 2;
+  const header = (Array.isArray(state.headers) && state.headers[columnIndex]) || "";
+  // 模型 / 方案列始终按文本排序（名称里的数字不参与比较）
+  const isNameColumn = /^(模型|方案|model|name)$/.test(normalizeHeaderKey(header).trim());
+  // 数值列判定：过半非空单元格以数字开头（如 56.52 / 99.8%(…) / 362k / 约10元）；
+  // 备注、接入方式这类自由文本列即使含数字也不按数值排
+  const values = rows.map((row) => String(row.cells[columnIndex] ?? "").trim());
+  const present = values.filter((value) => !isMissingCell(value));
+  const numericLike = present.filter((value) => /^[~约]?\s*[-+]?\d/.test(value)).length;
+  const isNumericColumn =
+    !isNameColumn && present.length > 0 && numericLike * 2 >= present.length;
 
-  const sorted = rows.slice().sort((a, b) => {
+  const compare = (a, b) => {
     const valueA = a.cells[columnIndex] ?? "";
     const valueB = b.cells[columnIndex] ?? "";
 
-    if (isMostlyNumeric) {
-      const numA = parseNumber(valueA);
-      const numB = parseNumber(valueB);
-
-      if (numA === null && numB === null) {
-        return state.collator.compare(String(valueA), String(valueB));
-      }
-      if (numA === null) return 1;
-      if (numB === null) return -1;
-      if (numA === numB) return 0;
-      return numA > numB ? multiplier : -multiplier;
+    if (!isNumericColumn) {
+      return state.collator.compare(String(valueA), String(valueB)) * multiplier;
     }
 
-    return state.collator.compare(String(valueA), String(valueB)) * multiplier;
-  });
+    const numA = parseSortCellValue(valueA, header);
+    const numB = parseSortCellValue(valueB, header);
 
-  return sorted;
+    // 空值 / 占位符（-、-元、-k、未测试…）无论升序还是降序都排在最后
+    if (numA === null && numB === null) {
+      return state.collator.compare(String(valueA), String(valueB));
+    }
+    if (numA === null) return 1;
+    if (numB === null) return -1;
+    if (numA === numB) {
+      return state.collator.compare(String(valueA), String(valueB));
+    }
+    return numA > numB ? multiplier : -multiplier;
+  };
+
+  return rows.slice().sort(compare);
 }
 
 function parseSortableNumber(value) {
@@ -2044,6 +2053,43 @@ function parseSortableNumber(value) {
   if (!normalized || normalized === "-" || normalized === ".") return null;
   const number = Number(normalized);
   return Number.isNaN(number) ? null : number;
+}
+
+// 空值 / 占位符（-, —, -元, -k, -%(-m), 未测试, 测试中, 无, 空）统一视为“无成绩”
+const MISSING_CELL_PATTERN = /^(?:[-—–]+.*|未测试|测试中|无|N\/A|n\/a|\?)$/;
+
+function isMissingCell(value) {
+  if (value === undefined || value === null) return true;
+  const trimmed = String(value).trim();
+  if (!trimmed) return true;
+  return MISSING_CELL_PATTERN.test(trimmed);
+}
+
+// 宽松取首个数值：“约10元”→“10”，“41.26(疑似优势区间)”→41.26，“1125credits”→1125
+function parseTolerantNumber(text) {
+  const match = String(text ?? "").match(/-?\d+(?:\.\d+)?/);
+  if (!match) return null;
+  const number = Number(match[0]);
+  return Number.isFinite(number) ? number : null;
+}
+
+// 按列名选择解析口径：token 还原 K/M，成本取区间下界，缓存取百分比，其余取首个数值
+function parseSortCellValue(value, header) {
+  if (isMissingCell(value)) return null;
+  const text = String(value).trim();
+  const key = normalizeHeaderKey(header);
+  if (key.includes("token")) {
+    return parseTokenValue(text);
+  }
+  if (key.includes("成本") || key.includes("cost")) {
+    return parseCostValue(text);
+  }
+  const percent = text.match(/([\d.]+)\s*%/);
+  if (percent) {
+    const number = Number(percent[1]);
+    if (Number.isFinite(number)) return number;
+  }
+  return parseTolerantNumber(text);
 }
 
 function isThinkRow(value) {
@@ -2413,7 +2459,79 @@ function createMobileCard(row, layout, headerIndexMap, modelColumnIndex) {
   return card;
 }
 
+// 排序状态写入后按数据集类型重渲染（矩阵走 renderMatrix，其余走筛选管线）
+function applyMobileSort(columnIndex, direction) {
+  state.sort =
+    columnIndex === null || !direction ? { columnIndex: null, direction: null } : { columnIndex, direction };
+  const dataset = state.manifest.find((entry) => buildDatasetKey(entry) === state.currentDatasetKey);
+  if (dataset && dataset.type === "matrix") {
+    renderMatrix();
+  } else {
+    applyFiltersAndRender();
+  }
+}
+
+// 移动端排序条：列下拉 + 升降序按钮（桌面端直接点表头，不需要它）
+function buildMobileSortBar(labels) {
+  const bar = document.createElement("div");
+  bar.className = "mobile-sort-bar";
+
+  const label = document.createElement("label");
+  label.className = "mobile-sort-label";
+  label.textContent = t("controls.sort.label");
+
+  const select = document.createElement("select");
+  select.className = "mobile-sort-select";
+  select.setAttribute("aria-label", t("controls.sort.aria"));
+  const autoOption = document.createElement("option");
+  autoOption.value = "";
+  autoOption.textContent = t("controls.sort.default");
+  select.appendChild(autoOption);
+  labels.forEach((text, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = text;
+    select.appendChild(option);
+  });
+  if (state.sort.columnIndex !== null && state.sort.columnIndex < labels.length) {
+    select.value = String(state.sort.columnIndex);
+  }
+
+  const directionButton = document.createElement("button");
+  directionButton.type = "button";
+  directionButton.className = "mobile-sort-direction";
+  const syncDirection = () => {
+    const desc = state.sort.direction === "desc";
+    directionButton.textContent = desc ? t("controls.sort.descShort") : t("controls.sort.ascShort");
+    directionButton.title = desc ? t("controls.sort.desc") : t("controls.sort.asc");
+    directionButton.setAttribute("aria-label", directionButton.title);
+    directionButton.disabled = state.sort.columnIndex === null;
+  };
+  syncDirection();
+
+  select.addEventListener("change", () => {
+    if (select.value === "") {
+      applyMobileSort(null, null);
+      return;
+    }
+    const columnIndex = Number(select.value);
+    applyMobileSort(columnIndex, columnIndex === 0 ? "asc" : "desc");
+  });
+  directionButton.addEventListener("click", () => {
+    if (state.sort.columnIndex === null) return;
+    applyMobileSort(state.sort.columnIndex, state.sort.direction === "desc" ? "asc" : "desc");
+  });
+
+  bar.appendChild(label);
+  bar.appendChild(select);
+  bar.appendChild(directionButton);
+  return bar;
+}
+
 function renderMobileCards(container) {
+  // 移动端没有表头可点，用下拉框选择排序列
+  container.appendChild(buildMobileSortBar(state.headers.map((header) => getHeaderLabel(header))));
+
   const list = document.createElement("div");
   list.className = "mobile-card-list";
 
@@ -2507,18 +2625,21 @@ function sortVisibleMatrixModels(models, modelScores, rankMap, averageScores) {
   models.sort((a, b) => dir * (weight(a) - weight(b)));
 }
 
-// 给矩阵表头绑定点击排序：同列翻转方向，异列默认降序
+// 给矩阵表头绑定点击排序：同列翻转方向；换列时分数列默认降序（高分在前）、模型列默认升序
 function attachMatrixSortHandlers(table) {
   table.querySelectorAll("thead th").forEach((th, index) => {
     th.addEventListener("click", () => {
+      const firstDirection = index === 0 ? "asc" : "desc";
+      // 同一列依次循环：首次方向 → 反向 → 复位（回到排行表默认顺序）
+      const cycle = firstDirection === "desc" ? ["desc", "asc", null] : ["asc", "desc", null];
+      let direction = firstDirection;
       if (state.sort.columnIndex === index) {
-        state.sort = {
-          columnIndex: index,
-          direction: state.sort.direction === "desc" ? "asc" : "desc",
-        };
-      } else {
-        state.sort = { columnIndex: index, direction: "desc" };
+        const at = cycle.indexOf(state.sort.direction);
+        direction = at === -1 ? firstDirection : cycle[(at + 1) % cycle.length];
       }
+      state.sort = direction
+        ? { columnIndex: index, direction }
+        : { columnIndex: null, direction: null };
       renderMatrix();
     });
   });
@@ -2622,6 +2743,8 @@ function createMatrixTable(models, activeCols, modelScores, colStats) {
 
 // 移动端总榜：仿上游卡片显示，每个模型一张卡，逐子项展示着色得分
 function renderMobileMatrix(container, models, activeCols, modelScores, colStats) {
+  container.appendChild(buildMobileSortBar(["模型", ...colStats.map(({ col }) => col.label)]));
+
   const list = document.createElement("div");
   list.className = "mobile-card-list";
 

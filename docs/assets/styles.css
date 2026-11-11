@@ -879,6 +879,60 @@ a.view-tab {
   gap: 10px;
 }
 
+/* 移动端排序条（卡片视图没有表头，用下拉框 + 方向按钮代替点表头） */
+.mobile-sort-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-panel);
+}
+
+.mobile-sort-label {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.mobile-sort-select {
+  flex: 1 1 140px;
+  min-width: 120px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: 0.82rem;
+}
+
+.mobile-sort-direction {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.mobile-sort-direction:disabled {
+  background: var(--color-disabled-bg);
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.mobile-sort-direction:focus-visible,
+.mobile-sort-select:focus-visible {
+  outline: 2px solid var(--color-button-focus);
+  outline-offset: 1px;
+}
+
 .mobile-card {
   border: 1px solid var(--color-border);
   border-radius: 8px;
