@@ -49,7 +49,7 @@ SYNC_CONFIG = {
             "tip": "本页为 code_bench v1.5 总说明与实时排行；子项明细见 "
                    "<a href=\"core.html\">core</a> / <a href=\"server.html\">server</a> / "
                    "<a href=\"web-v2.html\">web v2</a> / <a href=\"full-v3.html\">full_v3</a> / "
-                   "<a href=\"rust-v3-1.html\">rust v3.1</a>，历史月榜见 "
+                   "<a href=\"rust-v3-2.html\">rust v3.2</a>，历史月榜见 "
                    "<a href=\"monthly-2026-09.html\">2026-09</a>；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看。",
         },
@@ -163,26 +163,26 @@ SYNC_CONFIG = {
             ],
         },
     },
-    "code/rust-v3-1.md": {
-        "doc_page": "docs/rust-v3-1.html",
+    "code/rust-v3-2.md": {
+        "doc_page": "docs/rust-v3-2.html",
         "page": {
-            "title": "code_bench 明细｜rust v3.1",
-            "h1": "code_bench · rust v3.1",
-            "subtitle": "高阶题 · rust v3.1（满分 100）",
-            "description": "code_bench rust v3.1 子项题目与榜单。",
+            "title": "code_bench 明细｜rust v3.2",
+            "h1": "code_bench · rust v3.2",
+            "subtitle": "高阶题 · rust v3.2（满分 100）",
+            "description": "code_bench rust v3.2 子项题目与榜单。",
             "nav": [
                 {"href": "./", "label": "榜单"},
                 {"href": "bench.html", "label": "说明", "active": True},
                 {"href": "ocr_bench.html", "label": "OCR 说明"},
                 {"href": "archive.html", "label": "归档"},
             ],
-            "tip": "本页为 rust v3.1 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+            "tip": "本页为 rust v3.2 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
         },
         "csvs": {
-            ("榜单", None): "docs/data/code_bench/v1.5-rust-v3.1.csv",
+            ("榜单", None): "docs/data/code_bench/v1.5-rust-v3.2.csv",
         },
         "expected_headers": {
-            "docs/data/code_bench/v1.5-rust-v3.1.csv": [
+            "docs/data/code_bench/v1.5-rust-v3.2.csv": [
                 "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
             ],
         },

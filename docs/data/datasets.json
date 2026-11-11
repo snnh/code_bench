@@ -9,7 +9,7 @@
       "type": "matrix",
       "matrixColumns": [
         "full_v3",
-        "rust v3.1"
+        "rust v3.2"
       ],
       "matrixOnlyScored": true,
       "disclaimerKey": "dataset.disclaimer.codeTotal",
@@ -101,8 +101,8 @@
       "category": "code_detail",
       "reportDate": "v1.5",
       "tableIndex": 5,
-      "title": "rust v3.1",
-      "csv": "data/code_bench/v1.5-rust-v3.1.csv",
+      "title": "rust v3.2",
+      "csv": "data/code_bench/v1.5-rust-v3.2.csv",
       "tier": "advanced",
       "fullScore": 100
     },

@@ -10,9 +10,9 @@
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
 | 高阶题 · full_v3 | 100 | 3大+1小模块，开发一个coding agent |
-| 高阶题 · rust v3.1 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
+| 高阶题 · rust v3.2 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
 
-* 子项明细：[core](core.html) · [server](server.html) · [web v2](web-v2.html) · [full_v3](full-v3.html) · [rust v3.1](rust-v3-1.html)
+* 子项明细：[core](core.html) · [server](server.html) · [web v2](web-v2.html) · [full_v3](full-v3.html) · [rust v3.2](rust-v3-2.html)
 * 历史月榜：[2026-09](monthly-2026-09.html)
 * 已归档：高阶题 · full_v2（见[归档页](archive.html)）
 

@@ -250,9 +250,9 @@ const TRANSLATIONS = {
     "zh-CN": "rust v2.1",
     "en-US": "Rust v2.1",
   },
-  "dataset.title.rustV31": {
-    "zh-CN": "rust v3.1",
-    "en-US": "Rust v3.1",
+  "dataset.title.rustV32": {
+    "zh-CN": "rust v3.2",
+    "en-US": "Rust v3.2",
   },
   "dataset.title.rustV3": {
     "zh-CN": "rust v3",

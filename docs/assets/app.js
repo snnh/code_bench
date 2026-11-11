@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20261029-monthly";
+} from "./i18n.js?v=20261112-rust-v32";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -23,7 +23,7 @@ const DATASET_TITLE_KEYS = {
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
-  "rust v3.1": "dataset.title.rustV31",
+  "rust v3.2": "dataset.title.rustV32",
   "历史模型": "dataset.title.history",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
@@ -899,7 +899,7 @@ function updateMetricAxisLabel() {
     : t("chart.yAxis.label");
 }
 
-// 图表指标列解析：配置列名优先，缺失时回退（如 rust v3.1 起统计“输出token”）
+// 图表指标列解析：配置列名优先，缺失时回退（如 rust v3.2 起统计“输出token”）
 function resolveChartColumn(config, type) {
   if (!config) return null;
   const candidates = [config[type], ...(config[`${type}Fallbacks`] || [])].filter(Boolean);

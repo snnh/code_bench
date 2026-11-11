@@ -18,12 +18,12 @@
 
 复刻 openwebcode（C11 执行器、Node 服务层、React 前端）的编程题评测：
 
-- **月榜**：按月划分的模型 × 子项矩阵（无总分列）——`2026-10` 起只保留 v3.x（full_v3 / rust v3.1），`2026-09` 为旧结构快照；默认显示最新月份
+- **月榜**：按月划分的模型 × 子项矩阵（无总分列）——`2026-10` 起只保留 v3.x（full_v3 / rust v3.2），`2026-09` 为旧结构快照；默认显示最新月份
 - **基础题**：core / server / web v2（旧版 web 已归档）
-- **高阶题**：full_v3 / rust v3.1（满分 100，成绩陆续补测）
+- **高阶题**：full_v3 / rust v3.2（满分 100，成绩陆续补测）
 - **历史模型**：已退出现行排行的模型统一归档到 `2026-09` 月榜快照（不再单独成数据集）
 - **归档**：rust（v1）、rust v2.1、full_v2 与旧版 web
-- **明细页**：`core.html` / `server.html` / `web-v2.html` / `full-v3.html` / `rust-v3-1.html`（数据源为 `code/core.md` 等独立文件）
+- **明细页**：`core.html` / `server.html` / `web-v2.html` / `full-v3.html` / `rust-v3-2.html`（数据源为 `code/core.md` 等独立文件）
 - **月榜快照页**：`monthly-2026-09.html`（数据源 `code/monthly/2026-09.md`）
 
 - 说明页：`docs/bench.html`
@@ -48,7 +48,7 @@ GitHub Pages 站点由 `docs/` 提供：
 | --- | --- |
 | `index.html` | 榜单仪表盘（总榜矩阵、象限图、交互筛选、排序、搜索、趋势图，底部为 md 自动生成的说明与分析） |
 | `bench.html` | code_bench v1.5 总说明（题目结构 / 实时排行 / 说明 / 分析） |
-| `core.html`、`server.html`、`web-v2.html`、`full-v3.html`、`rust-v3-1.html` | 各子项题目与榜单明细 |
+| `core.html`、`server.html`、`web-v2.html`、`full-v3.html`、`rust-v3-2.html` | 各子项题目与榜单明细 |
 | `monthly-2026-09.html` | 2026-09 月榜快照（含历史模型） |
 | `archive.html` | code_bench 归档（rust v1 / rust v2.1、full_v2 与旧版 web 题目、榜单） |
 | `ocr_bench.html` | 开发场景 OCR Benchmark v5 题目说明 |
