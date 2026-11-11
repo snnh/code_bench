@@ -10,9 +10,10 @@
 |---|---|---|---|---|---|---|---|
 | deepseek-flash-1017(max) | 61.45 | 3.28-6.56元 | 无 | 214k | 92.2%(23.151m) | 官方api | 无 |
 | kimi-k3.1-pro(high) | 60.79 | 34.34元 | 2.74元 | 81k | 98.5%(19.301m) | kimi订阅 | 无 |
-| qwen-latest-series-invite-2609(max) | 59.43 | -元 | - | 266k | 97%(21.792m) | 官方api | 无 |
+| qwen-latest-series-invite-2609(xhigh) | 59.43 | -元 | - | 266k | 97%(21.792m) | 官方api | 无 |
 | claude-haiku-5.5(xhigh) | 58.48 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
 | mimo-v2.6-pro(thinking) | 58.06 | 1.8元 | 1.458元 | 155k | 97.7%(9.146m) | 官方api | 无 |
+| qwen4-max-preview(xhigh) | 57.01 | -元 | 11.25元 | 163k | 89.8%(17.308m) | qwen tokenplan | 无 |
 | deepseek-v4.1-flash(max) | 54.65 | 1.67-3.34元 | 无 | 283k | 97.7%(20.114m) | 官方api | 无 |
 | qwen3.8-flash(max) | 53.16 | 4.98元 | 1.243元 | 261k | 98%(36.75m) | 官方api | 无 |
 | minimax-m3.1-flash(max) | 48.82 | 7.82元 | - | 432k | 99.8%(58.965m) | zenmux api | 无 |

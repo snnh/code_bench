@@ -33,9 +33,10 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-flash-1017(max) |
 | hy4(high) |
 | kimi-k3.1-pro(high) |
-| qwen-latest-series-invite-2609(max) |
+| qwen-latest-series-invite-2609(xhigh) |
 | kimi-k3(max) |
 | mimo-v2.6-pro(thinking) |
+| qwen4-max-preview(xhigh) |
 | deepseek-v4.1-flash(max) |
 | claude-haiku-5.5(xhigh) |
 | kimi-k2.8-preview(max)    |
