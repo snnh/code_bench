@@ -13,7 +13,7 @@
 | 高阶题 · rust v3.2 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
 
 * 子项明细：[core](core.html) · [server](server.html) · [web v2](web-v2.html) · [full_v3](full-v3.html) · [rust v3.2](rust-v3-2.html)
-* 历史月榜：[2026-09](monthly-2026-09.html)
+* 历史月榜：[2026-10](monthly-2026-10.html) · [2026-09](monthly-2026-09.html)
 * 已归档：高阶题 · full_v2（见[归档页](archive.html)）
 
 ---
@@ -33,12 +33,12 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | deepseek-flash-1017(max) |
 | hy4(high) |
 | kimi-k3.1-pro(high) |
-| ernie-light-dt-1.0(max) |
 | qwen-latest-series-invite-2609(xhigh) |
 | kimi-k3(max) |
+| ernie-light-dt-1.0(max) |
 | ernie-5.5-flash-preview(high) |
-| mimo-v2.6-pro(thinking) |
 | qwen4-max-preview(xhigh) |
+| mimo-v2.6-pro(thinking) |
 | deepseek-v4.1-flash(max) |
 | claude-haiku-5.5(xhigh) |
 | kimi-k2.8-preview(max)    |

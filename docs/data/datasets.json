@@ -2,7 +2,7 @@
   "datasets": [
     {
       "category": "code_total",
-      "reportDate": "2026-10",
+      "reportDate": "2026-11",
       "tableIndex": 0,
       "title": "月榜",
       "csv": "data/code_bench/v1.5-core.csv",
@@ -23,6 +23,28 @@
         "glm-ox-alpha(max)",
         "deepseek-v4-flash0731(max)"
       ]
+    },
+    {
+      "category": "code_total",
+      "reportDate": "2026-10",
+      "tableIndex": 0,
+      "title": "月榜",
+      "csv": "data/code_bench/v1.5-monthly-2026-10.csv",
+      "type": "matrix",
+      "matrixSource": "snapshot",
+      "columns": [
+        {
+          "label": "full_v3",
+          "fullScore": 100,
+          "tier": "advanced"
+        },
+        {
+          "label": "rust v3.1",
+          "fullScore": 100,
+          "tier": "advanced"
+        }
+      ],
+      "disclaimerKey": "dataset.disclaimer.codeTotal"
     },
     {
       "category": "code_total",

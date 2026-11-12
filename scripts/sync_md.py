@@ -50,7 +50,7 @@ SYNC_CONFIG = {
                    "<a href=\"core.html\">core</a> / <a href=\"server.html\">server</a> / "
                    "<a href=\"web-v2.html\">web v2</a> / <a href=\"full-v3.html\">full_v3</a> / "
                    "<a href=\"rust-v3-2.html\">rust v3.2</a>，历史月榜见 "
-                   "<a href=\"monthly-2026-09.html\">2026-09</a>；榜单数据可在"
+                   "<a href=\"monthly-2026-10.html\">2026-10</a>、<a href=\"monthly-2026-09.html\">2026-09</a>；榜单数据可在"
                    "<a href=\"./\">榜单查询</a> 中交互查看。",
         },
         "csvs": {
@@ -208,6 +208,30 @@ SYNC_CONFIG = {
         "expected_headers": {
             "docs/data/code_bench/v1.5-monthly-2026-09.csv": [
                 "模型", "core", "server", "web v2", "full_v2", "rust v3",
+            ],
+        },
+    },
+    "code/monthly/2026-10.md": {
+        "doc_page": "docs/monthly-2026-10.html",
+        "page": {
+            "title": "code_bench 月榜｜2026-10",
+            "h1": "code_bench 月榜",
+            "subtitle": "2026-10 快照",
+            "description": "code_bench 2026-10 月榜快照。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 2026-10 月榜快照；实时月榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("2026-10", None): "docs/data/code_bench/v1.5-monthly-2026-10.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-monthly-2026-10.csv": [
+                "模型", "full_v3", "rust v3.1",
             ],
         },
     },

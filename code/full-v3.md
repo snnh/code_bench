@@ -10,4 +10,6 @@
 |---|---|---|---|---|---|---|---|
 | hy4(high) | 56.52 | 31.5元 | 7.87元 | 362k | 99%(69.3m) | codebuddy | codebuddy |
 | deepseek-flash-1017(max) | 54.48 | 2.4-4.8元 | 无 | 312k | 99.8%(52.292m) | 官方api | 无 |
+| qwen4-max-preview(xhigh) | 53.12 | -元 | 2655credits | 266k | 96.3%(57.842m) | qwen tokenplan | 无 |
+| ernie-light-dt-1.0(max) | 39.2 | 86.79元 | 26.04元 | 342k | 99.5%(91.705m) | 千帆tokenplan | 无 |
 | 仅对比hy4(high) | 15.28 | 17.41元 | 4.35元 | 244k | 98.2%(31.837m) | 官方api | 无 |
