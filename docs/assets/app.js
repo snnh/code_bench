@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20261120-sort-fix";
+} from "./i18n.js?v=20261120-content";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -24,6 +24,7 @@ const DATASET_TITLE_KEYS = {
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
   "rust v3.2": "dataset.title.rustV32",
+  cowork: "dataset.title.cowork",
   "历史模型": "dataset.title.history",
   "短提示榜": "dataset.title.shortPrompt",
   "官方推荐提示词榜": "dataset.title.officialPrompt",
@@ -3314,11 +3315,21 @@ function updateMeta(dataset = null) {
       ? t("meta.records.withTotal", { count: filtered, total })
       : t("meta.records.single", { count: filtered });
 
+  // 补充口径信息：满分（子项数据集）与快照标记（历史月）
+  const extraSpans = [];
+  if (dataset.matrixSource === "snapshot") {
+    extraSpans.push(`<span>${t("meta.snapshot")}</span>`);
+  }
+  if (Number.isFinite(Number(dataset.fullScore))) {
+    extraSpans.push(`<span>${t("meta.fullScore", { score: dataset.fullScore })}</span>`);
+  }
+
   meta.innerHTML = `
     <span>${t("meta.category", { label: categoryLabel })}</span>
     <span>${t("meta.dataset", { label: datasetLabel })}</span>
     <span>${recordsLabel}</span>
     <span>${t("meta.datasetCount", { count: reportCount })}</span>
+    ${extraSpans.join("")}
   `;
   meta.classList.add("active");
 }
@@ -3599,6 +3610,7 @@ function getVisibleTrendMonths(months, selected) {
 
 function renderTrendsChart() {
   if (!elements.trendsCanvas || state.view !== "trends") return;
+  if (!chartLibraryReady()) return;
   if (state.trends.loading || !state.trends.months.length) return;
 
   const months = state.trends.months;
@@ -3757,8 +3769,17 @@ function updateChartVisibility() {
   elements.chartSection.style.display = show ? "block" : "none";
 }
 
+// Chart.js 走 CDN，加载失败时静默跳过图表（不影响表格、排序与筛选）
+function chartLibraryReady() {
+  return typeof window !== "undefined" && typeof window.Chart !== "undefined";
+}
+
 function renderChart() {
   if (!elements.chartCanvas || !elements.chartSection) return;
+  if (!chartLibraryReady()) {
+    elements.chartSection.style.display = "none";
+    return;
+  }
 
   const config = CATEGORY_CHART_CONFIG[state.currentCategory];
   if (state.view !== "board" || !config || state.filteredRows.length === 0) {

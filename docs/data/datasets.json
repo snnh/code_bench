@@ -9,7 +9,8 @@
       "type": "matrix",
       "matrixColumns": [
         "full_v3",
-        "rust v3.2"
+        "rust v3.2",
+        "cowork"
       ],
       "matrixOnlyScored": true,
       "disclaimerKey": "dataset.disclaimer.codeTotal",
@@ -125,6 +126,15 @@
       "tableIndex": 5,
       "title": "rust v3.2",
       "csv": "data/code_bench/v1.5-rust-v3.2.csv",
+      "tier": "advanced",
+      "fullScore": 100
+    },
+    {
+      "category": "code_detail",
+      "reportDate": "v1.5",
+      "tableIndex": 6,
+      "title": "cowork",
+      "csv": "data/code_bench/v1.5-cowork.csv",
       "tier": "advanced",
       "fullScore": 100
     },

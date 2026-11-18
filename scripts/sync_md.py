@@ -187,6 +187,30 @@ SYNC_CONFIG = {
             ],
         },
     },
+    "code/cowork.md": {
+        "doc_page": "docs/cowork.html",
+        "page": {
+            "title": "code_bench 明细｜cowork",
+            "h1": "code_bench · cowork",
+            "subtitle": "高阶题 · cowork（满分 100）",
+            "description": "code_bench cowork 子项题目与榜单。",
+            "nav": [
+                {"href": "./", "label": "榜单"},
+                {"href": "bench.html", "label": "说明", "active": True},
+                {"href": "ocr_bench.html", "label": "OCR 说明"},
+                {"href": "archive.html", "label": "归档"},
+            ],
+            "tip": "本页为 cowork 子项明细；实时总榜见<a href=\"./\">榜单查询</a>，总说明见<a href=\"bench.html\">说明</a>。",
+        },
+        "csvs": {
+            ("榜单", None): "docs/data/code_bench/v1.5-cowork.csv",
+        },
+        "expected_headers": {
+            "docs/data/code_bench/v1.5-cowork.csv": [
+                "模型", "积分", "成本(折算API价格)", "订阅折算", "输出token", "缓存", "接入方式", "备注",
+            ],
+        },
+    },
     "code/monthly/2026-09.md": {
         "doc_page": "docs/monthly-2026-09.html",
         "page": {

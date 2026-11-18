@@ -274,6 +274,10 @@ const TRANSLATIONS = {
     "zh-CN": "rust",
     "en-US": "Rust",
   },
+  "dataset.title.cowork": {
+    "zh-CN": "cowork",
+    "en-US": "Cowork",
+  },
   "dataset.title.rustV21": {
     "zh-CN": "rust v2.1",
     "en-US": "Rust v2.1",
@@ -601,6 +605,14 @@ const TRANSLATIONS = {
   "meta.datasetCount": {
     "zh-CN": "<strong>该类别数据集：</strong>{{count}} 个",
     "en-US": "<strong>Datasets in category:</strong>{{count}}",
+  },
+  "meta.fullScore": {
+    "zh-CN": "<strong>满分：</strong>{{score}}",
+    "en-US": "<strong>Full score:</strong>{{score}}",
+  },
+  "meta.snapshot": {
+    "zh-CN": "<strong>快照：</strong>月末数据，不随子项更新",
+    "en-US": "<strong>Snapshot:</strong>month-end data, frozen",
   },
   "language.switcher.aria": {
     "zh-CN": "切换站点语言",
