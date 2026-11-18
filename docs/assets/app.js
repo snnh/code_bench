@@ -1748,11 +1748,20 @@ function refreshDatasetOptions() {
   elements.datasetSelect.disabled = false;
 }
 
+// 展示顺序：同一个月内优先用 datasets.json 的 order（缺省回落到 tableIndex），
+// order 只影响排序，数据集 key 仍由 tableIndex 构成，旧链接不会失效
+function datasetOrderValue(entry) {
+  const order = Number(entry.order);
+  return Number.isFinite(order) ? order : Number(entry.tableIndex) || 0;
+}
+
 function getDatasetsForCategory(category) {
   const datasets = state.manifest.filter((entry) => entry.category === category);
   datasets.sort((a, b) => {
     if (a.reportDate === b.reportDate) {
-      return a.tableIndex - b.tableIndex;
+      const diff = datasetOrderValue(a) - datasetOrderValue(b);
+      if (diff !== 0) return diff;
+      return (Number(a.tableIndex) || 0) - (Number(b.tableIndex) || 0);
     }
     return a.reportDate > b.reportDate ? -1 : 1;
   });
