@@ -2,7 +2,7 @@
 
 | 题 | 满分 | 内容 |
 | --- | --- | --- |
-| 高阶题 · rust v3.2 | 100 | 一个rust后端加sqlite加静态前端(rust为绝对主要) |
+| 高阶题 · rust v3.3 | 100 | 一个rust后端加sqlite加静态前端(rust为绝对主要) |
 
 ## 榜单
 
@@ -13,15 +13,16 @@
 | ernie-light-dt-1.0(max) | 59.83 | 46.64元 | 14元 | 242k | 99.3%(46.514m) | 千帆tokenplan | 无 |
 | qwen4-1102(xhigh) | 59.72 | 43.5元 | 6.96元 | 138k | 71%(8.571m) | - | 无 |
 | qwen-latest-series-invite-2609(xhigh) | 58.85 | -元 | - | 266k | 97%(21.792m) | 官方api | 无 |
-| claude-haiku-5.5(xhigh) | 58.22 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
 | ernie-5.5-flash-preview(high) | 58.14 | 5.9元 | 1.77元 | 146k | 98.3%(45.293m) | 官方api | 无 |
 | mimo-v2.6-pro(thinking) | 57.82 | 1.8元 | 1.458元 | 155k | 97.7%(9.146m) | 官方api | 无 |
 | qwen4-max-preview(xhigh) | 57.82 | -元 | 1125credits | 163k | 89.8%(17.308m) | qwen tokenplan | 无 |
+| claude-haiku-5.5(xhigh) | 57.72 | 约10元 | - | 892k | 87.4%(10.214m) | zenmux api | claudecode预设 |
 | deepseek-v4.1-flash(max) | 54.23 | 1.67-3.34元 | 无 | 283k | 97.7%(20.114m) | 官方api | 无 |
 | qwen3.8-flash(max) | 52.52 | 4.98元 | 1.243元 | 261k | 98%(36.75m) | 官方api | 无 |
+| ernie-5.5-flash-preview(low) | 50.14 | 1.21元 | 0.363元 | 61k | 96.5%(7.035m) | 官方api | 无 |
 | minimax-m3.1-flash(max) | 47.95 | 7.82元 | - | 432k | 99.8%(58.965m) | zenmux api | 无 |
 | gpt-5.6-luna(max) | 47.34 | 4.19元 | - | 140k | 98.6%(19.426m) | zenmux api | 无 |
-| step-5-preview(high) | 38.58 | 24.6元 | 0.61元 | 258k | 99.7%(55.503m) | step订阅 | 无 |
+| step-5-preview(high) | 36.98 | 24.6元 | 0.61元 | 258k | 99.7%(55.503m) | step订阅 | 无 |
 | glm5.3(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | glm-5.3-flash(max) | - | -元 | -元 | -k | -%(-m) | 官方api | zcode预设 |
 | hy4-preview(high) | - | -元 | - | -k | -%(-m) | - | - |

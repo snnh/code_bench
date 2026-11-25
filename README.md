@@ -19,14 +19,14 @@
 **当前测试项**
 
 - `full_v3`：高阶题，满分 100（3 大 + 1 小模块，开发一个 coding agent）
-- `rust v3.2`：高阶题，满分 100（Rust 后端 + SQLite + 静态前端，Rust 为绝对主体）
+- `rust v3.3`：高阶题，满分 100（Rust 后端 + SQLite + 静态前端，Rust 为绝对主体）
 - `cowork`：高阶题，满分 100（新增协作办公场景评测）
 - 基础题 `core` / `server` / `web v2`（满分各 30）成绩仍保留在明细页与历史快照中，不再计入实时月榜
 
 **月榜机制**
 
 - 按月展示「模型 × 子项」成绩矩阵（不设总分列），默认显示最新月份。
-- `2026-11` 为实时滚动月榜，涵盖 `full_v3`、`rust v3.2`、`cowork`；成绩随子项明细自动刷新。
+- `2026-11` 为实时滚动月榜，涵盖 `full_v3`、`rust v3.3`、`cowork`；成绩随子项明细自动刷新。
 - `2026-10` 起月榜只统计高阶子项，早期基础题不再计入。
 - `2026-10`、`2026-09` 为历史月榜快照；已退出现行排行的历史模型统一归档至 `2026-09` 快照，不再单独成表。
 - 快照数据取自当月最后一次提交的子项成绩，之后补测的成绩不回溯。
@@ -56,7 +56,7 @@
 | 数据源 (Markdown) | 生成页面 (`docs/`) | 生成数据 (`docs/data/`) | 用途说明 |
 | --- | --- | --- | --- |
 | `code/code_bench.md` | `bench.html` | `code_bench/v1.5-rank.csv`<br>`notes.json` | 总说明、默认排行，以及首页底部的「分析 / 声明 / 致谢」 |
-| `code/<子项>.md`（如 `full-v3`、`rust-v3-2`、`cowork`） | `full-v3.html`、`cowork.html` 等 | `code_bench/v1.5-*.csv` | 各子项题目说明与榜单明细 |
+| `code/<子项>.md`（如 `full-v3`、`rust-v3-3`、`cowork`） | `full-v3.html`、`cowork.html` 等 | `code_bench/v1.5-*.csv` | 各子项题目说明与榜单明细 |
 | `code/monthly/<YYYY-MM>.md` | `monthly-2026-10.html` 等 | `code_bench/v1.5-monthly-*.csv` | 历史月榜快照（含已退榜历史模型） |
 | `code/code_bench_archive.md` | `archive.html` | `code_bench/archive-*.csv` | 旧版本题目与历史成绩归档 |
 | `ocr/ocr_benchmark_v5.md` | `ocr_bench.html` | `ocr_bench/*.csv` | OCR v5 评测说明与榜单数据 |

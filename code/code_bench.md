@@ -10,10 +10,10 @@
 | 基础题 · 拼接(题目编写中) | 10      | 三个子项拼成端到端系统，**不限制拼接方法**（A/B/C 档系数 1.0/0.8/0.5） |
 | 基础题·python      | 30 | 用python开发一个文件分享程序                               |
 | 高阶题 · full_v3 | 100 | 3大+1小模块，开发一个coding agent |
-| 高阶题 · rust v3.2 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
+| 高阶题 · rust v3.3 | 100  | 一个rust后端加sqlite加静态前端(rust为绝对主要)    |
 | 高阶题 · cowork | 100 | 辅助教师办公 |
 
-* 子项明细：[core](core.html) · [server](server.html) · [web v2](web-v2.html) · [full_v3](full-v3.html) · [rust v3.2](rust-v3-2.html) · [cowork](cowork.html)
+* 子项明细：[core](core.html) · [server](server.html) · [web v2](web-v2.html) · [full_v3](full-v3.html) · [rust v3.3](rust-v3-3.html) · [cowork](cowork.html)
 * 历史月榜：[2026-10](monthly-2026-10.html) · [2026-09](monthly-2026-09.html)
 * 已归档：高阶题 · full_v2（见[归档页](archive.html)）
 
@@ -63,26 +63,22 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 * hy4按照0.25x倍率进行推算
 * 千帆tokenplan倍率约0.3x
 * 榜单默认按积分降序，缺测（`-` / `未测试`）始终排在最后；点表头可切换升降序，第三次点击恢复默认顺序
-* 各子项满分不同（core / server / web v2 各 30，full_v3 / rust v3.2 / cowork 各 100），总榜按各子项满分折算百分制后再横向比较
+* 各子项满分不同（core / server / web v2 各 30，full_v3 / rust v3.3 / cowork 各 100），总榜按各子项满分折算百分制后再横向比较
 * 模型具体水平请按各子项分别判断，总榜顺序只代表作者大致印象
 
 ---
 
 ## 分析
 
-1. K3在C部分相当高效，但在full_v2项目C之外的部分表现不佳，（high思考强度偏向于节省token精简架构，无论是c项目还是前端项目，都比其他的更简洁，c因为有编译器兜底，所以bug更少，web需要人工review，模型为了省token，导致部分bug没找出来）
-2. 单纯从颜值上来讲，我更喜欢k3的风格，美观程度为主观评判，未参与积分
-3.  实际体验来讲，glm5.3好于v4-pro0813，v4稳定性难评
-4. v4.1f-0910稳定性不如glm5.3好于v4p，但速度极快
-5. step5preview有些复古
-6. kimi-k2.8-preview细节不行，虽然不影响得分，但影响后续开发速度和体验
-7. ...
+1. 部分模型的具体分析详见微信公众号 热爱ai的省略号
+2. haiku5.5的实际体验很差劲
+3. ernie-5.5-flash-preview在不同思考强度下，前端区别极大，简单问题几乎无差别
 
 ---
 
 ## 声明
 
-0. full_v2项目主要反映模型从0到1的理解用户需求，规划和开发能力
+0. full项目主要反映模型从0到1的理解用户需求，规划和开发能力
 1. 本bench由 github 用户 [snnh](https://github.com/snnh) 版权所有。
 2. 接受模型送测(只是为了多体验更多模型)
 3. 欢迎赞助token

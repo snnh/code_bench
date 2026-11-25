@@ -6,7 +6,7 @@ import {
   onLocaleChange,
   setLocale,
   t,
-} from "./i18n.js?v=20261120-content";
+} from "./i18n.js?v=20261125-final";
 
 const DATASET_TITLE_KEYS = {
   月榜: "dataset.title.monthly",
@@ -15,6 +15,7 @@ const DATASET_TITLE_KEYS = {
   "core": "dataset.title.core",
   "server": "dataset.title.server",
   "web": "dataset.title.web",
+  "web v2": "dataset.title.webV2",
   "高阶题总分": "dataset.title.advancedTotal",
   "高阶题": "dataset.title.full",
   "full": "dataset.title.full",
@@ -23,7 +24,7 @@ const DATASET_TITLE_KEYS = {
   "rust": "dataset.title.rust",
   "rust v2.1": "dataset.title.rustV21",
   "rust v3": "dataset.title.rustV3",
-  "rust v3.2": "dataset.title.rustV32",
+  "rust v3.3": "dataset.title.rustV33",
   cowork: "dataset.title.cowork",
   "历史模型": "dataset.title.history",
   "短提示榜": "dataset.title.shortPrompt",
@@ -676,6 +677,9 @@ const elements = {
   viewTabs: document.getElementById("viewTabs"),
   viewTabBoard: document.getElementById("viewTabBoard"),
   viewTabTrends: document.getElementById("viewTabTrends"),
+  navBench: document.getElementById("navBench"),
+  navOcr: document.getElementById("navOcr"),
+  navArchive: document.getElementById("navArchive"),
   boardView: document.getElementById("boardView"),
   trendsSection: document.getElementById("trendsSection"),
   trendsCategorySelect: document.getElementById("trendsCategorySelect"),
@@ -863,6 +867,15 @@ function updateStaticCopy() {
   if (elements.viewTabTrends) {
     elements.viewTabTrends.textContent = t("view.trends");
   }
+  if (elements.navBench) {
+    elements.navBench.textContent = t("nav.bench");
+  }
+  if (elements.navOcr) {
+    elements.navOcr.textContent = t("nav.ocr");
+  }
+  if (elements.navArchive) {
+    elements.navArchive.textContent = t("nav.archive");
+  }
   if (elements.trendsCategoryLabel) {
     elements.trendsCategoryLabel.textContent = t("trends.category.label");
   }
@@ -900,7 +913,7 @@ function updateMetricAxisLabel() {
     : t("chart.yAxis.label");
 }
 
-// 图表指标列解析：配置列名优先，缺失时回退（如 rust v3.2 起统计“输出token”）
+// 图表指标列解析：配置列名优先，缺失时回退（如 rust v3.3 起统计“输出token”）
 function resolveChartColumn(config, type) {
   if (!config) return null;
   const candidates = [config[type], ...(config[`${type}Fallbacks`] || [])].filter(Boolean);
@@ -1785,6 +1798,14 @@ function translateDatasetTitle(title) {
     return t(key);
   }
   return title;
+}
+
+// 总榜矩阵列名：数据集标题按当前语言显示，高阶子项追加本地化的“（高阶）”标注
+function formatMatrixColumnLabel(title, tier) {
+  const base = translateDatasetTitle(title);
+  return tier === "advanced"
+    ? t("table.matrix.advancedLabel", { title: base })
+    : base;
 }
 
 async function loadDatasetByKey(key) {
@@ -2707,7 +2728,7 @@ function createMatrixTable(models, activeCols, modelScores, colStats) {
   const thead = document.createElement("thead");
   const headRow = document.createElement("tr");
   const corner = document.createElement("th");
-  corner.textContent = "模型";
+  corner.textContent = t("table.header.model");
   if (state.sort.columnIndex === 0) {
     corner.classList.add("sorted");
     corner.appendChild(createSortIndicator(state.sort.direction));
@@ -2753,7 +2774,7 @@ function createMatrixTable(models, activeCols, modelScores, colStats) {
 
 // 移动端总榜：仿上游卡片显示，每个模型一张卡，逐子项展示着色得分
 function renderMobileMatrix(container, models, activeCols, modelScores, colStats) {
-  container.appendChild(buildMobileSortBar(["模型", ...colStats.map(({ col }) => col.label)]));
+  container.appendChild(buildMobileSortBar([t("table.header.model"), ...colStats.map(({ col }) => col.label)]));
 
   const list = document.createElement("div");
   list.className = "mobile-card-list";
@@ -2817,10 +2838,13 @@ async function renderMatrix() {
   showPlaceholder(t("placeholders.loadingTable"));
 
   // 由子项 CSV 路径推导版本号（如 v1.5），供排行 / 历史模型表使用
+  // 注意文件名本身可能带连字符（如 v1.5-rust-v3.3.csv），版本号只取 v 数字[.数字] 段
   const subItems = snapshot
     ? []
     : (getDatasetsForCategory("code_detail") || []).filter((ds) => ds && ds.csv);
-  const versionMatch = String(subItems[0] && subItems[0].csv).match(/(v[^/]+)-[^/]+\.csv$/);
+  const versionMatch = String(subItems[0] && subItems[0].csv).match(
+    /(v\d+(?:\.\d+)*)-[^/]+\.csv$/
+  );
   const version = versionMatch ? versionMatch[1] : "";
 
   let loaded = [];
@@ -2836,7 +2860,7 @@ async function renderMatrix() {
         if (scoreIdx < 0) return null;
         return {
           col: {
-            label: item.tier === "advanced" ? `${item.label}(高阶)` : item.label,
+            label: formatMatrixColumnLabel(item.label, item.tier),
             fullScore: Number(item.fullScore) || null,
             tier: item.tier === "advanced" ? "advanced" : "basic",
           },
@@ -2858,7 +2882,7 @@ async function renderMatrix() {
       if (wanted && !wanted.has(ds.title)) return;
       seen.add(ds.title);
       // 高阶题项目表头加“高阶”标注（后缀）
-      const label = ds.tier === "advanced" ? `${ds.title}(高阶)` : ds.title;
+      const label = formatMatrixColumnLabel(ds.title, ds.tier);
       columns.push({
         label,
         csv: ds.csv,
@@ -3032,7 +3056,7 @@ async function renderMatrix() {
     );
   }
   // 供 meta 统计与后续逻辑使用（先设 headers，排序需据此取列名）
-  state.headers = ["模型"].concat(activeCols.map(({ col }) => col.label));
+  state.headers = [t("table.header.model")].concat(activeCols.map(({ col }) => col.label));
   state.rows = scopedModels.slice();
   // 排序：默认按用户给定排名；点表头则按该列
   sortVisibleMatrixModels(visibleModels, modelScores, orderMap, averageScores);

@@ -29,6 +29,22 @@ const TRANSLATIONS = {
     "zh-CN": "大模型开发能力评测 · 编程复刻与开发场景 OCR",
     "en-US": "LLM development benchmarks · coding & dev-scenario OCR",
   },
+  "nav.bench": {
+    "zh-CN": "说明",
+    "en-US": "About",
+  },
+  "nav.ocr": {
+    "zh-CN": "OCR 说明",
+    "en-US": "OCR notes",
+  },
+  "nav.archive": {
+    "zh-CN": "归档",
+    "en-US": "Archive",
+  },
+  "footer.note": {
+    "zh-CN": "欢迎star本项目",
+    "en-US": "Welcome to star this project",
+  },
   "controls.category.label": {
     "zh-CN": "数据类别",
     "en-US": "Category",
@@ -254,6 +270,10 @@ const TRANSLATIONS = {
     "zh-CN": "web",
     "en-US": "Web",
   },
+  "dataset.title.webV2": {
+    "zh-CN": "web v2",
+    "en-US": "Web v2",
+  },
   "dataset.title.full": {
     "zh-CN": "full",
     "en-US": "Full",
@@ -282,9 +302,9 @@ const TRANSLATIONS = {
     "zh-CN": "rust v2.1",
     "en-US": "Rust v2.1",
   },
-  "dataset.title.rustV32": {
-    "zh-CN": "rust v3.2",
-    "en-US": "Rust v3.2",
+  "dataset.title.rustV33": {
+    "zh-CN": "rust v3.3",
+    "en-US": "Rust v3.3",
   },
   "dataset.title.rustV3": {
     "zh-CN": "rust v3",
@@ -445,6 +465,10 @@ const TRANSLATIONS = {
   "table.header.percentSuffix": {
     "zh-CN": "（百分制）",
     "en-US": " (percent)",
+  },
+  "table.matrix.advancedLabel": {
+    "zh-CN": "{{title}}(高阶)",
+    "en-US": "{{title}} (Advanced)",
   },
   "table.header.changeSinceLast": {
     "zh-CN": "较上次变更",
@@ -612,7 +636,7 @@ const TRANSLATIONS = {
   },
   "meta.snapshot": {
     "zh-CN": "<strong>快照：</strong>月末数据，不随子项更新",
-    "en-US": "<strong>Snapshot:</strong>month-end data, frozen",
+    "en-US": "<strong>Snapshot:</strong> month-end data, frozen",
   },
   "language.switcher.aria": {
     "zh-CN": "切换站点语言",
