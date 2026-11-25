@@ -42,6 +42,7 @@ debian13 x86-64 上使用 [openwebcode](https://github.com/snnh/openwebcode)
 | mimo-v2.6-pro(thinking) |
 | qwen4-max-preview(xhigh) |
 | deepseek-v4.1-flash(max) |
+| ernie-5.5-flash-preview(low) |
 | minimax-m3.1-flash(max) |
 | gpt-5.6-luna(max) |
 | step-5-preview(high) |
